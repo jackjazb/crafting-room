@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "artists",
+  "info": {
+    "singularName": "artist",
+    "pluralName": "artists",
+    "displayName": "Artist"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "artist": {
+      "type": "string"
+    },
+    "photos": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "bio": {
+      "type": "richtext"
+    }
+  }
+}
