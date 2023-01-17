@@ -4,28 +4,36 @@
   "info": {
     "singularName": "artist",
     "pluralName": "artists",
-    "displayName": "Artist"
+    "displayName": "Artist",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "artist": {
+    "name": {
       "type": "string"
     },
     "photos": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "bio": {
       "type": "richtext"
+    },
+    "releases": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::release.release",
+      "mappedBy": "artist"
     }
   }
 }
