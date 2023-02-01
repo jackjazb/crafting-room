@@ -1,4 +1,4 @@
-# TODO:nent level
+# TODO:
 - social links
 - make carousel on homepage
 - past events
