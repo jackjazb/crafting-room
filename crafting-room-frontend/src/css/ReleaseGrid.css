@@ -20,6 +20,8 @@
 	top: 0;
 	opacity: 0;
 	transition: var(--transition);
+	display: flex;
+	flex-direction: column;
 }
 
 .releaseOverlay:hover{
@@ -30,20 +32,27 @@
 .releaseOverlay div{
 	background-color: black;
 	color: white;
+	
 	margin: 10px;
 	padding: 5px;
 	width: fit-content;
+	display: flex;
+	align-items: center;
+	gap: 5px
 }
 
 .releaseTitle{
 	font-size: 1.3em;
 }
 
-.releaseArtist{
+div.releaseArtist{
 	font-size: 0.9em;
+	margin-top:0px;
 }
 
-.viewRelease{
-	font-size: 0.9em;
-	
+.releaseLink{
+	left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
