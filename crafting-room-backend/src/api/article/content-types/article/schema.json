@@ -28,6 +28,9 @@
         "videos",
         "audios"
       ]
+    },
+    "author": {
+      "type": "string"
     }
   }
 }

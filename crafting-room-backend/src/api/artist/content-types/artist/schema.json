@@ -34,6 +34,12 @@
       "relation": "oneToMany",
       "target": "api::release.release",
       "mappedBy": "artist"
+    },
+    "events": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::event.event",
+      "mappedBy": "artists"
     }
   }
 }

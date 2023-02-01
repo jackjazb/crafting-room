@@ -31,6 +31,15 @@
         "videos",
         "audios"
       ]
+    },
+    "artists": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::artist.artist",
+      "inversedBy": "events"
+    },
+    "price": {
+      "type": "decimal"
     }
   }
 }
