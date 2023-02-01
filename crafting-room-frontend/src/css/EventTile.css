@@ -1,0 +1,31 @@
+/**
+*
+*	Defines styling for the EventTile component
+*
+**/
+.eventTile:first-child{
+	padding-top: 0;
+}
+.eventTile{
+	display: flex;
+	height: 80px;
+	gap: 10px;
+	border-bottom: 1px solid lightgray;
+	padding: 20px 0px;
+	line-height: 1.3;
+
+	transition: 0.3s;
+}
+
+.eventThumbnail{
+	object-fit: cover;
+
+	width: 80px;
+}
+
+.eventTitle{
+	font-size: 1.5em;
+}
+.eventDate{
+	font-size: 1.2em;
+}
