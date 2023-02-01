@@ -11,7 +11,8 @@ async function getArticles() {
 			images: {
 				populate: "*"
 			}
-		}
+		},
+		sort:['createdAt:desc']
 	};
 	const response = await strapiFetch(path, params);
 	console.log(response.data);
