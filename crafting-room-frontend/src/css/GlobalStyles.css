@@ -107,3 +107,21 @@ a{
 		grid-template-columns: repeat(3, 1fr);
 	}
 }
+
+/**
+*
+*	FOOTER
+*
+**/
+
+.footer{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 30px;
+	padding: 15px;
+}
+
+.footer a{
+	color: black;
+}
