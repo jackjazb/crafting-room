@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { CiFries } from 'react-icons/ci';
+import { IoMdMore } from 'react-icons/io';
 import '../css/Navbar.css'
 
 export function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	return (
 		<div className="navbar">
-			<CiFries className="menuIcon" onClick={() => setIsMenuOpen(!isMenuOpen)}/>
+			<IoMdMore className="menuIcon" onClick={() => setIsMenuOpen(!isMenuOpen)}/>
 			<span className={`navLinks ${isMenuOpen ? 'open' : '' }`}>
 				<a className="crrIcon" href={'/'}>
 					<img src="/crr.svg" alt="Crafting Rooms Recordings Logo">

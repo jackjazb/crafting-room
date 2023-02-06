@@ -1,4 +1,4 @@
-import { Release, resolveImageUrl } from "../utils/api";
+import { Release} from "../utils/api";
 import { useMediaQuery } from "react-responsive";
 import '../css/ReleaseGrid.css';
 import { ReleaseTile } from "./ReleaseTile";
