@@ -15,6 +15,7 @@ import { ArticlePage } from './components/ArticlePage';
 import './css/skeleton.css';
 import "./css/GlobalStyles.css";
 import { Loading } from './components/Loading';
+import { Footer } from './components/Footer';
 
 const router = createBrowserRouter([
 	{
@@ -60,5 +61,6 @@ root.render(
 	<React.StrictMode>
 		<Navbar />
 		<RouterProvider router={router} />
+		<Footer/>
 	</React.StrictMode>
 );
