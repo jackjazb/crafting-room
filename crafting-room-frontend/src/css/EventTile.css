@@ -3,12 +3,14 @@
 *	Defines styling for the EventTile component
 *
 **/
-.eventTile:first-child{
+.eventTile:first-child {
 	padding-top: 0;
 }
-.eventTile{
+
+.eventTile {
 	display: flex;
-	height: 80px;
+	min-height: 80px;
+	height: fit-content;
 	gap: 10px;
 	border-bottom: 1px solid lightgray;
 	padding: 20px 0px;
@@ -17,15 +19,46 @@
 	transition: 0.3s;
 }
 
-.eventThumbnail{
+.eventThumbnail {
 	object-fit: cover;
 
 	width: 80px;
 }
 
-.eventTitle{
-	font-size: 1.5em;
+.eventTitle {
+	font-size: 1.3em;
 }
-.eventDate{
-	font-size: 1.2em;
+
+.eventDetails {
+	font-size: 1em;
+}
+
+.eventOptions {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+}
+
+.buyButton {
+	background-color: #339DFF;
+	color: white;
+	transition: 0.1s;
+	border: none;
+
+}
+
+.buyButton:hover {
+	filter: brightness(85%);
+	color: white;
+}
+
+@media(min-width: 700px) {
+	.eventTitle {
+		font-size: 1.6em;
+	}
+
+	.eventDetails {
+		font-size: 1.2em;
+	}
+
 }

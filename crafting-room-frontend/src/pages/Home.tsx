@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Homepage, strapiFetch } from "../utils/api";
-import { Loading } from "./Loading";
-import { ReleaseGrid } from "./ReleaseGrid";
+import { Loading } from "../components/Loading";
+import { ReleaseGrid } from "../components/ReleaseGrid";
 
 async function getHomepage(): Promise<Homepage> {
 	const path = 'homepage';

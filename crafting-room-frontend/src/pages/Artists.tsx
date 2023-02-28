@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Artist, strapiFetch} from "../utils/api";
-import { ArtistTile } from "./ArtistTile";
-import { Loading } from "./Loading";
+import { Artist, strapiFetch } from "../utils/api";
+import { ArtistTile } from "../components/ArtistTile";
+import { Loading } from "../components/Loading";
 
-async function getArtists(){
+async function getArtists() {
 	const path = 'artists';
 	const params = {
 		populate: {
@@ -11,7 +11,7 @@ async function getArtists(){
 				populate: "*"
 			}
 		}
-	}
+	};
 	const response = await strapiFetch(path, params);
 	return response.data;
 }
@@ -22,15 +22,15 @@ export function Artists() {
 
 	useEffect(() => {
 		getArtists().then(setArtists);
-	}, [])
+	}, []);
 
-	if(artists.length === 0){
-		return (<Loading/>)
+	if (artists.length === 0) {
+		return (<Loading />);
 	}
 	return (
 		<div className="artists container">
 			{artists.map(artist => (
-				<ArtistTile key={artist.id} artist={artist}/>
+				<ArtistTile key={artist.id} artist={artist} />
 			))}
 		</div>);
 }

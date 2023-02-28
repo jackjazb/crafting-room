@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Event, strapiFetch } from "../utils/api";
-import { Loading } from "./Loading";
-import { EventTile } from "./EventTile";
+import { Loading } from "../components/Loading";
+import { EventTile } from "../components/EventTile";
 
 async function getEvents() {
 	const path = 'events';
@@ -14,7 +14,6 @@ async function getEvents() {
 		sort: ['date']
 	};
 	const response = await strapiFetch(path, params);
-	console.log(response.data);
 	return response.data;
 }
 

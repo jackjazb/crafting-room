@@ -7,15 +7,15 @@ export type Artist = {
 		bio?: string;
 		images: {
 			data: Array<Image>;
-		}
-		releases:{
-			data: Array<Release>
+		};
+		releases: {
+			data: Array<Release>;
 		};
 		events: {
-			data: Array<Event>
-		}
-	}
-}
+			data: Array<Event>;
+		};
+	};
+};
 
 export type Release = {
 	id: number;
@@ -25,12 +25,12 @@ export type Release = {
 		link: string;
 		artist: {
 			data: Artist;
-		}
+		};
 		artwork: {
 			data: Image;
 		};
-	}
-}
+	};
+};
 
 export type Article = {
 	id: number;
@@ -41,49 +41,51 @@ export type Article = {
 		author: string;
 		images: {
 			data: Array<Image>;
-		}
-	}
-}
+		};
+	};
+};
 
 export type Event = {
 	id: number;
-	attributes:{
+	attributes: {
 		title: string;
 		date: string;
 		description: string;
+		price: number;
+		priceId: string;
 		image: {
 			data: Image;
-		}
+		};
 		artists: {
-			data: Array<Artist>
-		}
-	}
-}
+			data: Array<Artist>;
+		};
+	};
+};
 
 export type Homepage = {
 	attributes: {
 		feature: {
 			data: Article;
-		}
+		};
 		releases: {
 			data: Array<Release>;
-		}
-	}
+		};
+	};
 
-}
+};
 
 export type Image = {
 	attributes: {
-		url: string
-	}
-}
+		url: string;
+	};
+};
 
 export async function strapiFetch(path: string, params: any = {}) {
 	const headers = {
 		headers: {
 			"Content-Type": "application/json",
 		}
-	}
+	};
 	const queryString = qs.stringify(params);
 
 	const requestUrl = `${process.env.REACT_APP_STRAPI_API_URL}/${path}?${queryString ? queryString : ''}`;
@@ -100,7 +102,7 @@ export async function strapiFetch(path: string, params: any = {}) {
 
 //resolve an images full URL - TODO return a placeholder if undefined
 export function resolveImageUrl(image: Image | undefined) {
-	if(!image){
+	if (!image) {
 		return '';
 	}
 	return process.env.REACT_APP_STRAPI_URL + image.attributes.url;

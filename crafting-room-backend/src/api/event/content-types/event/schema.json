@@ -39,7 +39,16 @@
       "inversedBy": "events"
     },
     "price": {
-      "type": "decimal"
+      "type": "decimal",
+      "required": true
+    },
+    "venue": {
+      "type": "string",
+      "required": true
+    },
+    "priceId": {
+      "type": "string",
+      "required": true
     }
   }
 }

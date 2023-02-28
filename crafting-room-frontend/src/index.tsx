@@ -3,19 +3,20 @@ import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { Error } from './components/Error';
-import { Artists } from './components/Artists';
+import { Artists } from './pages/Artists';
 import { Navbar } from './components/Navbar';
-import { News } from './components/News';
-import { Home } from './components/Home';
-import { Store } from './components/Store';
-import { Events } from './components/Events';
-import { ArtistPage } from './components/ArtistPage';
+import { News } from './pages/News';
+import { Home } from './pages/Home';
+import { Store } from './pages/Store';
+import { Events } from './pages/Events';
+import { ArtistPage } from './pages/ArtistPage';
 import { ArticlePage } from './components/ArticlePage';
 
 import './css/skeleton.css';
 import "./css/GlobalStyles.css";
 import { Loading } from './components/Loading';
 import { Footer } from './components/Footer';
+import { BookingFlow } from './pages/BookingFlow';
 
 const router = createBrowserRouter([
 	{
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "artists/:name",
-		element: <ArtistPage/>
+		element: <ArtistPage />
 	},
 	{
 		path: "news",
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "articles/:name",
-		element: <ArticlePage/>
+		element: <ArticlePage />
 	},
 	{
 		path: "store",
@@ -48,8 +49,8 @@ const router = createBrowserRouter([
 		element: <Events />,
 	},
 	{
-		path: "loading",
-		element: <Loading />,
+		path: "bookingflow/:success",
+		element: <BookingFlow />
 	}
 ]);
 
@@ -61,6 +62,6 @@ root.render(
 	<React.StrictMode>
 		<Navbar />
 		<RouterProvider router={router} />
-		<Footer/>
+		<Footer />
 	</React.StrictMode>
 );

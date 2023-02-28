@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Article, strapiFetch } from "../utils/api";
-import { Loading } from "./Loading";
-import { ArticleTile } from "./ArticleTile";
+import { Loading } from "../components/Loading";
+import { ArticleTile } from "../components/ArticleTile";
 import '../css/News.css';
 
 async function getArticles() {
@@ -12,7 +12,7 @@ async function getArticles() {
 				populate: "*"
 			}
 		},
-		sort:['createdAt:desc']
+		sort: ['createdAt:desc']
 	};
 	const response = await strapiFetch(path, params);
 	console.log(response.data);
@@ -35,7 +35,7 @@ export function News() {
 	return (
 		<div className="container articles">
 			{articles.map(article => {
-				return (<ArticleTile key={article.id} article={article}/>);
+				return (<ArticleTile key={article.id} article={article} />);
 			})}
 		</div>
 	);

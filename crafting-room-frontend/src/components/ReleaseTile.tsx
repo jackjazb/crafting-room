@@ -7,7 +7,6 @@ import { RxExternalLink } from "react-icons/rx";
  */
 export function ReleaseTile(props: { key: number, release: Release; }) {
 	const release = props.release;
-
 	return (
 		<div key={release.id} className="release">
 			<img src={resolveImageUrl(release.attributes.artwork.data)} alt={release.attributes.title}></img>
