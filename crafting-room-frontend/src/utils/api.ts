@@ -51,7 +51,6 @@ export type Event = {
 		title: string;
 		date: string;
 		description: string;
-		price: number;
 		priceId: string;
 		image: {
 			data: Image;
@@ -88,7 +87,7 @@ export async function strapiFetch(path: string, params: any = {}) {
 	};
 	const queryString = qs.stringify(params);
 
-	const requestUrl = `${process.env.REACT_APP_STRAPI_API_URL}/${path}?${queryString ? queryString : ''}`;
+	const requestUrl = `${process.env.REACT_APP_STRAPI_URL}/api/${path}?${queryString ? queryString : ''}`;
 
 	const response = await fetch(requestUrl, headers);
 

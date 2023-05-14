@@ -1,0 +1,11 @@
+{
+    "private": true,
+    "workspaces": [
+        "crafting-room-frontend",
+        "crafting-room-backend"
+    ],
+    "scripts": {
+        "start-frontend": "yarn workspace crafting-room-frontend start",
+        "start-backend": "yarn workspace crafting-room-backend strapi develop"
+    }
+}

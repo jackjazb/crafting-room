@@ -1,0 +1,73 @@
+/*
+	Styling for the main articles directory
+*/
+.articles {
+	display: flex;
+	flex-direction: column;
+}
+
+.articleTile:last-of-type {
+	border: none;
+}
+
+.articleTile {
+	display: flex;
+	padding: 20px 0px;
+	border-bottom: 1px solid lightgray;
+}
+
+.articleThumbnail {
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	gap: 10px;
+	padding: 20px;
+	background-size: cover;
+}
+
+.articleThumbnail div {
+	background-color: black;
+	color: white;
+	width: fit-content;
+	padding: 5px 10px
+}
+
+.articleTitle {
+	font-size: 2em;
+}
+
+.articleAuthor {
+	font-size: 1.1em;
+}
+
+.articleDate {
+	font-size: 1.1em;
+	align-self: flex-end;
+	margin-top: auto;
+}
+
+/*
+	Styling for individual articles
+*/
+.articleTopImage {
+	width: 100%;
+	margin-top: var(--nav-height);
+	object-fit: cover;
+	object-position: center;
+	height: calc(60vh - var(--nav-height));
+}
+
+div.article {
+	margin-top: 0;
+	white-space: pre-line;
+}
+
+.author {
+	margin-top: -0.7em;
+	font-style: italic;
+}
+
+.articleContent {
+	font-size: 1.3em;
+}

@@ -1,24 +1,20 @@
 {
-  "name": "crafting-room",
+  "name": "crafting-room-backend",
   "private": true,
   "version": "0.1.0",
-  "description": "A Strapi application",
+  "description": "The Strapi backend for crafting-room-frontend",
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
   "dependencies": {
     "@strapi/plugin-graphql": "4.5.6",
     "@strapi/plugin-i18n": "4.5.6",
     "@strapi/plugin-users-permissions": "4.5.6",
-    "@strapi/strapi": "4.5.6",
+    "@strapi/strapi": "^4.10.5",
     "better-sqlite3": "7.4.6"
-  },
-  "author": {
-    "name": "A Strapi developer"
   },
   "strapi": {
     "uuid": "b323f6ff-836a-4043-bb92-46a47e98de7b"

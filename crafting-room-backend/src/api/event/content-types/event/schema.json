@@ -38,10 +38,6 @@
       "target": "api::artist.artist",
       "inversedBy": "events"
     },
-    "price": {
-      "type": "decimal",
-      "required": true
-    },
     "venue": {
       "type": "string",
       "required": true
