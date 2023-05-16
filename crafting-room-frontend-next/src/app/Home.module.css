@@ -1,0 +1,27 @@
+.featuredImage {
+    display: flex;
+    align-items: flex-end;
+    margin-top: var(--nav-height);
+    background-size: cover;
+    background-position: center;
+    height: calc(60vh - var(--nav-height));
+}
+
+.featureTitle {
+    background-color: black;
+    color: white;
+    width: fit-content;
+    padding: 10px;
+    margin: 20px;
+    font-size: 1.5em;
+}
+
+.featuredReleases {
+    margin: 20px;
+}
+
+@media(min-width: 700px) {
+    .featuredImage {
+        height: calc(80vh - var(--nav-height));
+    }
+}

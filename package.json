@@ -5,7 +5,8 @@
         "crafting-room-backend"
     ],
     "scripts": {
-        "start-frontend": "yarn workspace crafting-room-frontend start",
-        "start-backend": "yarn workspace crafting-room-backend strapi develop"
+        "start-frontend": "npm run start --workspace=crafting-room-frontend",
+        "start-frontend-next": "npm run start --workspace=crafting-room-frontend",
+        "start-backend": "npm run strapi develop --workspace=crafting-room-backend"
     }
 }
