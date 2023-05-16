@@ -55,7 +55,13 @@
 	margin-top: var(--nav-height);
 	object-fit: cover;
 	object-position: center;
-	height: calc(60vh - var(--nav-height));
+	height: calc(40vh - var(--nav-height));
+}
+
+@media(min-width: 700px) {
+	.articleTopImage {
+		height: calc(60vh - var(--nav-height));
+	}
 }
 
 div.article {

@@ -86,9 +86,7 @@ export async function strapiFetch(path: string, params: any = {}) {
 		}
 	};
 	const queryString = qs.stringify(params);
-
 	const requestUrl = `${process.env.REACT_APP_STRAPI_URL}/api/${path}?${queryString ? queryString : ''}`;
-
 	const response = await fetch(requestUrl, headers);
 
 	if (!response.ok) {

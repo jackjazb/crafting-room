@@ -16,6 +16,7 @@ import './skeleton.css';
 import "./Global.css";
 import { Footer } from './components/base/footer/Footer';
 import { BookingFlow } from './components/events/BookingFlow';
+import { EventPage } from './components/events/EventPage';
 
 const router = createBrowserRouter([
 	{
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
 	{
 		path: "events",
 		element: <Events />,
+	},
+	{
+		path: "events/:id",
+		element: <EventPage />
 	},
 	{
 		path: "bookingflow/:success",

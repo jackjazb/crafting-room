@@ -35,7 +35,6 @@ async function getPrice(priceId: string) {
 }
 
 export function EventTile(props: { key: number, event: Event; }) {
-	const [expanded, setExpanded] = useState(false);
 	const [paymentUrl, setPaymentUrl] = useState<string>();
 	const [priceObj, setPriceObj] = useState<any>();
 
@@ -74,7 +73,8 @@ export function EventTile(props: { key: number, event: Event; }) {
 	}
 
 	return (
-		<div className={`eventTile ${expanded ? 'expanded' : ''} `} key={event.id} onClick={() => setExpanded(true)}>
+		// use ID here!
+		<a className="eventTile" key={event.id} href={`events/${event.id}`}>
 			<img className="eventThumbnail" src={resolveImageUrl(event.attributes.image.data)} alt={event.attributes.title}></img>
 
 			<div className="eventDetails">
@@ -85,6 +85,6 @@ export function EventTile(props: { key: number, event: Event; }) {
 
 			</div >
 			{buyButton}
-		</div >
+		</a >
 	);
-};;;;
+};
