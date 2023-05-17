@@ -1,0 +1,7 @@
+/*
+	Styling for the main articles directory
+*/
+.articles {
+	display: flex;
+	flex-direction: column;
+}

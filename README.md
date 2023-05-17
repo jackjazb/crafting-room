@@ -1,29 +1,28 @@
 # Crafting Room Recordings
 
-This repository contains Crafting Room Recordings' updated website. The site is based on Strapi, with a React frontend.
+This repository contains Crafting Room Recordings' updated website and event booking system. The app consists of a CMS, which is an instance of Strapi, and a Next.js frontend.
 
 ## Project Setup
 
-This project requires `yarn` to run. On first cloning the project,
-`yarn install` will need to be run from the workspace root. The application can then be started by running the following from the workspace root:
+On first cloning the project, `npm install` will need to be run from the workspace root. The application can then be started by running the following from the workspace root:
 
 ```
-$ yarn start-backend
+$ npm run cms
 ```
 
 Then in a separate terminal window:
 
 ```
-$ yarn start-frontend
+$ npm run frontend
 ```
 
-## Frontend Overview
+## Navigating the Frontend Project
 
-This project contains the entire React frontend for the site. 
-The main entrypoint is `index.tsx` - this file contains the navbar and footer, as well as the site's router.
+The frontend for CRR uses Next.js. The project is structued as follows:
+- Routes are in `src/app`
+- Components are in `src/components`
+- Library and utility code is in `src/lib`
 
-API queries are all handled by the `api.ts` module in `src/utils` - further info can be found in the Strapi docs.
+## Deployment Plans
 
-## Backend Overview
-
-The backend project contains an instance of Strapi, a headless CMS. It's configured with certain data types required by the frontend.
+Both packages in this project need to be deployed for it to work correctly. Ideally, these would be on the same server to speed up queries, with the CMS frontend reverse proxied under `admin.craftingroomrecordings.co.uk` or something similar.

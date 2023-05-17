@@ -1,0 +1,40 @@
+.articleTile:last-of-type {
+    border: none;
+}
+
+.articleTile {
+    display: flex;
+    padding: 20px 0px;
+    border-bottom: 1px solid lightgray;
+}
+
+.articleThumbnail {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 10px;
+    padding: 20px;
+    background-size: cover;
+}
+
+.articleThumbnail div {
+    background-color: black;
+    color: white;
+    width: fit-content;
+    padding: 5px 10px
+}
+
+.articleTitle {
+    font-size: 2em;
+}
+
+.articleAuthor {
+    font-size: 1.1em;
+}
+
+.articleDate {
+    font-size: 1.1em;
+    align-self: flex-end;
+    margin-top: auto;
+}

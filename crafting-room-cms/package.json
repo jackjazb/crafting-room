@@ -1,0 +1,27 @@
+{
+  "name": "crafting-room-cms",
+  "private": true,
+  "version": "0.1.0",
+  "description": "An instance of the Strapi headless CMS",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "dependencies": {
+    "@strapi/plugin-graphql": "4.5.6",
+    "@strapi/plugin-i18n": "4.5.6",
+    "@strapi/plugin-users-permissions": "4.5.6",
+    "@strapi/strapi": "^4.10.5",
+    "better-sqlite3": "7.4.6"
+  },
+  "strapi": {
+    "uuid": "b323f6ff-836a-4043-bb92-46a47e98de7b"
+  },
+  "engines": {
+    "node": ">=14.19.1 <=18.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

@@ -1,12 +1,11 @@
 {
     "private": true,
     "workspaces": [
-        "crafting-room-frontend",
-        "crafting-room-backend"
+        "crafting-room-cms",
+        "crafting-room-frontend"
     ],
     "scripts": {
-        "start-frontend": "npm run start --workspace=crafting-room-frontend",
-        "start-frontend-next": "npm run start --workspace=crafting-room-frontend",
-        "start-backend": "npm run strapi develop --workspace=crafting-room-backend"
+        "frontend": "npm run dev --workspace=crafting-room-frontend",
+        "cms": "npm run strapi develop --workspace=crafting-room-cms"
     }
 }
