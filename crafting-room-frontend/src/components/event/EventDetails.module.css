@@ -1,0 +1,54 @@
+.eventImage {
+    object-fit: cover;
+    height: 30vh;
+}
+
+.eventTitle {
+    margin-bottom: 0;
+}
+
+.eventDate {
+    font-size: 1.5em;
+    font-style: italic;
+}
+
+.eventDescription {
+    margin: 1em 0;
+    white-space: pre-line;
+
+}
+
+.eventInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.eventArtists {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    height: 150px;
+}
+
+.bookEvent {
+    align-self: flex-end;
+    margin-top: auto;
+}
+
+@media(min-width: 700px) {
+    .eventArtists {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .eventDetails {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .eventImage {
+        height: 50vh;
+        max-height: 90%;
+        width: 90%;
+    }
+}

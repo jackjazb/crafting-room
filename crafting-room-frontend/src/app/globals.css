@@ -1,7 +1,8 @@
 :root {
-  --nav-height: 65px;
-  --transition: 0.2s;
-  --border-radius: 4px;
+    --nav-height: 65px;
+    --transition: 0.2s;
+    --border-radius: 4px;
+    --button-color: #33C3F0;
 }
 
 /**
@@ -9,34 +10,60 @@
 *	MAIN LAYOUT
 *
 **/
+
+html {
+    font-size: 62.5%;
+}
+
 body {
-  margin: 0;
+    font-size: 1.5em;
+    /* currently ems cause chrome bug misinterpreting rems on body element */
+    line-height: 1.6;
+    font-weight: 400;
+    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #222;
+}
+
+body {
+    margin: 0;
 }
 
 .container {
-  margin-top: var(--nav-height);
-  padding: 20px;
-  max-width: 1200px;
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    margin-top: var(--nav-height);
+    padding: 20px;
+    max-width: 1200px;
 }
 
 .longText {
-  white-space: pre-line;
+    white-space: pre-line;
 }
 
 @media(min-width: 400px) {
-  .container {
-    width: 100%;
-  }
+    .container {
+        width: 100%;
+    }
+}
+
+@media (min-width: 550px) {
+    .container {
+        width: 80%;
+    }
 }
 
 img {
-  max-width: 100%;
+    max-width: 100%;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 p {
-  font-size: 1.3em;
+    font-size: 1.3em;
 }

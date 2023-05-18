@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "artists_pages",
+  "info": {
+    "singularName": "artists-page",
+    "pluralName": "artists-pages",
+    "displayName": "Artists Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "groups": {
+      "type": "component",
+      "repeatable": true,
+      "component": "artists.artist-group"
+    },
+    "inactive": {
+      "type": "component",
+      "repeatable": false,
+      "component": "artists.artist-group"
+    }
+  }
+}

@@ -1,5 +1,11 @@
 .releaseGrid {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
 	gap: 20px;
+}
+
+/* Enforce single columns layout on mobile */
+@media(max-width: 550px) {
+	.releaseGrid {
+		grid-template-columns: repeat(1, 1fr) !important;
+	}
 }

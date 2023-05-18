@@ -50,12 +50,13 @@ export type Event = {
 	attributes: {
 		title: string;
 		date: string;
-		description: string;
-		priceId: string;
+		venue: string;
+		description?: string;
+		link?: string;
 		image: {
 			data: Image;
 		};
-		artists: {
+		artists?: {
 			data: Array<Artist>;
 		};
 	};
@@ -73,6 +74,22 @@ export type Homepage = {
 
 };
 
+export type ArtistsPage = {
+	attributes: {
+		groups: Array<ArtistGroup>;
+		inactive: ArtistGroup;
+	};
+
+};
+
+export type ArtistGroup = {
+	id: number;
+	header: string;
+	artists: {
+		data: Array<Artist>;
+	}
+}
+
 export type Image = {
 	attributes: {
 		url: string;
@@ -83,7 +100,8 @@ export async function strapiFetch(path: string, params: any = {}) {
 	const headers = {
 		headers: {
 			"Content-Type": "application/json",
-		}
+		},
+		cache: "no-cache" as RequestCache	// This data could change at any time!
 	};
 	const queryString = qs.stringify(params);
 	const requestUrl = `${process.env.STRAPI_URL}/api/${path}?${queryString ? queryString : ''}`;

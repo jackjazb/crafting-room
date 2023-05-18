@@ -26,7 +26,7 @@
 }
 
 .articleTitle {
-    font-size: 2em;
+    font-size: 1.2em;
 }
 
 .articleAuthor {
@@ -37,4 +37,10 @@
     font-size: 1.1em;
     align-self: flex-end;
     margin-top: auto;
+}
+
+@media (min-width: 550px) {
+    .articleTitle {
+        font-size: 1.7em;
+    }
 }

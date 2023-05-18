@@ -10,7 +10,7 @@ export function ArtistTile(props: { key: number, artist: Artist }) {
 
 	const imageUrl = process.env.STRAPI_URL + artist.attributes.images.data[0].attributes.url;
 	return (
-		<a href={`artists/${artist.attributes.name.toLowerCase()}`} className={styles.artist} style={{ backgroundImage: `url(${imageUrl})` }}>
+		<a href={`/artists/${artist.attributes.name.toLowerCase()}`} className={styles.artist} style={{ backgroundImage: `url(${imageUrl})` }}>
 			<div className={styles.name}>{artist.attributes.name}</div>
 		</a>
 	)

@@ -1,11 +1,9 @@
 {
     "private": true,
-    "workspaces": [
-        "crafting-room-cms",
-        "crafting-room-frontend"
-    ],
     "scripts": {
-        "frontend": "npm run dev --workspace=crafting-room-frontend",
-        "cms": "npm run strapi develop --workspace=crafting-room-cms"
+        "dev": "pnpm run --filter crafting-room-frontend dev",
+        "build": "pnpm run --filter crafting-room-frontend build",
+        "start": "pnpm run --filter crafting-room-frontend start",
+        "cms": "pnpm run --filter crafting-room-cms strapi develop"
     }
 }

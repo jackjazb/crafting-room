@@ -2,6 +2,7 @@ import { ArtistBio } from "@/components/artist/ArtistBio";
 import { Spinner } from "@/components/loading/Spinner";
 import { ReleaseGrid } from "@/components/release/ReleaseGrid";
 import { strapiFetch } from "@/lib/strapi-client";
+import { NextRequest, NextResponse } from "next/server";
 
 async function getArtist(name: string) {
     const path = 'artists';

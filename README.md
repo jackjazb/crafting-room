@@ -7,13 +7,20 @@ This repository contains Crafting Room Recordings' updated website and event boo
 On first cloning the project, `npm install` will need to be run from the workspace root. The application can then be started by running the following from the workspace root:
 
 ```
-$ npm run cms
+$ pnpm cms
 ```
 
 Then in a separate terminal window:
 
 ```
-$ npm run frontend
+$ pnpm build
+$ pnpm start
+```
+
+To run the frontend in development mode:
+
+```
+$ pnpm dev
 ```
 
 ## Navigating the Frontend Project
