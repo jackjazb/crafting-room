@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+    cms:
+        build:
+            context: ./crafting-room-cms
+        ports:
+            - "1337:1337"
+    frontend:
+        build:
+            context: ./crafting-room-frontend
+            network: host
+        depends_on:
+            - cms
+        ports:
+            - "3000:3000"

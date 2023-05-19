@@ -30,6 +30,7 @@ The frontend for CRR uses Next.js. The project is structued as follows:
 - Components are in `src/components`
 - Library and utility code is in `src/lib`
 
-## Deployment Plans
+## Deployment 
 
-Both packages in this project need to be deployed for it to work correctly. Ideally, these would be on the same server to speed up queries, with the CMS frontend reverse proxied under `admin.craftingroomrecordings.co.uk` or something similar.
+- Spin up the CMS Docker image first by running `docker compose up -d cms`
+- Spin up the frontend by running `docker compose up -d frontend`

@@ -13,10 +13,9 @@
     "@strapi/plugin-graphql": "4.5.6",
     "@strapi/plugin-i18n": "4.5.6",
     "@strapi/plugin-users-permissions": "4.5.6",
-    "@strapi/strapi": "^4.10.5",
-    "@strapi/typescript-utils": "^4.10.5",
-    "better-sqlite3": "7.4.6",
-    "codemirror": "^6.0.1"
+    "@strapi/strapi": "4.5.6",
+    "@strapi/typescript-utils": "4.5.6",
+    "better-sqlite3": "7.4.6"
   },
   "strapi": {
     "uuid": "b323f6ff-836a-4043-bb92-46a47e98de7b"

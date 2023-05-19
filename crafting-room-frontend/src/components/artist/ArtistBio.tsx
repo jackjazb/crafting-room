@@ -17,11 +17,12 @@ export function ArtistBio(props: { artist: Artist }) {
                 <h1>{artist.attributes.name}</h1>
                 <p>{artist.attributes.bio}</p>
             </div>
-
-            <div className={styles.artistReleases}>
-                <h2>Releases</h2>
-                <ReleaseGrid columns={4} releases={artist.attributes.releases.data} />
-            </div>
+            {artist.attributes.releases ?
+                <div className={styles.artistReleases}>
+                    <h2>Releases</h2>
+                    <ReleaseGrid columns={4} releases={artist.attributes.releases.data} />
+                </div> : undefined
+            }
         </div>
     )
 }

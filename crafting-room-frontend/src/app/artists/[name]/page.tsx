@@ -31,16 +31,14 @@ async function getArtist(name: string) {
  */
 export default async function ArtistPage({ params }: { params: { name: string } }) {
     const { name } = params;
-    const artist = await getArtist(name as string);
-
+    const artist = await getArtist(decodeURI(name) as string);
+    console.log(artist);
 
     if (!artist) {
         return (
             <Spinner />
         );
     }
-    const imageUrl = process.env.STRAPI_URL + artist.attributes.images.data[0].attributes.url;
-
     return (
         <div className="container">
             <ArtistBio artist={artist} />

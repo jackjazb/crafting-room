@@ -4,7 +4,7 @@
     margin-top: var(--nav-height);
     background-size: cover;
     background-position: center;
-    height: calc(60vh - var(--nav-height));
+    height: calc(70vh - var(--nav-height));
 }
 
 .featureTitle {
