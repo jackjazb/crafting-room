@@ -1,4 +1,4 @@
-import { Artist } from "@/lib/strapi-client";
+import { Artist, resolveImageUrl } from "@/lib/strapi-client";
 import styles from './ArtistBio.module.css';
 import { ReleaseGrid } from "../release/ReleaseGrid";
 /**
@@ -8,7 +8,7 @@ import { ReleaseGrid } from "../release/ReleaseGrid";
  */
 export function ArtistBio(props: { artist: Artist }) {
     const { artist } = props;
-    const imageUrl = process.env.STRAPI_URL + artist.attributes.images.data[0].attributes.url;
+    const imageUrl = resolveImageUrl(artist.attributes.images.data[0]);
 
     return (
         <div className={styles.artistBio}>

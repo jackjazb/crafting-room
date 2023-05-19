@@ -1,4 +1,4 @@
-import { Event } from "@/lib/strapi-client";
+import { Event, resolveImageUrl } from "@/lib/strapi-client";
 import { nth } from "@/lib/utils";
 import styles from './EventDetails.module.css';
 import { ArtistTile } from "@/components/artist/ArtistTile";
@@ -12,7 +12,7 @@ export function EventDetails(props: { event: Event; }) {
     const weekday = date.toLocaleString('en-uk', { weekday: 'short' });
     const month = date.toLocaleString('en-uk', { month: 'short' });
 
-    const imageUrl = process.env.STRAPI_URL + event.attributes.image.data.attributes.url;
+    const imageUrl = resolveImageUrl(event.attributes.image.data);
 
     let artists;
     if (event.attributes.artists && event.attributes.artists.data.length > 0) {
