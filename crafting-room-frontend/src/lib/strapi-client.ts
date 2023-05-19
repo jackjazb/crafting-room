@@ -120,5 +120,5 @@ export function resolveImageUrl(image: Image | undefined) {
 	if (!image) {
 		return '';
 	}
-	return `${process.env.IMAGE_URL}/image.attributes.url`;
+	return `${process.env.IMAGE_URL}${image.attributes.url}`;
 }

@@ -8,6 +8,10 @@ services:
             - "1337:1337"
         networks:
           - app
+        volumes:
+            - ./crafting-room-cms/config:/opt/app/config
+            - ./crafting-room-cms/yarn.lock:/opt/yarn.lock
+            - ./crafting-room-cms/public/uploads:/opt/app/public/uploads
     frontend:
         restart: unless-stopped
         build:
@@ -25,8 +29,11 @@ services:
             context: ./nginx
         ports:
             - "80:80"
+            - "443:443"
         networks:
             - app
+        volumes:
+            - /etc/letsencrypt:/etc/letsencrypt
 networks:
     app:
       name: app
