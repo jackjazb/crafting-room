@@ -17,7 +17,7 @@ export function ArtistBio(props: { artist: Artist }) {
                 <h1>{artist.attributes.name}</h1>
                 <p>{artist.attributes.bio}</p>
             </div>
-            {artist.attributes.releases ?
+            {artist.attributes.releases.data.length > 0 ?
                 <div className={styles.artistReleases}>
                     <h2>Releases</h2>
                     <ReleaseGrid columns={4} releases={artist.attributes.releases.data} />

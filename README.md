@@ -34,3 +34,5 @@ The frontend for CRR uses Next.js. The project is structued as follows:
 
 - Spin up the CMS Docker image first by running `docker compose up -d cms`
 - Spin up the frontend by running `docker compose up -d frontend`
+- To restart the whole stack, run `docker compose down` then `docker compose up`.
+- To rebuild the frontend, run `docker compose up --build -d frontend`

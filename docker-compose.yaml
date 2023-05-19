@@ -1,11 +1,13 @@
 version: "3.8"
 services:
     cms:
+        restart: unless-stopped
         build:
             context: ./crafting-room-cms
         ports:
             - "1337:1337"
     frontend:
+        restart: unless-stopped
         build:
             context: ./crafting-room-frontend
             network: host
@@ -13,3 +15,9 @@ services:
             - cms
         ports:
             - "3000:3000"
+    nginx:
+        restart: unless-stopped
+        build:
+            context: ./nginx
+        ports:
+            - "80:80"
