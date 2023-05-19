@@ -6,18 +6,27 @@ services:
             context: ./crafting-room-cms
         ports:
             - "1337:1337"
+        networks:
+          - app
     frontend:
         restart: unless-stopped
         build:
             context: ./crafting-room-frontend
-            network: host
+            network: app
         depends_on:
             - cms
         ports:
             - "3000:3000"
+        networks:
+            - app
     nginx:
         restart: unless-stopped
         build:
             context: ./nginx
         ports:
             - "80:80"
+        networks:
+            - app
+networks:
+    app:
+      name: app
