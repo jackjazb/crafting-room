@@ -15,12 +15,12 @@
     "groups": {
       "type": "component",
       "repeatable": true,
-      "component": "artists.artist-group"
+      "component": "artist.artist-group"
     },
     "inactive": {
       "type": "component",
       "repeatable": false,
-      "component": "artists.artist-group"
+      "component": "artist.artist-group"
     }
   }
 }

@@ -3,8 +3,8 @@ import { Event, resolveImageUrl } from "@/lib/strapi-client";
 import { nth } from "@/lib/utils";
 
 
-export function EventTile(props: { key: number, event: Event; }) {
-	const { event } = props;
+export function EventTile(props: { key: number, event: Event, canBook: boolean }) {
+	const { event, canBook } = props;
 
 	const date = new Date(event.attributes.date);
 	let day = date.toLocaleString('en-uk', { day: 'numeric' });
@@ -14,7 +14,7 @@ export function EventTile(props: { key: number, event: Event; }) {
 
 	return (
 		// use ID here!
-		<a className={styles.eventTile} key={event.id} href={`events/${event.id}`}>
+		<div className={`${styles.eventTile} ${!canBook ? styles.noBook : ''}`} key={event.id} >
 			<img className={styles.eventThumbnail} src={resolveImageUrl(event.attributes.image.data)} alt={event.attributes.title}></img>
 
 			<div className={styles.eventDetails}>
@@ -24,6 +24,17 @@ export function EventTile(props: { key: number, event: Event; }) {
 				</div >
 
 			</div >
-		</a >
+			{canBook ?
+				<div className={styles.eventOptions}>
+					<a href={`events/${event.id}`} >
+						<button>More Info</button>
+					</a>
+					<a href={event.attributes.link}>
+						<button className="button-primary">Book</button>
+					</a>
+				</div> : undefined
+			}
+
+		</div >
 	);
 };

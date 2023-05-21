@@ -1,7 +1,8 @@
 {
-  "collectionName": "components_artists_artist_groups",
+  "collectionName": "components_release_release_groups",
   "info": {
-    "displayName": "Artist Group"
+    "displayName": "Release Group",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -9,10 +10,10 @@
       "type": "string",
       "required": true
     },
-    "artists": {
+    "releases": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::artist.artist"
+      "target": "api::release.release"
     }
   }
 }

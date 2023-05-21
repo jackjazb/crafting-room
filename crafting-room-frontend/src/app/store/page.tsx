@@ -1,34 +1,39 @@
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
-import { strapiFetch } from '@/lib/strapi-client';
+import { StorePage, strapiFetch } from '@/lib/strapi-client';
+import styles from './Store.module.css';
 
-async function getReleases() {
-    const path = 'releases';
+async function getStorePage() {
+    const path = 'store-page';
     const params = {
         populate: {
-            artwork: {
-                populate: "*"
-            },
-            artist: {
-                populate: "*"
+            groups: {
+                populate: {
+                    releases: {
+                        populate: "*"
+                    }
+                }
             }
-        },
-        sort: ['date:desc']
+
+        }
     };
     const response = await strapiFetch(path, params);
     return response.data;
 }
-
 export default async function Store() {
-    const releases = await getReleases();
+    const storePage: StorePage = await getStorePage();
 
     return (
         <div className="container">
-            <h1>Store</h1>
             <h5>
                 More available on
                 <a href="https://craftingroomrecordings.bandcamp.com/"> Bandcamp</a>
             </h5>
-            <ReleaseGrid columns={4} releases={releases} />
+            {storePage.attributes.groups.map(group =>
+                <div className={styles.releaseGroup}>
+                    <h2>{group.header}</h2>
+                    <ReleaseGrid columns={4} releases={group.releases.data} />
+                </div>
+            )}
         </div>
     );
 }

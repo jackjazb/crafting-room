@@ -1,5 +1,3 @@
-import { Spinner } from "@/components/loading/Spinner";
-import styles from './News.module.css';
 import { Article, strapiFetch } from "@/lib/strapi-client";
 import { ArticleTile } from "@/components/article/ArticleTile";
 
@@ -19,12 +17,6 @@ async function getArticles() {
 
 export default async function News() {
 	const articles: Array<Article> = await getArticles();
-
-	if (articles.length === 0) {
-		return (
-			<Spinner />
-		);
-	}
 
 	return (
 		<div className="container articles">

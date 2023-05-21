@@ -13,7 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "images": {
       "type": "media",
@@ -27,7 +28,8 @@
       ]
     },
     "bio": {
-      "type": "richtext"
+      "type": "richtext",
+      "required": true
     },
     "releases": {
       "type": "relation",
@@ -40,6 +42,11 @@
       "relation": "manyToMany",
       "target": "api::event.event",
       "mappedBy": "artists"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "artist.social-link"
     }
   }
 }

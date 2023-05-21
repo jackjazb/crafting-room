@@ -1,10 +1,17 @@
 import qs from "qs";
+import { notFound } from 'next/navigation';
 
+export type LinkType = 'spotify' | 'instagram' | 'facebook' | 'twitter' | 'website' | 'linktree';
+
+/** 
+ * Artists
+ */
 export type Artist = {
 	id: number;
 	attributes: {
 		name: string;
-		bio?: string;
+		bio: string;
+		links: Array<SocialLink>;
 		images: {
 			data: Array<Image>;
 		};
@@ -17,6 +24,31 @@ export type Artist = {
 	};
 };
 
+export type SocialLink = {
+	id: number,
+	link: string,
+	linktype: LinkType
+}
+
+export type ArtistGroup = {
+	id: number;
+	header: string;
+	artists: {
+		data: Array<Artist>;
+	}
+}
+
+export type ArtistsPage = {
+	attributes: {
+		groups: Array<ArtistGroup>;
+		inactive: ArtistGroup;
+	};
+
+};
+
+/** 
+ * Releases
+ */
 export type Release = {
 	id: number;
 	attributes: {
@@ -32,6 +64,25 @@ export type Release = {
 	};
 };
 
+export type ReleaseGroup = {
+	id: number;
+	header: string;
+	releases: {
+		data: Array<Release>;
+	}
+}
+
+export type StorePage = {
+	attributes: {
+		groups: Array<ReleaseGroup>;
+		inactive: ArtistGroup;
+	};
+
+};
+
+/** 
+ * News
+ */
 export type Article = {
 	id: number;
 	attributes: {
@@ -45,6 +96,9 @@ export type Article = {
 	};
 };
 
+/** 
+ * Events
+ */
 export type Event = {
 	id: number;
 	attributes: {
@@ -74,22 +128,6 @@ export type Homepage = {
 
 };
 
-export type ArtistsPage = {
-	attributes: {
-		groups: Array<ArtistGroup>;
-		inactive: ArtistGroup;
-	};
-
-};
-
-export type ArtistGroup = {
-	id: number;
-	header: string;
-	artists: {
-		data: Array<Artist>;
-	}
-}
-
 export type Image = {
 	attributes: {
 		url: string;
@@ -109,7 +147,7 @@ export async function strapiFetch(path: string, params: any = {}) {
 
 	if (!response.ok) {
 		console.error(response.statusText);
-		throw new Error(`Strapi API request failed`);
+		notFound();
 	}
 	const data = await response.json();
 	return data;

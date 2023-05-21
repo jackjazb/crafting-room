@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_artists_social_links",
+  "info": {
+    "displayName": "Social Link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "link": {
+      "type": "string"
+    },
+    "linktype": {
+      "type": "enumeration",
+      "enum": [
+        "spotify",
+        "instagram",
+        "facebook",
+        "twitter",
+        "website",
+        "linktree"
+      ]
+    }
+  }
+}

@@ -2,15 +2,40 @@ import { Release } from "@/lib/strapi-client";
 import styles from './ReleaseGrid.module.css';
 import { ReleaseTile } from "./ReleaseTile";
 
+interface ReleaseGridProps {
+	releases: Array<Release>;
+	columns: number;
+	dateOrder?: boolean;
+}
+
+const defaultProps: Partial<ReleaseGridProps> = {
+	dateOrder: false
+}
+
 /**
- * Renders a release image with bandcamp player and information. Columns is 
- * set only for desktop, and is overriden with 1 on mobile.
- * @param release a release 
- * @returns 
+ * Renders a grid of release tiles. Columns is set only for desktop and is overriden in CSS on smaller screens.
+ * 
+ * If dateOrder is set to true, releases are sorted on date.
  */
-export function ReleaseGrid(props: { columns: number, releases: Array<Release>; }) {
-	const releases = props.releases;
-	const columns = props.columns;	// Note that this will be overriden on smaller screens
+export function ReleaseGrid(props: ReleaseGridProps) {
+	props = { ...defaultProps, ...props };
+	let { releases, columns, dateOrder } = props;
+	if (dateOrder) {
+		releases.sort((a, b) => {
+			const aDate = new Date(a.attributes.date);
+			const bDate = new Date(b.attributes.date);
+
+			if (aDate > bDate) {
+				return -1;
+			}
+			if (aDate < bDate) {
+				return 1;
+			}
+			return 0;
+		});
+	}
+
+
 	return (
 		<div className={styles.releaseGrid} style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
 			{releases.map(release => (

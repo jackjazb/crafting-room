@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_artists_artist_groups",
+  "info": {
+    "displayName": "Artist Group",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "header": {
+      "type": "string",
+      "required": true
+    },
+    "artists": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::artist.artist"
+    }
+  }
+}

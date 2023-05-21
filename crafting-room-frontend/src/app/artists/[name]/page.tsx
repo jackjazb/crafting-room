@@ -1,8 +1,7 @@
 import { ArtistBio } from "@/components/artist/ArtistBio";
 import { Spinner } from "@/components/loading/Spinner";
-import { ReleaseGrid } from "@/components/release/ReleaseGrid";
 import { strapiFetch } from "@/lib/strapi-client";
-import { NextRequest, NextResponse } from "next/server";
+import { notFound } from "next/navigation";
 
 async function getArtist(name: string) {
     const path = 'artists';
@@ -18,6 +17,9 @@ async function getArtist(name: string) {
             },
             releases: {
                 populate: "*"
+            },
+            links: {
+                populate: "*"
             }
         }
     };
@@ -32,12 +34,9 @@ async function getArtist(name: string) {
 export default async function ArtistPage({ params }: { params: { name: string } }) {
     const { name } = params;
     const artist = await getArtist(decodeURI(name) as string);
-    console.log(artist);
 
     if (!artist) {
-        return (
-            <Spinner />
-        );
+        notFound();
     }
     return (
         <div className="container">

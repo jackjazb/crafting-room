@@ -32,8 +32,7 @@
 }
 
 .bookEvent {
-    align-self: flex-end;
-    margin-top: auto;
+    margin: 20px 0;
 }
 
 @media(min-width: 700px) {
@@ -51,5 +50,10 @@
         height: 50vh;
         max-height: 90%;
         width: 90%;
+    }
+
+    .bookEvent {
+        align-self: flex-end;
+        margin-top: auto;
     }
 }

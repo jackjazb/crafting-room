@@ -2,6 +2,7 @@ import { Spinner } from "@/components/loading/Spinner";
 import styles from './News.module.css';
 import { strapiFetch } from "@/lib/strapi-client";
 import { ArticlePage } from "@/components/article/ArticlePage";
+import { notFound } from "next/navigation";
 
 async function getArticle(name: string) {
     const path = 'articles';
@@ -25,9 +26,7 @@ export default async function NewsItem({ params }: { params: { name: string } })
     const { name } = params;
     const article = await getArticle(decodeURI(name));
     if (!article) {
-        return (
-            <Spinner />
-        );
+        notFound();
     }
     return (
         <ArticlePage article={article} />

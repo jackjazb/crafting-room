@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "store_pages",
+  "info": {
+    "singularName": "store-page",
+    "pluralName": "store-pages",
+    "displayName": "Store Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "groups": {
+      "displayName": "Release Group",
+      "type": "component",
+      "repeatable": true,
+      "component": "release.release-group"
+    }
+  }
+}
