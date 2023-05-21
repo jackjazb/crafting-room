@@ -33,6 +33,7 @@ async function getArtistsPage() {
  */
 export default async function Artists() {
 	const artistsPage: ArtistsPage = await getArtistsPage();
+
 	return (
 		<div className={`${styles.artistsPage} container`}>
 			{artistsPage.attributes.groups.map(group => (
@@ -45,8 +46,7 @@ export default async function Artists() {
 					</div>
 				</div>
 			))}
-
-			{artistsPage.attributes.inactive ?
+			{artistsPage.attributes.inactive.artists.data.length > 0 ?
 				<div>
 					<h2>{artistsPage.attributes.inactive.header}</h2>
 					<div className={`${styles.artists} ${styles.inactive}`}>

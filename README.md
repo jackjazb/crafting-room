@@ -19,7 +19,7 @@ JWT_SECRET=
 ```
 crafting-room-frontend/.env
 ```
-STRAPI_URL="" # The URL to fetch Strapi content from (serverside, will be a Docker container in a deployed instance)
+STRAPI_URL="" # The docker bridge network URL to fetch Strapi content from
 IMAGE_URL=""  # Strapi's public image URL
 BASE_URL=""   # The base URL of the site
 ```
@@ -34,7 +34,8 @@ The frontend for CRR uses Next.js. The project is structued as follows:
 The deployed site consists of three containers, `cms`, `frontend` and `nginx`. 
 
 To deploy a fresh instance, 
-1. Install SSL certificates
+1. Clone the site repo to the deployment machine's home directory
+2. Install SSL certificates
 Use `certbot` to install certificates for these subdomains.
   - `craftingroomrecordings.co.uk`
   - `www.craftingroomrecordings.co.uk`
@@ -42,17 +43,21 @@ Use `certbot` to install certificates for these subdomains.
  
 These also need to be set up in the hosting providers DNS config.
 
-2. Spin up `cms` 
-This starts up a Strapi instance. It needs to be done before `frontend`, as Next.js's build phase requires it.
+3. Spin up the site's docker container
 ```
-$ docker compose up -d cms
-```
-
-3. Spin up `frontend` and `nginx`
-```
-$ DOCKER_BUILDKIT=0 docker compose up -d
+$ DOCKER_BUILDKIT=0 docker compose up -d --build
 ```
 
-Note that the `DOCKER_BUILDKIT` environment variable must be false to allow the `frontend` container to connect to the `app` bridge network during build.
+Using Docker Buildkit causes the images to build in parallel, which can cause errors when the frontend tries to fetch static site data from the CMS during build. It might be worth setting this value permanently on the server machine.
 
-4. If migrating from a different cloud provider, copy across the `crafting-room-cms/public/uploads` to the new instance.
+4. Add a database backup job to the crontab
+```
+# Make a copy of the database outside the active repo
+0 0 * * * cp ~/crafting-room/crafting-room-cms/data/data.db ~/backup/$(date +\%d-\%m-\%Y).db
+
+# Delete backups older than 30 days
+0 0 * * * find ~/backups/ -mtime +30 -delete
+```
+
+## CD
+In progress - will need to use `docker compose build frontend` and `docker compose up --no-deps -d frontend` to rebuild the frontend container.
