@@ -1,0 +1,9 @@
+.content {
+    font-family: sans-serif;
+    white-space: pre-line;
+}
+
+.contactForm {
+    display: flex;
+    gap: 10px;
+}

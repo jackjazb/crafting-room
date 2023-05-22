@@ -5,6 +5,11 @@
     --button-color: #33C3F0;
 }
 
+@font-face {
+    font-family: 'HelveticaNeue';
+    src: url('/helveticaneue.ttf');
+}
+
 /**
 *
 *	MAIN LAYOUT
@@ -17,10 +22,9 @@ html {
 
 body {
     font-size: 1.5em;
-    /* currently ems cause chrome bug misinterpreting rems on body element */
     line-height: 1.6;
     font-weight: 400;
-    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: HelveticaNeue, Helvetica, Arial, sans-serif;
     color: #222;
 }
 

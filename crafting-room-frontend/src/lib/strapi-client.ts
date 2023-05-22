@@ -116,10 +116,13 @@ export type Event = {
 	};
 };
 
+/**
+ * Other Page types
+ */
 export type Homepage = {
 	attributes: {
-		feature: {
-			data: Article;
+		features: {
+			data: Array<Article>;
 		};
 		releases: {
 			data: Array<Release>;
@@ -127,6 +130,17 @@ export type Homepage = {
 	};
 
 };
+
+export type AboutPage = {
+	attributes: {
+		header: string;
+		content: string;
+		image: {
+			data: Image;
+		}
+	}
+
+}
 
 export type Image = {
 	attributes: {
@@ -139,10 +153,11 @@ export async function strapiFetch(path: string, params: any = {}) {
 		headers: {
 			"Content-Type": "application/json",
 		},
-		cache: "no-cache" as RequestCache	// This data could change at any time!
+		cache: "no-store" as RequestCache	// This data could change at any time!
 	};
-	const queryString = qs.stringify(params);
-	const requestUrl = `${process.env.STRAPI_URL}/api/${path}?${queryString ? queryString : ''}`;
+
+	const requestUrl = buildServerRequestUrl(path, params);
+
 	const response = await fetch(requestUrl, headers);
 
 	if (!response.ok) {
@@ -153,10 +168,20 @@ export async function strapiFetch(path: string, params: any = {}) {
 	return data;
 }
 
+export function buildServerRequestUrl(path: string, params: {}) {
+	const queryString = qs.stringify(params);
+	return `${process.env.STRAPI_URL}/api/${path}?${queryString ? queryString : ''}`;
+}
+
+export function buildClientRequestUrl(path: string, params: {}) {
+	const queryString = qs.stringify(params);
+	return `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/${path}?${queryString ? queryString : ''}`;
+}
+
 //resolve an images full URL - TODO return a placeholder if undefined
 export function resolveImageUrl(image: Image | undefined) {
 	if (!image) {
 		return '';
 	}
-	return `${process.env.IMAGE_URL}${image.attributes.url}`;
+	return `${process.env.NEXT_PUBLIC_IMAGE_URL}${image.attributes.url}`;
 }

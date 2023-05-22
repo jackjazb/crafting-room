@@ -1,5 +1,4 @@
 import { ArtistBio } from "@/components/artist/ArtistBio";
-import { Spinner } from "@/components/loading/Spinner";
 import { strapiFetch } from "@/lib/strapi-client";
 import { notFound } from "next/navigation";
 

@@ -19,6 +19,7 @@ export function Navbar() {
 				<a href={`/news`}>News</a>
 				<a href={`/store`}>Store</a>
 				<a href={`/events`}>Events</a>
+				<a href={`/about`}>About</a>
 			</span>
 		</div>
 	)

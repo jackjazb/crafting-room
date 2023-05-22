@@ -6687,6 +6687,7 @@ __metadata:
     "@types/qs": ^6.9.7
     "@types/react": 18.2.6
     "@types/react-dom": 18.2.4
+    embla-carousel-react: ^8.0.0-rc04
     eslint: 8.40.0
     eslint-config-next: 13.4.2
     next: 13.4.3
@@ -6694,6 +6695,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-icons: ^4.8.0
+    swr: ^2.1.5
     typescript: 5.0.4
   languageName: unknown
   linkType: soft
@@ -7389,6 +7391,34 @@ __metadata:
     minimalistic-assert: ^1.0.1
     minimalistic-crypto-utils: ^1.0.1
   checksum: d56d21fd04e97869f7ffcc92e18903b9f67f2d4637a23c860492fbbff5a3155fd9ca0184ce0c865dd6eb2487d234ce9551335c021c376cd2d3b7cb749c7d10f4
+  languageName: node
+  linkType: hard
+
+"embla-carousel-react@npm:^8.0.0-rc04":
+  version: 8.0.0-rc04
+  resolution: "embla-carousel-react@npm:8.0.0-rc04"
+  dependencies:
+    embla-carousel: 8.0.0-rc04
+    embla-carousel-reactive-utils: 8.0.0-rc04
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.1 || ^18.0.0
+  checksum: 3864bc601ba4c3fb105bb666ed99b44a5e4031f3f5f974b84c1d03eccbc19da11865215ed2c8a81bb8ccf442598205676ef5986a08fb7f00e9ea0ae99fa0a0c0
+  languageName: node
+  linkType: hard
+
+"embla-carousel-reactive-utils@npm:8.0.0-rc04":
+  version: 8.0.0-rc04
+  resolution: "embla-carousel-reactive-utils@npm:8.0.0-rc04"
+  peerDependencies:
+    embla-carousel: 8.0.0-rc04
+  checksum: b35dc45df59c637fe762c40236f65dcb0fab8a1af781524e31ce1fcb5b4e1c255f574ae2138b556634ec7730f7752ce28402d3987d7d487784e2b772c90fe30d
+  languageName: node
+  linkType: hard
+
+"embla-carousel@npm:8.0.0-rc04":
+  version: 8.0.0-rc04
+  resolution: "embla-carousel@npm:8.0.0-rc04"
+  checksum: df1581f1614be43eb5df58a4490dd1b8e6c6b447ef22819044387f9d61a52f9452a5f61f154cfd0b3f8953d3af22ad6a85df26899d605458a5bac09e40509425
   languageName: node
   linkType: hard
 
@@ -15320,6 +15350,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"swr@npm:^2.1.5":
+  version: 2.1.5
+  resolution: "swr@npm:2.1.5"
+  dependencies:
+    use-sync-external-store: ^1.2.0
+  peerDependencies:
+    react: ^16.11.0 || ^17.0.0 || ^18.0.0
+  checksum: f2ef9b83ec4b2ebf4d520578ab847307700db01ffcab64b3aec6ea94feaf96ca10e38e8b08bc8adfab8eaa6ec1bdfd64f82b6f5c14cc4cb5cf11e6fd22b405a4
+  languageName: node
+  linkType: hard
+
 "synckit@npm:^0.8.5":
   version: 0.8.5
   resolution: "synckit@npm:0.8.5"
@@ -16014,7 +16055,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.0.0":
+"use-sync-external-store@npm:^1.0.0, use-sync-external-store@npm:^1.2.0":
   version: 1.2.0
   resolution: "use-sync-external-store@npm:1.2.0"
   peerDependencies:

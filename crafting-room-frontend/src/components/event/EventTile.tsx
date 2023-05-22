@@ -11,6 +11,10 @@ export function EventTile(props: { key: number, event: Event, canBook: boolean }
 	day = day + nth(parseInt(day));
 	const weekday = date.toLocaleString('en-uk', { weekday: 'short' });
 	const month = date.toLocaleString('en-uk', { month: 'short' });
+	const bookLink = event.attributes.link ?
+		<a href={event.attributes.link}>
+			<button className="button-primary">Book</button>
+		</a> : undefined;
 
 	return (
 		// use ID here!
@@ -29,9 +33,7 @@ export function EventTile(props: { key: number, event: Event, canBook: boolean }
 					<a href={`events/${event.id}`} >
 						<button>More Info</button>
 					</a>
-					<a href={event.attributes.link}>
-						<button className="button-primary">Book</button>
-					</a>
+					{bookLink}
 				</div> : undefined
 			}
 

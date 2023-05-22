@@ -19,9 +19,9 @@ JWT_SECRET=
 ```
 crafting-room-frontend/.env
 ```
-STRAPI_URL="" # The docker bridge network URL to fetch Strapi content from
-IMAGE_URL=""  # Strapi's public image URL
-BASE_URL=""   # The base URL of the site
+STRAPI_URL="" # The docker bridge network endpoint for Strapi
+NEXT_PUBLIC_STRAPI_URL="" # The public endpoint for Strapi
+NEXT_PUBLIC_IMAGE_URL=""  # The endpoint to fetch images from
 ```
 ## Navigating the Frontend Project
 
