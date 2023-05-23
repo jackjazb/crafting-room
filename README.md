@@ -20,8 +20,7 @@ JWT_SECRET=
 crafting-room-frontend/.env
 ```
 STRAPI_URL="" # The docker bridge network endpoint for Strapi
-NEXT_PUBLIC_STRAPI_URL="" # The public endpoint for Strapi
-NEXT_PUBLIC_IMAGE_URL=""  # The endpoint to fetch images from
+IMAGE_URL=""  # The endpoint to fetch images from
 ```
 ## Navigating the Frontend Project
 
@@ -60,4 +59,4 @@ Using Docker Buildkit causes the images to build in parallel, which can cause er
 ```
 
 ## CD
-In progress - will need to use `docker compose build frontend` and `docker compose up --no-deps -d frontend` to rebuild the frontend container.
+In progress - will need to use `DOCKER_BUILDKIT=0 docker compose up -d --build` to rebuild everything.

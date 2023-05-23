@@ -6695,7 +6695,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-icons: ^4.8.0
-    swr: ^2.1.5
+    react-svg-injector: ^2.0.2
     typescript: 5.0.4
   languageName: unknown
   linkType: soft
@@ -13743,6 +13743,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-svg-injector@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "react-svg-injector@npm:2.0.2"
+  dependencies:
+    svg-injector: 1.1.3
+  peerDependencies:
+    prop-types: ^15.6.0
+    react: ^16.2.0
+  checksum: b36877288f6fba6f4dead13f5969c4259dc5d2f3e13cd7af04f7dca3d4f5f46bc63ab6107edb2f6a96c02a2a0dbfb45869769432415e0520af9280a494b5f995
+  languageName: node
+  linkType: hard
+
 "react-transition-group@npm:^4.3.0":
   version: 4.4.5
   resolution: "react-transition-group@npm:4.4.5"
@@ -15340,6 +15352,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"svg-injector@npm:1.1.3":
+  version: 1.1.3
+  resolution: "svg-injector@npm:1.1.3"
+  checksum: 22a6396bd0ac91401a8943750b34881ccedf62155bf5a3630928ae95d76292f451d25bb700dd6e5a87e0b7bacb37212808077ca84069825c67a0a425d8cfe634
+  languageName: node
+  linkType: hard
+
 "swap-case@npm:^1.1.0":
   version: 1.1.2
   resolution: "swap-case@npm:1.1.2"
@@ -15347,17 +15366,6 @@ __metadata:
     lower-case: ^1.1.1
     upper-case: ^1.1.1
   checksum: 37b0c4988e12520fba54018f7fe259d62902e97349366209d2af9b1d5e741692c8f17da9d5e780c7bd1a56864bbb51d53eaf1a101a11afdfcae157912a3691d8
-  languageName: node
-  linkType: hard
-
-"swr@npm:^2.1.5":
-  version: 2.1.5
-  resolution: "swr@npm:2.1.5"
-  dependencies:
-    use-sync-external-store: ^1.2.0
-  peerDependencies:
-    react: ^16.11.0 || ^17.0.0 || ^18.0.0
-  checksum: f2ef9b83ec4b2ebf4d520578ab847307700db01ffcab64b3aec6ea94feaf96ca10e38e8b08bc8adfab8eaa6ec1bdfd64f82b6f5c14cc4cb5cf11e6fd22b405a4
   languageName: node
   linkType: hard
 
@@ -16055,7 +16063,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.0.0, use-sync-external-store@npm:^1.2.0":
+"use-sync-external-store@npm:^1.0.0":
   version: 1.2.0
   resolution: "use-sync-external-store@npm:1.2.0"
   peerDependencies:

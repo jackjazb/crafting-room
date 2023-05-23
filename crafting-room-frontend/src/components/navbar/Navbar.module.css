@@ -1,5 +1,4 @@
 .menuIcon {
-    color: white;
     height: 40px;
     width: 40px;
 }
@@ -78,9 +77,8 @@
         display: flex;
     }
 
-    .crrIcon img {
-        display: inline;
-        filter: invert(100%);
+    .crrIcon svg {
         max-height: 100%;
+        width: fit-content;
     }
 }

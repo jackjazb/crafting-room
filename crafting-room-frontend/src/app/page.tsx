@@ -1,4 +1,4 @@
-import { Article, Homepage, buildClientRequestUrl, resolveImageUrl, strapiFetch } from "@/lib/strapi-client";
+import { Article, Homepage, resolveImageUrl, strapiFetch } from "@/lib/strapi-client";
 import { ReleaseGrid } from "@/components/release/ReleaseGrid";
 import { Spinner } from "@/components/loading/Spinner";
 import styles from './Home.module.css';

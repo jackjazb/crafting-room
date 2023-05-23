@@ -174,15 +174,10 @@ export function buildServerRequestUrl(path: string, params: {}) {
 	return `${process.env.STRAPI_URL}/api/${path}?${queryString ? queryString : ''}`;
 }
 
-export function buildClientRequestUrl(path: string, params: {}) {
-	const queryString = qs.stringify(params);
-	return `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/${path}?${queryString ? queryString : ''}`;
-}
-
 //resolve an images full URL - TODO return a placeholder if undefined
 export function resolveImageUrl(image: Image | undefined) {
 	if (!image) {
 		return '';
 	}
-	return `${process.env.NEXT_PUBLIC_IMAGE_URL}${image.attributes.url}`;
+	return `${process.env.IMAGE_URL}${image.attributes.url}`;
 }

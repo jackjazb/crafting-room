@@ -24,8 +24,9 @@ export function Carousel(props: React.PropsWithChildren<{}>) {
         return <></>;
     }
 
+    let i = 0;
     const slides = Children.toArray(props.children).map(child =>
-        <div className={styles.embla__slide}>
+        <div key={i++} className={styles.embla__slide}>
             {child}
         </div>
     );

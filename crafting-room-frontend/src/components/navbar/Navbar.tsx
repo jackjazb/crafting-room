@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { IoMdMore } from 'react-icons/io';
 import styles from './Navbar.module.css'
+import { CRRLogo } from '../logo/CRRLogo';
 
 export function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,8 +12,7 @@ export function Navbar() {
 			<IoMdMore className={styles.menuIcon} onClick={() => setIsMenuOpen(!isMenuOpen)} />
 			<span className={`${styles.navLinks} ${isMenuOpen ? styles.open : ''}`}>
 				<a className={styles.crrIcon} href={'/'}>
-					<img src="/crr.svg" alt="Crafting Rooms Recordings Logo">
-					</img>
+					<CRRLogo />
 				</a>
 				<a className={styles.homeTextOption} href={`/`}>Home</a>
 				<a href={`/artists`}>Artists</a>
