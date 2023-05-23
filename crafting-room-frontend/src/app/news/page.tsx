@@ -18,11 +18,13 @@ async function getArticles() {
 export default async function News() {
 	const articles: Array<Article> = await getArticles();
 
+	const articleTiles = articles.map((article: Article) =>
+		<ArticleTile key={article.id} article={article} />
+	);
+
 	return (
 		<div className="container articles">
-			{articles.map(article => {
-				return (<ArticleTile key={article.id} article={article} />);
-			})}
+			{articleTiles}
 		</div>
 	);
 }

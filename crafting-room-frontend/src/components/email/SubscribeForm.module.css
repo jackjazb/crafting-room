@@ -1,0 +1,25 @@
+.contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.contactForm input,
+.contactForm button {
+    margin-bottom: 0;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0px 10px;
+    border-radius: 4px;
+}
+
+@media(min-width: 700px) {
+    .contactForm {
+        flex-direction: row;
+    }
+}

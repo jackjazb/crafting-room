@@ -28,34 +28,44 @@ async function getArtistsPage() {
 }
 
 /**
+ * Generates a set of artist tiles from a list of Artists
+ */
+const artistTiles = (artists: Array<Artist>) => {
+	return artists.map(artist =>
+		<ArtistTile artist={artist} key={artist.id} />
+	);
+}
+
+/**
  * The directory page for all artists
  * 
  */
 export default async function Artists() {
 	const artistsPage: ArtistsPage = await getArtistsPage();
 
+	const groups = artistsPage.attributes.groups
+	const artistGroups = groups.map(group => (
+		<div>
+			<h2>{group.header}</h2>
+			<div className={styles.artists}>
+				{artistTiles(group.artists.data)}
+			</div>
+		</div>
+	));
+
+	const inactive = artistsPage.attributes.inactive.artists.data
+	const inactiveGroup = inactive.length > 0 ?
+		<div>
+			<h2>{artistsPage.attributes.inactive.header}</h2>
+			<div className={`${styles.artists} ${styles.inactive}`}>
+				{artistTiles(inactive)}
+			</div>
+		</div>
+		: undefined;
+
 	return (
 		<div className={`${styles.artistsPage} container`}>
-			{artistsPage.attributes.groups.map(group => (
-				<div>
-					<h2>{group.header}</h2>
-					<div className={styles.artists}>
-						{group.artists.data.map(artist =>
-							<ArtistTile artist={artist} key={artist.id} />
-						)}
-					</div>
-				</div>
-			))}
-			{artistsPage.attributes.inactive.artists.data.length > 0 ?
-				<div>
-					<h2>{artistsPage.attributes.inactive.header}</h2>
-					<div className={`${styles.artists} ${styles.inactive}`}>
-						{artistsPage.attributes.inactive.artists.data.map(artist =>
-							<ArtistTile artist={artist} key={artist.id} />
-						)}
-					</div>
-				</div>
-				: undefined
-			}
+			{artistGroups}
+			{inactiveGroup}
 		</div >);
 }

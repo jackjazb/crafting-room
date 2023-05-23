@@ -1,14 +1,10 @@
-'use client';
-import { Article, buildClientRequestUrl, resolveImageUrl } from "@/lib/strapi-client";
+import { Article, Homepage, buildClientRequestUrl, resolveImageUrl, strapiFetch } from "@/lib/strapi-client";
 import { ReleaseGrid } from "@/components/release/ReleaseGrid";
 import { Spinner } from "@/components/loading/Spinner";
-import useEmblaCarousel from 'embla-carousel-react'
 import styles from './Home.module.css';
-import useSWR from "swr";
-import { useCallback } from "react";
-import { RxCaretLeft, RxCaretRight } from "react-icons/rx"
+import { Carousel } from "@/components/carousel/Carousel";
 
-function buildHomepageRequest(): string {
+async function getHomepage(): Promise<Homepage> {
     const path = 'homepage';
     const params = {
         populate: {
@@ -20,64 +16,32 @@ function buildHomepageRequest(): string {
             }
         }
     };
-    return buildClientRequestUrl(path, params);
+
+    const response = await strapiFetch(path, params);
+    return response.data;
 }
 
-const fetcher = (url: string) => fetch(url).then(r => r.json())
+export default async function Home() {
+    const homepage = await getHomepage();
 
-
-export default function Home() {
-    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 20 });
-
-    const scrollPrev = useCallback(() => {
-        if (emblaApi) emblaApi.scrollPrev()
-    }, [emblaApi]);
-
-    const scrollNext = useCallback(() => {
-        if (emblaApi) emblaApi.scrollNext()
-    }, [emblaApi]);
-
-    const { data } = useSWR(buildHomepageRequest(), fetcher)
-
-    if (!data) {
-        return <Spinner />;
-    }
-    const homepage = data.data;
+    const articleSlides = homepage.attributes.features.data.map((feature: Article) =>
+        <a key={feature.id} href={`news/${feature.attributes.title}`}>
+            <div className={styles.featuredImage} style={{ backgroundImage: `url(${resolveImageUrl(feature.attributes.images.data[0])})` }}>
+                <div className={styles.featureTitle}>{feature.attributes.title}</div>
+            </div>
+        </a>
+    );
 
     return (
         <div>
-            <div className={styles.embla}>
-                <div className={styles.embla__viewport} ref={emblaRef}>
-                    <div className={styles.embla__container}>
-                        {
-                            homepage.attributes.features.data.map((feature: Article) => {
-                                const featureImageUrl = resolveImageUrl(feature.attributes.images.data[0]);
-                                return (
-                                    <div key={feature.id} className={styles.embla__slide}>
-                                        <a href={`news/${feature.attributes.title}`}>
-                                            <div className={styles.featuredImage} style={{ backgroundImage: `url(${featureImageUrl})` }}>
-                                                <div className={styles.featureTitle}>{feature.attributes.title}</div>
-                                            </div>
-                                        </a>
-                                    </div>);
-                            })
-                        }
-                    </div>
-                    <div className={`${styles.arrow} ${styles.prev}`} onClick={scrollPrev}>
-                        <RxCaretLeft size={45} />
-                    </div>
-                    <div className={`${styles.arrow} ${styles.next}`} onClick={scrollNext}>
-                        <RxCaretRight size={45} />
-                    </div>
-                </div>
-            </div>
+            <Carousel>
+                {articleSlides}
+            </Carousel >
+
             <div className={styles.featuredReleases}>
                 <h1>Featured Releases</h1>
                 <ReleaseGrid columns={4} releases={homepage.attributes.releases.data} />
             </div>
-            <script>
-                const swiper = new Swiper('.swiper');
-            </script>
         </div >
     );
 }

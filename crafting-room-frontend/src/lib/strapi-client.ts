@@ -135,6 +135,7 @@ export type AboutPage = {
 	attributes: {
 		header: string;
 		content: string;
+		contact?: string;
 		image: {
 			data: Image;
 		}

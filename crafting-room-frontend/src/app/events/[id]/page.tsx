@@ -1,5 +1,4 @@
 import { EventDetails } from "@/components/event/EventDetails";
-import { Spinner } from "@/components/loading/Spinner";
 import { strapiFetch } from "@/lib/strapi-client";
 import { notFound } from "next/navigation";
 
@@ -22,7 +21,6 @@ async function getEvent(id: string) {
 export default async function EventPage({ params }: { params: { id: string } }) {
     const { id } = params;
     const event = await getEvent(id as string);
-
 
     if (!event) {
         notFound();
