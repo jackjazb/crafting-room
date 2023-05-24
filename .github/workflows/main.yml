@@ -1,0 +1,19 @@
+name: Deploy Release
+on:
+  release:
+    types: [published]
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: pull changes and rebuild
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/crafting-room
+            git pull
+            DOCKER_BUILDKIT=0 docker compose up -d --build
