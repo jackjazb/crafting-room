@@ -40,7 +40,7 @@ Use `certbot` to install certificates for these subdomains.
   - `www.craftingroomrecordings.co.uk`
   - `api.craftingroomrecordings.co.uk`
  
-These also need to be set up in the hosting providers DNS config.
+These also need to be set up in the hosting provider's DNS config.
 
 3. Spin up the site's docker container
 ```
@@ -58,5 +58,8 @@ Using Docker Buildkit causes the images to build in parallel, which can cause er
 0 0 * * * find ~/backups/ -mtime +30 -delete
 ```
 
-## CD
-In progress - will need to use `DOCKER_BUILDKIT=0 docker compose up -d --build` to rebuild everything.
+## Creating a New Release
+This repository has a GitHub action set up to automatically deploy new releases to the server. The steps are roughly:
+- Login to the server over SSH
+- Pull the latest changes
+- Rebuild the site with `DOCKER_BUILDKIT=0 docker compose up -d --build
