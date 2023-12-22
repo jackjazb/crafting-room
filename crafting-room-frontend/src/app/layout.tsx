@@ -1,25 +1,19 @@
-import { Footer } from "@/components/footer/Footer";
-import { Navbar } from "@/components/navbar/Navbar";
-
 import './skeleton.css';
 import './globals.css';
+import { FC } from 'react';
+import { Navbar } from '@/components/navbar/Navbar';
+import { Footer } from '@/components/footer/Footer';
 
-export const metadata = {
-  title: 'Crafting Room Recordings'
-}
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+const RootLayout: FC<{ children: React.ReactNode; }> = ({ children }) => {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body>
         <Navbar />
         {children}
         <Footer />
       </body>
     </html>
-  )
-}
+  );
+};
+
+export default RootLayout;

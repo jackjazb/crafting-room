@@ -1,53 +1,78 @@
-import { Event, resolveImageUrl } from "@/lib/strapi-client";
-import { nth } from "@/lib/utils";
+import { FC } from 'react';
 import styles from './EventDetails.module.css';
-import { ArtistTile } from "@/components/artist/ArtistTile";
+import { getDateParts, md } from '@/lib/utils';
+import { ArtistTile } from '@/components/artist/ArtistTile';
+import { Event } from '@/types/strapi-responses';
+import { StrapiImage } from '@/components/strapi-image/strapi-image';
 
-export function EventDetails(props: { event: Event; }) {
-    const { event } = props;
+/**
+ * Details of an event on an event page.
+ */
+export const EventDetails: FC<{ event: Event; }> = ({ event }) => {
+    const { day, weekday, month } = getDateParts(event.attributes.date);
 
-    const date = new Date(event.attributes.date);
-    let day = date.toLocaleString('en-uk', { day: 'numeric' });
-    day = day + nth(parseInt(day));
-    const weekday = date.toLocaleString('en-uk', { weekday: 'short' });
-    const month = date.toLocaleString('en-uk', { month: 'short' });
-
-    const imageUrl = resolveImageUrl(event.attributes.image.data);
-
-    let artists;
-    if (event.attributes.artists && event.attributes.artists.data.length > 0) {
-        artists =
-            (<div>
-                <h1>Artists</h1>
-                <div className={styles.eventArtists}>
-                    {event.attributes.artists.data.map(artist =>
-                        <ArtistTile key={artist.id} artist={artist} />
-                    )}
-                </div>
-            </div>);
-    }
     return (
         <>
             <div className={styles.eventDetails}>
-                <img className={styles.eventImage} src={imageUrl} alt='' />
+                <StrapiImage
+                    className={styles.eventImage}
+                    image={event.attributes.image.data}
+                    format='medium'
+                    priority
+                />
 
                 <div className={styles.eventInfo}>
-                    <h2 className={styles.eventTitle}>{event.attributes.title}</h2>
+                    <h2
+                        className={styles.eventTitle}
+                        dangerouslySetInnerHTML={{ __html: md.renderInline(event.attributes.title) }}
+                    />
+
                     <div className={styles.eventDate}>
-                        {event.attributes.venue} ~ {`${weekday}, ${day} ${month}`}
-                    </div >
-                    <div className={styles.eventDescription}>
-                        {event.attributes.description}
+                        <span dangerouslySetInnerHTML={{ __html: md.renderInline(event.attributes.venue) }} />
+                        {' '}
+                        ~
+                        {' '}
+                        {`${weekday}, ${day} ${month}`}
                     </div>
-                    {
-                        event.attributes.link ?
-                            <a className={styles.bookEvent} href={event.attributes.link}>
-                                <button className="button-primary">Book Tickets</button></a>
-                            : undefined
-                    }
+
+                    {event.attributes.description && (
+                        <div
+                            className={styles.eventDescription}
+                            dangerouslySetInnerHTML={{ __html: md.render(event.attributes.description) }}
+                        />
+                    )}
+
+                    {event.attributes.link && (
+                        <a
+                            className={styles.bookEvent}
+                            href={event.attributes.link}
+                            target='_blank'
+                            rel='noreferrer'
+                        >
+                            <button className='button-primary'>
+                                Book Tickets
+                            </button>
+                        </a>
+                    )}
                 </div>
-            </div >
-            {artists}
+            </div>
+
+            {/* if at least one artist */}
+            {event.attributes.artists && event.attributes.artists.data.length > 0 && (
+                <div>
+                    <h1>
+                        Artists
+                    </h1>
+                    <div className={styles.eventArtists}>
+                        {event.attributes.artists.data.map(artist => (
+                            <ArtistTile
+                                key={artist.id}
+                                artist={artist}
+                            />
+                        ))}
+                    </div>
+                </div>
+            )}
         </>
     );
-}
+};

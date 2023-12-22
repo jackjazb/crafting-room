@@ -12,6 +12,6 @@
     },
     "packageManager": "yarn@3.5.1",
     "devDependencies": {
-        "@types/node": "^20.2.1"
+        "@types/node": "^20.10.5"
     }
 }

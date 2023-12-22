@@ -1,41 +1,42 @@
-import { ReleaseGrid } from '@/components/release/ReleaseGrid';
-import { ReleaseGroup, StorePage, strapiFetch } from '@/lib/strapi-client';
+import { NextPage } from 'next';
 import styles from './Store.module.css';
+import { ReleaseGrid } from '@/components/release/ReleaseGrid';
+import { strapi } from '@/lib/api/strapi-client';
+import { md } from '@/lib/utils';
 
-async function getStorePage() {
-    const path = 'store-page';
-    const params = {
-        populate: {
-            groups: {
-                populate: {
-                    releases: {
-                        populate: "*"
-                    }
-                }
-            }
-
-        }
-    };
-    const response = await strapiFetch(path, params);
-    return response.data;
-}
-export default async function Store() {
-    const storePage: StorePage = await getStorePage();
-
-    const storeGroups = storePage.attributes.groups.map((group: ReleaseGroup) =>
-        <div className={styles.releaseGroup}>
-            <h2>{group.header}</h2>
-            <ReleaseGrid columns={4} releases={group.releases.data} />
-        </div>
-    );
+const StorePage: NextPage = async () => {
+    const res = await strapi.getStorePage();
+    const storePage = res.data;
 
     return (
-        <div className="container">
+        <div className='container'>
             <h5>
                 More available on
-                <a href="https://craftingroomrecordings.bandcamp.com/"> Bandcamp</a>
+                {' '}
+                <a
+                    href='https://craftingroomrecordings.bandcamp.com/'
+                    target='_blank'
+                    rel='noreferrer'
+                >
+                    Bandcamp
+                </a>
             </h5>
-            {storeGroups}
+
+            {storePage.attributes.groups.map(group => (
+                <div
+                    key={group.id}
+                    className={styles.releaseGroup}
+                >
+                    <h2 dangerouslySetInnerHTML={{ __html: md.renderInline(group.header) }} />
+
+                    <ReleaseGrid
+                        columns={4}
+                        releases={group.releases.data}
+                    />
+                </div>
+            ))}
         </div>
     );
-}
+};
+
+export default StorePage;

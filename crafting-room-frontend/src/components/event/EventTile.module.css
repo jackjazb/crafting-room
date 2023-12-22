@@ -20,7 +20,7 @@
 }
 
 .eventThumbnail {
-	object-fit: cover;
+	/* object-fit: cover; */
 
 	width: 80px;
 	height: 80px;

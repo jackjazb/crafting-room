@@ -1,11 +1,5 @@
-.artistImage {
-    object-fit: cover;
-}
-
 .artistInfo p {
     font-size: 1em;
-    white-space: pre-line;
-
 }
 
 @media(min-width: 700px) {

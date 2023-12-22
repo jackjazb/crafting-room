@@ -1,29 +1,50 @@
-import { Release, resolveImageUrl } from "@/lib/strapi-client";
-import Image from "next/image";
-import { RxExternalLink } from "react-icons/rx";
-import styles from './ReleaseTile.module.css';
+import { RxExternalLink } from 'react-icons/rx';
+import { FC } from 'react';
+import styles from './ReleaseTile.module.scss';
+import { Release } from '@/types/strapi-responses';
+import { StrapiImage } from '@/components/strapi-image/strapi-image';
+import { md } from '@/lib/utils';
 
 /**
- * Renders a single release with a Bandcamp link -  
- * 
+ * Renders a single release with a Bandcamp link.
  */
-export function ReleaseTile(props: { key: number, release: Release; }) {
-	const release = props.release;
+export const ReleaseTile: FC<{ release: Release; }> = ({ release }) => {
 	return (
-		<div key={release.id} className={styles.release}>
-			<img src={resolveImageUrl(release.attributes.artwork.data)} alt={release.attributes.title}
+		<div
+			key={release.id}
+			className={styles.release}
+		>
+			<StrapiImage
+				className={styles.releaseImage}
+				image={release.attributes.artwork.data}
+				format='medium'
+				alt={release.attributes.title}
 			/>
-			<div className={styles.releaseOverlay}>
 
-				<div className={styles.releaseTitle}>{release.attributes.title}</div>
-				<div className={styles.releaseArtist}>{release.attributes.artist.data.attributes.name}</div>
-				{release.attributes.link ?
-					<a href={release.attributes.link}>
-						<div className={styles.releaseLink} ><RxExternalLink />Bandcamp</div>
+			<div className={styles.releaseOverlay}>
+				<div
+					className={styles.releaseTitle}
+					dangerouslySetInnerHTML={{ __html: md.renderInline(release.attributes.title) }}
+				/>
+
+				<div
+					className={styles.releaseArtist}
+					// eslint-disable-next-line max-len
+					dangerouslySetInnerHTML={{ __html: md.renderInline(release.attributes.artist.data.attributes.name) }}
+				/>
+
+				{release.attributes.link && (
+					<a
+						className={styles.releaseLink}
+						href={release.attributes.link}
+						target='_blank'
+						rel='noreferrer'
+					>
+						<RxExternalLink />
+						Bandcamp
 					</a>
-					: undefined
-				}
+				)}
 			</div>
 		</div>
 	);
-}
+};

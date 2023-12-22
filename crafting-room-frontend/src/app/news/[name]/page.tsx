@@ -1,34 +1,18 @@
-import { Spinner } from "@/components/loading/Spinner";
-import styles from './News.module.css';
-import { strapiFetch } from "@/lib/strapi-client";
-import { ArticlePage } from "@/components/article/ArticlePage";
-import { notFound } from "next/navigation";
+import { notFound } from 'next/navigation';
+import { NextPage } from 'next';
+import { Article } from '@/components/article/Article';
+import { strapi } from '@/lib/api/strapi-client';
 
-async function getArticle(name: string) {
-    const path = 'articles';
-    const params = {
-        filters: {
-            title: {
-                $eqi: name
-            }
-        },
-        populate: {
-            images: {
-                populate: "*"
-            }
-        },
-    };
-    const response = await strapiFetch(path, params);
-    return response.data[0];
-}
-
-export default async function NewsItem({ params }: { params: { name: string } }) {
+const ArticlePage: NextPage<{ params: { name: string; }; }> = async ({ params }) => {
     const { name } = params;
-    const article = await getArticle(decodeURI(name));
-    if (!article) {
+    const article = await strapi.getArticle(decodeURI(name));
+
+    if (!article)
         notFound();
-    }
+
     return (
-        <ArticlePage article={article} />
+        <Article article={article} />
     );
-}
+};
+
+export default ArticlePage;

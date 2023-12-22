@@ -1,6 +1,5 @@
 :root {
-    --nav-height: 65px;
-    --transition: 0.2s;
+    --transition: 200ms ease-in-out;
     --border-radius: 4px;
     --button-color: #33C3F0;
 }
@@ -15,6 +14,11 @@
 *	MAIN LAYOUT
 *
 **/
+
+* {
+    box-sizing: border-box;
+    word-break: break-word;
+}
 
 html {
     font-size: 62.5%;
@@ -32,6 +36,10 @@ body {
     margin: 0;
 }
 
+form {
+    margin-bottom: unset;
+}
+
 .container {
     position: relative;
     width: 100%;
@@ -39,13 +47,8 @@ body {
     padding: 0 20px;
     box-sizing: border-box;
     margin: 0 auto;
-    margin-top: var(--nav-height);
     padding: 20px;
     max-width: 1200px;
-}
-
-.longText {
-    white-space: pre-line;
 }
 
 @media(min-width: 400px) {
@@ -62,6 +65,10 @@ body {
 
 img {
     max-width: 100%;
+
+    /* TODO -> this might explode things */
+    /* IF YOU DO REMOVE THIS, SEARCH ALL FILES FOR COMMENTED OUT `object-fit: cover`s!! */
+    object-fit: cover; 
 }
 
 a {

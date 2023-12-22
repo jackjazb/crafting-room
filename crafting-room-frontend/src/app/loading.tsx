@@ -1,5 +1,8 @@
-import { Spinner } from "@/components/loading/Spinner";
+import { FC } from 'react';
+import { Spinner } from '@/components/loading/Spinner';
 
-export default function Loading() {
+const Loading: FC = () => {
     return <Spinner />;
-}
+};
+
+export default Loading;
