@@ -1,12 +1,18 @@
-.contactForm {
+.subscribe {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 20px;
 }
 
-.contactForm input,
-.contactForm button {
+.subscribeForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.subscribeForm input,
+.subscribeForm button {
     margin-bottom: 0;
 }
 
@@ -18,8 +24,20 @@
     border-radius: 4px;
 }
 
+.status.valid {}
+
+.status.invalid {}
+
+.status ul li {
+    list-style: none;
+}
+
 @media(min-width: 700px) {
-    .contactForm {
+    .subscribe {
+        flex-direction: row;
+    }
+    
+    .subscribeForm {
         flex-direction: row;
     }
 }

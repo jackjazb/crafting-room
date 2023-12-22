@@ -1,30 +1,21 @@
-import { Article, strapiFetch } from "@/lib/strapi-client";
-import { ArticleTile } from "@/components/article/ArticleTile";
+import { NextPage } from 'next';
+import { ArticleTile } from '@/components/article/ArticleTile';
+import { strapi } from '@/lib/api/strapi-client';
 
-async function getArticles() {
-	const path = 'articles';
-	const params = {
-		populate: {
-			images: {
-				populate: "*"
-			}
-		},
-		sort: ['createdAt:desc']
-	};
-	const response = await strapiFetch(path, params);
-	return response.data;
-}
-
-export default async function News() {
-	const articles: Array<Article> = await getArticles();
-
-	const articleTiles = articles.map((article: Article) =>
-		<ArticleTile key={article.id} article={article} />
-	);
+const NewsPage: NextPage = async () => {
+	const res = await strapi.getArticles();
+	const articles = res.data;
 
 	return (
-		<div className="container articles">
-			{articleTiles}
+		<div className='container articles'>
+			{articles.map(article => (
+				<ArticleTile
+					key={article.id}
+					article={article}
+				/>
+			))}
 		</div>
 	);
-}
+};
+
+export default NewsPage;

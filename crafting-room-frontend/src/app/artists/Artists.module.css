@@ -14,12 +14,10 @@
 
 .inactive a {
     filter: opacity(0.6);
-
 }
 
 .inactive a:hover {
     filter: opacity(1);
-
 }
 
 @media(min-width: 700px) {

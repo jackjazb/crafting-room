@@ -1,34 +1,47 @@
-import { Artist, resolveImageUrl } from "@/lib/strapi-client";
+import { FC } from 'react';
+import { ReleaseGrid } from '../release/ReleaseGrid';
 import styles from './ArtistBio.module.css';
-import { ReleaseGrid } from "../release/ReleaseGrid";
-import { SocialLinks } from "./SocialLinks";
+import { SocialLinks } from './SocialLinks';
+import { Artist } from '@/types/strapi-responses';
+import { StrapiImage } from '@/components/strapi-image/strapi-image';
+import { md } from '@/lib/utils';
+
 /**
  * The bio page for a single artist.
- * @param artist an artist 
- * @returns 
  */
-export function ArtistBio(props: { artist: Artist }) {
-    const { artist } = props;
-    const imageUrl = resolveImageUrl(artist.attributes.images.data[0]);
-
+export const ArtistBio: FC<{ artist: Artist; }> = ({ artist }) => {
     return (
         <div className={styles.artistBio}>
-            <img className={styles.artistImage} src={imageUrl} alt={artist.attributes.name} />
-            <div className={styles.artistInfo}>
-                <h1>{artist.attributes.name}</h1>
+            <StrapiImage
+                className={styles.artistImage}
+                image={artist.attributes.images.data[0]}
+                format='medium'
+                alt={artist.attributes.name}
+                priority
+            />
 
-                <p>{artist.attributes.bio}</p>
-                {artist.attributes.links.length > 0 ?
+            <div className={styles.artistInfo}>
+                <h1 dangerouslySetInnerHTML={{ __html: md.renderInline(artist.attributes.name) }} />
+
+                <div dangerouslySetInnerHTML={{ __html: md.render(artist.attributes.bio) }} />
+
+                {artist.attributes.links.length > 0 &&
                     <SocialLinks links={artist.attributes.links} />
-                    : undefined
                 }
             </div>
-            {artist.attributes.releases.data.length > 0 ?
+
+            {artist.attributes.releases.data.length > 0 && (
                 <div className={styles.artistReleases}>
-                    <h2>Releases</h2>
-                    <ReleaseGrid columns={4} releases={artist.attributes.releases.data} dateOrder={true} />
-                </div> : undefined
-            }
+                    <h2>
+                        Releases
+                    </h2>
+                    <ReleaseGrid
+                        columns={4}
+                        releases={artist.attributes.releases.data}
+                        dateOrder={true}
+                    />
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};

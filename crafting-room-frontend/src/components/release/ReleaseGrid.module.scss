@@ -1,0 +1,14 @@
+.releaseGrid {
+	display: grid;
+	gap: 20px;
+
+	grid-template-columns: repeat(var(--columns), 1fr);
+
+	@media (max-width: 992px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media (max-width: 576px) {
+		grid-template-columns: repeat(1, 1fr);
+	}
+}

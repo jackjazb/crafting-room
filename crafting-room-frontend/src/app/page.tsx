@@ -1,47 +1,50 @@
-import { Article, Homepage, resolveImageUrl, strapiFetch } from "@/lib/strapi-client";
-import { ReleaseGrid } from "@/components/release/ReleaseGrid";
-import { Spinner } from "@/components/loading/Spinner";
+import { NextPage } from 'next';
 import styles from './Home.module.css';
-import { Carousel } from "@/components/carousel/Carousel";
+import { ReleaseGrid } from '@/components/release/ReleaseGrid';
+import { Carousel } from '@/components/carousel/Carousel';
+import { strapi } from '@/lib/api/strapi-client';
+import { md } from '@/lib/utils';
 
-async function getHomepage(): Promise<Homepage> {
-    const path = 'homepage';
-    const params = {
-        populate: {
-            features: {
-                populate: "*"
-            },
-            releases: {
-                populate: "*"
-            }
-        }
-    };
+const HomePage: NextPage = async () => {
+    const res = await strapi.getHomePage();
+    const homePage = res.data;
 
-    const response = await strapiFetch(path, params);
-    return response.data;
-}
-
-export default async function Home() {
-    const homepage = await getHomepage();
-
-    const articleSlides = homepage.attributes.features.data.map((feature: Article) =>
-        <a key={feature.id} href={`news/${feature.attributes.title}`}>
-            <div className={styles.featuredImage} style={{ backgroundImage: `url(${resolveImageUrl(feature.attributes.images.data[0])})` }}>
-                <div className={styles.featureTitle}>{feature.attributes.title}</div>
-            </div>
-        </a>
-    );
+    const features = homePage.attributes.features.data;
 
     return (
         <div>
-            <Carousel>
-                {articleSlides}
-            </Carousel >
+            {features.length > 0 && (
+                <Carousel>
+                    {features.map(feature => (
+                        <a
+                            key={feature.id}
+                            href={`news/${feature.attributes.title}`}
+                        >
+                            <div
+                                className={styles.featuredImage}
+                                style={{ backgroundImage: `url(${strapi.imageFormat('medium', feature.attributes.images.data[0]).url})` }}
+                            >
+                                <span //TODO -> h2 this
+                                    className={styles.featureTitle}
+                                    dangerouslySetInnerHTML={{ __html: md.renderInline(feature.attributes.title) }}
+                                />
+                            </div>
+                        </a>
+                    ))}
+                </Carousel>
+            )}
 
             <div className={styles.featuredReleases}>
-                <h1>Featured Releases</h1>
-                <ReleaseGrid columns={4} releases={homepage.attributes.releases.data} />
+                <h1>
+                    Featured Releases
+                </h1>
+                <ReleaseGrid
+                    columns={4}
+                    releases={homePage.attributes.releases.data}
+                />
             </div>
-        </div >
+        </div>
     );
-}
+};
+
+export default HomePage;

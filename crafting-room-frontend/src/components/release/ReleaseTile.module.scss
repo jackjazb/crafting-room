@@ -1,0 +1,63 @@
+.release {
+    position: relative;
+}
+
+.releaseImage {
+    aspect-ratio: 1/1;
+    min-height: 100%;
+    width: 100%;
+    height: auto;
+}
+
+.releaseOverlay {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 10px;
+
+    @media (max-width: 768px) {
+        opacity: 1;
+    }
+
+    &:hover {
+        opacity: 1;
+    }
+
+    > * {
+        background-color: black;
+        color: white;
+        padding: 5px;
+
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        line-height: 1.2em;
+
+        @media (max-width: 768px) {
+            // padding: 5px;
+        }
+    }
+
+    .releaseTitle {
+        font-size: 1.3em;
+    }
+}
+
+.releaseArtist {
+    font-size: 0.9em;
+}
+
+.releaseLink {
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.releaseLink svg {
+    font-size: 1.75em;
+}

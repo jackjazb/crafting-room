@@ -5,6 +5,7 @@
         "crafting-room-frontend"
     ],
     "scripts": {
+        "install-all": "yarn workspaces foreach --all yarn add",
         "dev": "yarn workspace crafting-room-frontend dev",
         "build": "yarn workspace crafting-room-frontend build",
         "start": "yarn workspace crafting-room-frontend start",
@@ -12,6 +13,6 @@
     },
     "packageManager": "yarn@3.5.1",
     "devDependencies": {
-        "@types/node": "^20.2.1"
+        "@types/node": "^20.10.5"
     }
 }

@@ -1,39 +1,52 @@
-import { AboutPage, resolveImageUrl, strapiFetch } from "@/lib/strapi-client";
+import { NextPage } from 'next';
 import styles from './AboutPage.module.css';
-import { SubscribeForm } from "@/components/email/SubscribeForm";
+import { strapi } from '@/lib/api/strapi-client';
+import { StrapiImage } from '@/components/strapi-image/strapi-image';
+import { md } from '@/lib/utils';
 
-async function getAboutPage() {
-    const path = 'about-page';
-    const params = {
-        populate: {
-            image: {
-                populate: "*"
-            }
-        }
-    };
-    const response = await strapiFetch(path, params);
-    return response.data;
-}
+const AboutPage: NextPage = async () => {
+    const res = await strapi.getAboutPage();
+    const aboutPage = res.data;
 
-export default async function About() {
-    const aboutPage: AboutPage = await getAboutPage();
     return (
-        <div className="container">
-            <img className={styles.image} src={resolveImageUrl(aboutPage.attributes.image.data)} />
-            <h1>{aboutPage.attributes.header}</h1>
-            <p className={styles.content}>{aboutPage.attributes.content}</p>
-            {/* 
-            // This will require some extra thought and conferring with Archie. All working except actual storing of emails.
+        <div className='container'>
+            <StrapiImage
+                className={styles.image}
+                image={aboutPage.attributes.image.data}
+                format='medium'
+                priority
+            />
+
+            <h1 dangerouslySetInnerHTML={{ __html: md.renderInline(aboutPage.attributes.header) }} />
+
+            <div
+                className={styles.content}
+                dangerouslySetInnerHTML={{ __html: md.render(aboutPage.attributes.content) }}
+            />
+
+            {/*
+            This will require some extra thought and conferring with Archie.
+
+            All working except actual storing of emails.
+
             <h1>Subscribe</h1>
             <p>Subscribe to our mailing list.</p>
-            <SubscribeForm /> */}
-            {aboutPage.attributes.contact ?
+            <SubscribeForm />
+
+            */}
+            {aboutPage.attributes.contact && (
                 <>
-                    <h1>Contact</h1>
-                    <p className={styles.content}>{aboutPage.attributes.contact}</p>
+                    <h1>
+                        Contact
+                    </h1>
+                    <div //TODO -> check if this is renderInline in strapi. if it isnt a RTE, then turn this into a <a href="mailto:[EMAIL]">
+                        className={styles.content}
+                        dangerouslySetInnerHTML={{ __html: md.render(aboutPage.attributes.contact) }}
+                    />
                 </>
-                : undefined
-            }
+            )}
         </div>
-    )
-}   
+    );
+};
+
+export default AboutPage;

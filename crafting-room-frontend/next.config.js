@@ -1,4 +1,12 @@
+// eslint-disable-next-line tsdoc/syntax
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-module.exports = nextConfig
+module.exports = {
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'http',
+				hostname: '**' //TODO -> this might not be good
+			}
+		]
+	}
+};

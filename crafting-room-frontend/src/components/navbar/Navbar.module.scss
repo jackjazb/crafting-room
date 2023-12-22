@@ -1,0 +1,112 @@
+.navbar {
+    z-index: 99;
+    position: sticky;
+    top: 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    width: 100%;
+    background-color: black;
+
+    @media (min-width: 768px) {
+        padding: 0 10px;
+    }
+
+    &.open {
+        transform: translateX(0);
+
+        .menuIcon {
+            transform: rotate(-90deg);
+        }
+
+        .menu {
+            transform: translateX(0);
+        }
+    }
+
+    .menuIcon {
+        color: white;
+        height: 40px;
+        width: 40px;
+        margin: 10px 13px;
+
+        transform: rotate(0deg);
+        transition: transform var(--transition);
+
+        @media (min-width: 768px) {
+            display: none;
+        }
+    }
+
+    .menu {
+        margin: unset;
+        padding: unset;
+
+        position: absolute;
+
+        transform: translateX(-100%);
+
+        display: flex;
+        flex-direction: column;
+
+        top: 100%;
+        width: 100%;
+        height: calc(100dvh - var(--nav-height));
+        background-color: black;
+
+        transition: transform var(--transition);
+
+        @media (min-width: 768px) {
+            height: unset;
+            bottom: unset;
+            transition: unset;
+            transform: unset;
+            flex-direction: unset;
+            position: unset;
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+            font-size: 1.4em;
+            padding: 10px 20px;
+            color: white;
+
+            text-decoration: none;
+
+            @media (min-width: 768px) {
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+
+            &:hover {
+                //TODO -> make scss vars from these colors
+                $color: #0fa0ce;
+                color: $color;
+            }
+        }
+
+        .crrIcon {
+            display: none;
+
+            @media (min-width: 768px) {
+                display: flex;
+            }
+
+            svg {
+                @media (min-width: 768px) {
+                    height: 45px;
+                    width: 45px;
+                }
+            }
+        }
+
+        .homeTextOption {
+            @media (min-width: 768px) {
+                display: none;
+            }
+        }
+    }
+}

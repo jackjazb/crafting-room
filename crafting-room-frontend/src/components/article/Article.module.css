@@ -1,20 +1,14 @@
 .articleTopImage {
 	width: 100%;
-	margin-top: var(--nav-height);
-	object-fit: cover;
+	/* object-fit: cover; */
 	object-position: center;
-	height: calc(40vh - var(--nav-height));
+	height: 40vh;
 }
 
 @media(min-width: 700px) {
 	.articleTopImage {
-		height: calc(60vh - var(--nav-height));
+		height: 60vh;
 	}
-}
-
-div.article {
-	margin-top: 0;
-	white-space: pre-line;
 }
 
 .author {
