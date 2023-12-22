@@ -104,7 +104,7 @@ class StrapiClient extends ApiClient {
 	/**
 	 * Send a GET request to the Strapi API.
 	 *
-	 * The response type should be provided to provide effective typings.
+	 * The response data type should be provided to provide effective typings.
 	 * @param endpoint - Target endpoint
 	 * @param params - Target parameters
 	 * @returns Promise containing response data

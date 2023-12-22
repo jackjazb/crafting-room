@@ -69,9 +69,6 @@ export abstract class ApiClient {
 			timeout: this.options.timeout
 		});
 
-		//TODO -> outdated dependency ffs... pretty sure it still works though
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		//@ts-expect-error
 		axiosRetry(this.httpClient, {
 			retries: this.options.retryCount ?? 5
 		});
@@ -80,7 +77,7 @@ export abstract class ApiClient {
 	/**
 	 * Send a GET request to the API.
 	 *
-	 * The response type should be provided to provide effective typings.
+	 * The response data type should be provided to provide effective typings.
 	 * @param endpoint - Target endpoint
 	 * @param params - Target parameters
 	 * @returns Promise containing response data

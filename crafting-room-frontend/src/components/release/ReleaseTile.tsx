@@ -37,6 +37,8 @@ export const ReleaseTile: FC<{ release: Release; }> = ({ release }) => {
 					<a
 						className={styles.releaseLink}
 						href={release.attributes.link}
+						target='_blank'
+						rel='noreferrer'
 					>
 						<RxExternalLink />
 						Bandcamp
