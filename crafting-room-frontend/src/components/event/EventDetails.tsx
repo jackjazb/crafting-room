@@ -46,6 +46,8 @@ export const EventDetails: FC<{ event: Event; }> = ({ event }) => {
                         <a
                             className={styles.bookEvent}
                             href={event.attributes.link}
+                            target='_blank'
+                            rel='noreferrer'
                         >
                             <button className='button-primary'>
                                 Book Tickets

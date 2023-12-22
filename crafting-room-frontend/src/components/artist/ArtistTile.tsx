@@ -10,7 +10,7 @@ import { md } from '@/lib/utils';
 export const ArtistTile: FC<{ artist: Artist; }> = ({ artist }) => {
 	return (
 		<a
-			href={`/artists/${artist.attributes.name.toLowerCase()}`}
+			href={`artists/${artist.attributes.name.toLowerCase()}`}
 			className={styles.artist}
 			style={{ backgroundImage: `url(${strapi.imageFormat('medium', artist.attributes.images.data[0]).url})` }}
 		>

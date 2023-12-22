@@ -25,6 +25,8 @@ export const SocialLinks: FC<{ links: Array<SocialLink>; }> = ({ links }) => {
                 <a
                     key={link.linktype}
                     href={link.link}
+                    target='_blank'
+                    rel='noreferrer'
                 >
                     {icons[link.linktype]}
                 </a>
