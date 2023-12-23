@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styles from './EventDetails.module.css';
-import { formatDate, md } from '@/lib/utils';
+import { formatDate, markdown, markdownInline } from '@/lib/utils';
 import { ArtistTile } from '@/components/artist/ArtistTile';
 import { Event } from '@/types/strapi-responses';
 import { StrapiImage } from '@/components/strapi-image/strapi-image';
@@ -22,11 +22,11 @@ export const EventDetails: FC<{ event: Event; }> = ({ event }) => {
                 <div className={styles.eventInfo}>
                     <h2
                         className={styles.eventTitle}
-                        dangerouslySetInnerHTML={{ __html: md.renderInline(event.attributes.title) }}
+                        dangerouslySetInnerHTML={markdownInline(event.attributes.title)}
                     />
 
                     <div className={styles.eventDate}>
-                        <span dangerouslySetInnerHTML={{ __html: md.renderInline(event.attributes.venue) }} />
+                        <span dangerouslySetInnerHTML={markdownInline(event.attributes.venue)} />
                         {' '}
                         ~
                         {' '}
@@ -36,7 +36,7 @@ export const EventDetails: FC<{ event: Event; }> = ({ event }) => {
                     {event.attributes.description && (
                         <div
                             className={styles.eventDescription}
-                            dangerouslySetInnerHTML={{ __html: md.render(event.attributes.description) }}
+                            dangerouslySetInnerHTML={markdown(event.attributes.description)}
                         />
                     )}
 

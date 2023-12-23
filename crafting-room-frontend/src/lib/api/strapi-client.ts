@@ -4,6 +4,7 @@ import { ApiClient, ApiOptions } from '@/lib/api/api-client';
 import { required } from '@/lib/utils';
 import { AboutPage, Article, Artist, ArtistsPage, Event, HomePage, StorePage } from '@/types/strapi-responses';
 import { Collection, ImageData, ImageFormat, ImageFormatData, SingleType, StrapiRequestParams, StrapiResponse } from '@/types/strapi-types';
+import { OptionalProps } from '@/types/utils';
 
 /** Options for a Strapi API client. */
 type StrapiClientOptions = ApiOptions & {
@@ -18,8 +19,15 @@ type StrapiClientOptions = ApiOptions & {
  * A Strapi API client.
  */
 class StrapiClient extends ApiClient {
-	/** The options set for this Strapi API client instance. */
+	protected static override readonly defaultOptions: Required<OptionalProps<StrapiClientOptions>> = merge(
+		ApiClient.defaultOptions,
+		{
+			mediaProviderHostname: '' //default set in constructor
+		}
+	);
+
 	protected override readonly options: Required<StrapiClientOptions>;
+
 	/**
 	 * Fallback image data.
 	 *
@@ -92,27 +100,15 @@ class StrapiClient extends ApiClient {
 		}
 	};
 
-	/**
-	 * @param options - Target Strapi API client options
-	 */
 	constructor(options: StrapiClientOptions) {
 		super(options);
 		this.options = merge(
-			{},
-			ApiClient.defaultOptions,
+			StrapiClient.defaultOptions,
 			{ mediaProviderHostname: options.hostname },
 			options
 		);
 	}
 
-	/**
-	 * Send a GET request to the Strapi API.
-	 *
-	 * The response data type should be provided to provide effective typings.
-	 * @param endpoint - Target endpoint
-	 * @param params - Target parameters
-	 * @returns Promise containing response data
-	 */
 	protected async get<TData extends StrapiResponse>(endpoint: string, params?: StrapiRequestParams<TData>) {
 		const res = await this.httpClient.get<TData>(endpoint, { params });
 		return res.data;
@@ -130,9 +126,9 @@ class StrapiClient extends ApiClient {
 	 * @param format - Target image format
 	 * @returns Array with resolved Strapi image's data and format (if provided)
 	 */
-	resolveImage(image: ImageData | null | undefined): [ImageData, null];
-	resolveImage(image: ImageData | null | undefined, format: ImageFormat): [ImageData, ImageFormatData];
-	resolveImage(image: ImageData | null | undefined, format?: ImageFormat) {
+	image(image: ImageData | null | undefined): [ImageData, null];
+	image(image: ImageData | null | undefined, format: ImageFormat): [ImageData, ImageFormatData];
+	image(image: ImageData | null | undefined, format?: ImageFormat) {
 		let resolvedImage;
 
 		if (!image || process.env.ALL_FALLBACK_IMAGES) {
@@ -156,28 +152,21 @@ class StrapiClient extends ApiClient {
 	}
 
 	/**
-	 * Resolve a Strapi image's data and return a `React.CSSProperties` object with the
-	 * background-image (and background-color if provided) set.
-	 *
-	 * It might be beneficial to provide a fallback background-color to display while the image
-	 * is loading. This could be a CSS variable.
+	 * Resolve a Strapi image's data and return a `React.CSSProperties` object with
+	 * the `backgroundImage` property set.
 	 *
 	 * If image was `null` or `undefined`, the fallback image's data will be used.
 	 *
 	 * **This will fix the image's URL for you!**
 	 * @param image - Target image data
 	 * @param format - Target image format
-	 * @param color - Target fallback background-color
-	 * @returns `React.CSSProperties` with resolved background-image (and background-color if provided) set
+	 * @returns `React.CSSProperties` with `backgroundImage` set
 	 */
-	resolveBackgroundImage(image: ImageData | null | undefined, format?: ImageFormat | null, color?: string) {
-		const url = !format
-			? this.resolveImage(image)[0].attributes.url
-			: this.resolveImage(image, format)[1].url;
-		const cssProps: CSSProperties = {
-			backgroundImage: `url('${url}')`,
-			backgroundColor: color
-		};
+	backgroundImageCSS(image: ImageData | null | undefined, format?: ImageFormat | null) {
+		const resolvedUrl = !format
+			? this.image(image)[0].attributes.url
+			: this.image(image, format)[1].url;
+		const cssProps: CSSProperties = { backgroundImage: `url('${resolvedUrl}')` };
 		return cssProps;
 	}
 

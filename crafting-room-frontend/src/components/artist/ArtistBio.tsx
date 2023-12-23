@@ -4,7 +4,7 @@ import styles from './ArtistBio.module.css';
 import { SocialLinks } from './SocialLinks';
 import { Artist } from '@/types/strapi-responses';
 import { StrapiImage } from '@/components/strapi-image/strapi-image';
-import { md } from '@/lib/utils';
+import { markdown, markdownInline } from '@/lib/utils';
 
 /**
  * The bio page for a single artist.
@@ -21,9 +21,9 @@ export const ArtistBio: FC<{ artist: Artist; }> = ({ artist }) => {
             />
 
             <div className={styles.artistInfo}>
-                <h1 dangerouslySetInnerHTML={{ __html: md.renderInline(artist.attributes.name) }} />
+                <h1 dangerouslySetInnerHTML={markdownInline(artist.attributes.name)} />
 
-                <div dangerouslySetInnerHTML={{ __html: md.render(artist.attributes.bio) }} />
+                <div dangerouslySetInnerHTML={markdown(artist.attributes.bio)} />
 
                 {artist.attributes.links.length > 0 &&
                     <SocialLinks links={artist.attributes.links} />

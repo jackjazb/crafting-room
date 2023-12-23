@@ -37,7 +37,7 @@ export type ApiOptions = {
  */
 export abstract class ApiClient {
 	/**
-	 * The default options for the API client.
+	 * The default options for an API client.
 	 *
 	 * This has to be static.
 	 *
@@ -52,8 +52,10 @@ export abstract class ApiClient {
 		retryCount: 5,
 		timeout: 30000
 	};
+
 	/** The options set for this API client instance. */
 	protected readonly options: Required<ApiOptions>;
+
 	/** The Axios HTTP client instance being used to perform API calls. */
 	protected readonly httpClient: AxiosInstance;
 

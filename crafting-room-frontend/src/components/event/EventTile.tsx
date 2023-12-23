@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './EventTile.module.css';
 import { StrapiImage } from '@/components/strapi-image/strapi-image';
-import { formatDate, md } from '@/lib/utils';
+import { formatDate, markdownInline } from '@/lib/utils';
 import { Event } from '@/types/strapi-responses';
 
 /**
@@ -31,7 +31,7 @@ export const EventTile: FC<{ event: Event; canBook: boolean; }> = ({ event, canB
 			<div className={styles.eventDetails}>
 				<div //TODO -> h2/h3/h4/h5 this
 					className={styles.eventTitle}
-					dangerouslySetInnerHTML={{ __html: md.renderInline(event.attributes.title) }}
+					dangerouslySetInnerHTML={markdownInline(event.attributes.title)}
 				/>
 
 				{/* TODO -> <p> this probably */}
