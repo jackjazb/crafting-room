@@ -11,7 +11,7 @@ type StrapiImageProps = {
 	 * If `undefined`, a sequence of fallbacks occurs to return the next
 	 * available image format.
 	 */
-	image: ImageData | undefined;
+	image: ImageData | null | undefined;
 	/** The target image format. */
 	format: ImageFormat;
 	/** Override the image's provided alt text. */
@@ -26,15 +26,14 @@ type StrapiImageProps = {
  * A Strapi image wrapped in a Next.js `<Image>` tag.
  */
 export const StrapiImage: FC<StrapiImageProps> = ({ className, image, format, alt, lazy, priority }) => {
-	const resolvedImage = strapi.image(image);
-	const resolvedImageFormat = strapi.imageFormat(format, image);
+	const [resolvedImage, resolvedFormat] = strapi.resolveImage(image, format);
 
 	return (
 		<Image
 			className={className}
-			src={resolvedImageFormat.url}
-			width={resolvedImageFormat.width}
-			height={resolvedImageFormat.height}
+			src={resolvedFormat.url}
+			width={resolvedFormat.width}
+			height={resolvedFormat.height}
 			alt={alt ?? resolvedImage.attributes.alternativeText ?? 'CRR Image'}
 			loading={lazy ? 'lazy' : undefined}
 			priority={priority}

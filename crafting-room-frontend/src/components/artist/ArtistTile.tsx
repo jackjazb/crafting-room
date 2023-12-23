@@ -12,9 +12,9 @@ export const ArtistTile: FC<{ artist: Artist; }> = ({ artist }) => {
 		<a
 			href={`artists/${artist.attributes.name.toLowerCase()}`}
 			className={styles.artist}
-			style={{ backgroundImage: `url(${strapi.imageFormat('medium', artist.attributes.images.data[0]).url})` }}
+			style={strapi.resolveBackgroundImage(artist.attributes.images.data[0], 'medium')}
 		>
-			<div
+			<div //TODO -> h2/h3/h4/h5 this
 				className={styles.name}
 				dangerouslySetInnerHTML={{ __html: md.renderInline(artist.attributes.name) }}
 			/>

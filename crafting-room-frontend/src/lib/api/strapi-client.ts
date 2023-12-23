@@ -1,8 +1,9 @@
 import { merge } from 'lodash';
+import { CSSProperties } from 'react';
 import { ApiClient, ApiOptions } from '@/lib/api/api-client';
 import { required } from '@/lib/utils';
 import { AboutPage, Article, Artist, ArtistsPage, Event, HomePage, StorePage } from '@/types/strapi-responses';
-import { Collection, ImageData, ImageFormat, SingleType, StrapiRequestParams, StrapiResponse } from '@/types/strapi-types';
+import { Collection, ImageData, ImageFormat, ImageFormatData, SingleType, StrapiRequestParams, StrapiResponse } from '@/types/strapi-types';
 
 /** Options for a Strapi API client. */
 type StrapiClientOptions = ApiOptions & {
@@ -96,9 +97,12 @@ class StrapiClient extends ApiClient {
 	 */
 	constructor(options: StrapiClientOptions) {
 		super(options);
-		this.options = merge({}, ApiClient.defaultOptions, {
-			mediaProviderHostname: options.hostname
-		}, options);
+		this.options = merge(
+			{},
+			ApiClient.defaultOptions,
+			{ mediaProviderHostname: options.hostname },
+			options
+		);
 	}
 
 	/**
@@ -115,53 +119,74 @@ class StrapiClient extends ApiClient {
 	}
 
 	/**
-	 * Resolve a Strapi Image.
+	 * Resolve and return a Strapi image's data and format (if provided).
 	 *
-	 * If image was `undefined`, the fallback image will be returned instead.
+	 * If image was `null` or `undefined`, the fallback image's data will be returned.
 	 *
 	 * If `process.env.ALL_FALLBACK_IMAGES` is `true`, then the fallback image will always be returned.
 	 *
-	 * **This will transform/fix the format's image URL for you!**
+	 * **This will fix the image's URL for you!**
 	 * @param image - Target image data
-	 * @returns Resolved image
+	 * @param format - Target image format
+	 * @returns Array with resolved Strapi image's data and format (if provided)
 	 */
-	image(image: ImageData | undefined) {
-		if (process.env.ALL_FALLBACK_IMAGES)
-			return this.fallbackImage;
+	resolveImage(image: ImageData | null | undefined): [ImageData, null];
+	resolveImage(image: ImageData | null | undefined, format: ImageFormat): [ImageData, ImageFormatData];
+	resolveImage(image: ImageData | null | undefined, format?: ImageFormat) {
+		let resolvedImage;
 
-		const resolvedImage = image
-			?? this.fallbackImage;
+		if (!image || process.env.ALL_FALLBACK_IMAGES) {
+			resolvedImage = this.fallbackImage;
+		} else {
+			resolvedImage = image;
 
-		//fix all the image urls
-		resolvedImage.attributes.url = this.fixMediaUrl(resolvedImage.attributes.url);
-		for (const data of Object.values(resolvedImage.attributes.formats))
-			data.url = this.fixMediaUrl(data.url);
+			//fix all the image urls
+			resolvedImage.attributes.url = this.mediaURL(resolvedImage.attributes.url);
+			for (const data of Object.values(resolvedImage.attributes.formats))
+				data.url = this.mediaURL(data.url);
+		}
 
-		return resolvedImage;
-	}
+		if (!format)
+			return [resolvedImage, null];
 
-	/**
-	 * Resolve a Strapi Image format.
-	 *
-	 * If image was `undefined`, the fallback image's format will be returned instead.
-	 *
-	 * **This will transform/fix the image format's URL for you!**
-	 * @param format - Target format
-	 * @param image - Target image data
-	 * @returns Resolved image format
-	 */
-	imageFormat(format: ImageFormat, image: ImageData | undefined) {
-		const resolvedImage = this.image(image);
-		return resolvedImage.attributes.formats[format]
+		const resolvedFormat = resolvedImage.attributes.formats[format]
 			?? resolvedImage.attributes.formats.medium!;
+
+		return [resolvedImage, resolvedFormat];
 	}
 
 	/**
-	 * Transforms a Strapi media item's URL by prepending it the media provider's hostname (if necessary).
-	 * @param url - Target media URL
-	 * @returns Transformed media URL
+	 * Resolve a Strapi image's data and return a `React.CSSProperties` object with the
+	 * background-image (and background-color if provided) set.
+	 *
+	 * It might be beneficial to provide a fallback background-color to display while the image
+	 * is loading. This could be a CSS variable.
+	 *
+	 * If image was `null` or `undefined`, the fallback image's data will be used.
+	 *
+	 * **This will fix the image's URL for you!**
+	 * @param image - Target image data
+	 * @param format - Target image format
+	 * @param color - Target fallback background-color
+	 * @returns `React.CSSProperties` with resolved background-image (and background-color if provided) set
 	 */
-	private fixMediaUrl(url: string) {
+	resolveBackgroundImage(image: ImageData | null | undefined, format?: ImageFormat | null, color?: string) {
+		const url = !format
+			? this.resolveImage(image)[0].attributes.url
+			: this.resolveImage(image, format)[1].url;
+		const cssProps: CSSProperties = {
+			backgroundImage: `url('${url}')`,
+			backgroundColor: color
+		};
+		return cssProps;
+	}
+
+	/**
+	 * Resolves a Strapi media item's URL by prepending it the media provider's hostname if necessary.
+	 * @param url - Target media URL
+	 * @returns Resolved media URL
+	 */
+	mediaURL(url: string) {
 		return url.startsWith('/')
 			? this.options.mediaProviderHostname + url
 			: url;

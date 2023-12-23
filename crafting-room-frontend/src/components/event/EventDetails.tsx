@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styles from './EventDetails.module.css';
-import { getDateParts, md } from '@/lib/utils';
+import { formatDate, md } from '@/lib/utils';
 import { ArtistTile } from '@/components/artist/ArtistTile';
 import { Event } from '@/types/strapi-responses';
 import { StrapiImage } from '@/components/strapi-image/strapi-image';
@@ -9,8 +9,6 @@ import { StrapiImage } from '@/components/strapi-image/strapi-image';
  * Details of an event on an event page.
  */
 export const EventDetails: FC<{ event: Event; }> = ({ event }) => {
-    const { day, weekday, month } = getDateParts(event.attributes.date);
-
     return (
         <>
             <div className={styles.eventDetails}>
@@ -32,7 +30,7 @@ export const EventDetails: FC<{ event: Event; }> = ({ event }) => {
                         {' '}
                         ~
                         {' '}
-                        {`${weekday}, ${day} ${month}`}
+                        {formatDate(event.attributes.date)}
                     </div>
 
                     {event.attributes.description && (

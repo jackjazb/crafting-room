@@ -8,7 +8,6 @@ import { md } from '@/lib/utils';
 const HomePage: NextPage = async () => {
     const res = await strapi.getHomePage();
     const homePage = res.data;
-
     const features = homePage.attributes.features.data;
 
     return (
@@ -22,9 +21,9 @@ const HomePage: NextPage = async () => {
                         >
                             <div
                                 className={styles.featuredImage}
-                                style={{ backgroundImage: `url(${strapi.imageFormat('medium', feature.attributes.images.data[0]).url})` }}
+                                style={strapi.resolveBackgroundImage(feature.attributes.images.data[0], 'medium')}
                             >
-                                <span //TODO -> h2 this
+                                <span //TODO -> h2/h3/h4/h5 this
                                     className={styles.featureTitle}
                                     dangerouslySetInnerHTML={{ __html: md.renderInline(feature.attributes.title) }}
                                 />
