@@ -9,7 +9,7 @@ const SOCIAL_ICON_SIZE = 30;
  */
 export const Footer: FC = () => {
 	return (
-		<div className={styles.footer}>
+		<footer className={styles.footer}>
 			<a
 				href='https://www.instagram.com/crafting_room/?hl=en'
 				target='_blank'
@@ -38,6 +38,6 @@ export const Footer: FC = () => {
 			>
 				<SiTwitter size={SOCIAL_ICON_SIZE} />
 			</a>
-		</div>
+		</footer>
 	);
 };

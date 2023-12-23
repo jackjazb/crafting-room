@@ -5,9 +5,9 @@ import { strapi } from '@/lib/api/strapi-client';
 import { Artist } from '@/types/strapi-responses';
 
 /**
- * Generates a set of artist tiles from a list of Artists.
+ * Generate a set of artist tiles from a list of Artists.
  */
-const artistTiles = (artists: Artist[]) =>
+const makeArtistTiles = (artists: Artist[]) =>
 	artists.map(artist => (
 		<ArtistTile
 			key={artist.id}
@@ -33,7 +33,7 @@ export const ArtistsPage: NextPage = async () => {
 						{group.header}
 					</h2>
 					<div className={styles.artists}>
-						{artistTiles(group.artists.data)}
+						{makeArtistTiles(group.artists.data)}
 					</div>
 				</div>
 			))}
@@ -44,7 +44,7 @@ export const ArtistsPage: NextPage = async () => {
 						{artistsPage.attributes.inactive.header}
 					</h2>
 					<div className={`${styles.artists} ${styles.inactive}`}>
-						{artistTiles(artistsPage.attributes.inactive.artists.data)}
+						{makeArtistTiles(artistsPage.attributes.inactive.artists.data)}
 					</div>
 				</div>
 			)}

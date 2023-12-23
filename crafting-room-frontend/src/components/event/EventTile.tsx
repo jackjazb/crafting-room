@@ -1,15 +1,13 @@
 import { FC } from 'react';
 import styles from './EventTile.module.css';
 import { StrapiImage } from '@/components/strapi-image/strapi-image';
-import { getDateParts, md } from '@/lib/utils';
+import { formatDate, markdownInline } from '@/lib/utils';
 import { Event } from '@/types/strapi-responses';
 
 /**
  * An event tile on the events list page.
  */
 export const EventTile: FC<{ event: Event; canBook: boolean; }> = ({ event, canBook }) => {
-	const { day, weekday, month } = getDateParts(event.attributes.date);
-
 	const bookLink = event.attributes.link && (
 		<a href={event.attributes.link}>
 			<button className='button-primary'>
@@ -31,13 +29,14 @@ export const EventTile: FC<{ event: Event; canBook: boolean; }> = ({ event, canB
 			/>
 
 			<div className={styles.eventDetails}>
-				<div
+				<div //TODO -> h2/h3/h4/h5 this
 					className={styles.eventTitle}
-					dangerouslySetInnerHTML={{ __html: md.renderInline(event.attributes.title) }}
+					dangerouslySetInnerHTML={markdownInline(event.attributes.title)}
 				/>
 
+				{/* TODO -> <p> this probably */}
 				<div className={styles.eventDetails}>
-					{`${weekday}, ${day} ${month}`}
+					{formatDate(event.attributes.date)}
 				</div>
 			</div>
 

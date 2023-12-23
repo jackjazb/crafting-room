@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 import { strapi } from '@/lib/api/strapi-client';
 import { ImageData, ImageFormat } from '@/types/strapi-types';
+import { fallbackBackgroundColorCSS } from '@/lib/utils';
 
 type StrapiImageProps = {
 	className?: string;
@@ -11,9 +12,11 @@ type StrapiImageProps = {
 	 * If `undefined`, a sequence of fallbacks occurs to return the next
 	 * available image format.
 	 */
-	image: ImageData | undefined;
+	image: ImageData | null | undefined;
 	/** The target image format. */
 	format: ImageFormat;
+	/** Override or disable the default image fallback color. */
+	fallbackColor?: string | false;
 	/** Override the image's provided alt text. */
 	alt?: string;
 	/** Whether the image should lazy-load or not. */
@@ -25,19 +28,19 @@ type StrapiImageProps = {
 /**
  * A Strapi image wrapped in a Next.js `<Image>` tag.
  */
-export const StrapiImage: FC<StrapiImageProps> = ({ className, image, format, alt, lazy, priority }) => {
-	const resolvedImage = strapi.image(image);
-	const resolvedImageFormat = strapi.imageFormat(format, image);
+export const StrapiImage: FC<StrapiImageProps> = props => {
+	const [resolvedImage, resolvedFormat] = strapi.image(props.image, props.format);
 
 	return (
 		<Image
-			className={className}
-			src={resolvedImageFormat.url}
-			width={resolvedImageFormat.width}
-			height={resolvedImageFormat.height}
-			alt={alt ?? resolvedImage.attributes.alternativeText ?? 'CRR Image'}
-			loading={lazy ? 'lazy' : undefined}
-			priority={priority}
+			className={props.className}
+			style={fallbackBackgroundColorCSS(props.fallbackColor)}
+			src={resolvedFormat.url}
+			width={resolvedFormat.width}
+			height={resolvedFormat.height}
+			alt={props.alt ?? resolvedImage.attributes.alternativeText ?? 'CRR Image'}
+			loading={props.lazy ? 'lazy' : undefined}
+			priority={props.priority}
 		/>
 	);
 };

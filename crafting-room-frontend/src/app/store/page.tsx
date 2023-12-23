@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import styles from './Store.module.css';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { strapi } from '@/lib/api/strapi-client';
-import { md } from '@/lib/utils';
+import { markdownInline } from '@/lib/utils';
 
 const StorePage: NextPage = async () => {
     const res = await strapi.getStorePage();
@@ -27,7 +27,7 @@ const StorePage: NextPage = async () => {
                     key={group.id}
                     className={styles.releaseGroup}
                 >
-                    <h2 dangerouslySetInnerHTML={{ __html: md.renderInline(group.header) }} />
+                    <h2 dangerouslySetInnerHTML={markdownInline(group.header)} />
 
                     <ReleaseGrid
                         columns={4}

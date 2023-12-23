@@ -1,8 +1,10 @@
 import { merge } from 'lodash';
+import { CSSProperties } from 'react';
 import { ApiClient, ApiOptions } from '@/lib/api/api-client';
 import { required } from '@/lib/utils';
 import { AboutPage, Article, Artist, ArtistsPage, Event, HomePage, StorePage } from '@/types/strapi-responses';
-import { Collection, ImageData, ImageFormat, SingleType, StrapiRequestParams, StrapiResponse } from '@/types/strapi-types';
+import { Collection, ImageData, ImageFormat, ImageFormatData, SingleType, StrapiRequestParams, StrapiResponse } from '@/types/strapi-types';
+import { OptionalProps } from '@/types/utils';
 
 /** Options for a Strapi API client. */
 type StrapiClientOptions = ApiOptions & {
@@ -17,8 +19,15 @@ type StrapiClientOptions = ApiOptions & {
  * A Strapi API client.
  */
 class StrapiClient extends ApiClient {
-	/** The options set for this Strapi API client instance. */
+	protected static override readonly defaultOptions: Required<OptionalProps<StrapiClientOptions>> = merge(
+		ApiClient.defaultOptions,
+		{
+			mediaProviderHostname: '' //default set in constructor
+		}
+	);
+
 	protected override readonly options: Required<StrapiClientOptions>;
+
 	/**
 	 * Fallback image data.
 	 *
@@ -91,77 +100,83 @@ class StrapiClient extends ApiClient {
 		}
 	};
 
-	/**
-	 * @param options - Target Strapi API client options
-	 */
 	constructor(options: StrapiClientOptions) {
 		super(options);
-		this.options = merge({}, ApiClient.defaultOptions, {
-			mediaProviderHostname: options.hostname
-		}, options);
+		this.options = merge(
+			{},
+			StrapiClient.defaultOptions,
+			{ mediaProviderHostname: options.hostname },
+			options
+		);
 	}
 
-	/**
-	 * Send a GET request to the Strapi API.
-	 *
-	 * The response data type should be provided to provide effective typings.
-	 * @param endpoint - Target endpoint
-	 * @param params - Target parameters
-	 * @returns Promise containing response data
-	 */
 	protected async get<TData extends StrapiResponse>(endpoint: string, params?: StrapiRequestParams<TData>) {
 		const res = await this.httpClient.get<TData>(endpoint, { params });
 		return res.data;
 	}
 
 	/**
-	 * Resolve a Strapi Image.
+	 * Resolve and return a Strapi image's data and format (if provided).
 	 *
-	 * If image was `undefined`, the fallback image will be returned instead.
+	 * If image was `null` or `undefined`, the fallback image's data will be returned.
 	 *
 	 * If `process.env.ALL_FALLBACK_IMAGES` is `true`, then the fallback image will always be returned.
 	 *
-	 * **This will transform/fix the format's image URL for you!**
+	 * **This will fix the image's URL for you!**
 	 * @param image - Target image data
-	 * @returns Resolved image
+	 * @param format - Target image format
+	 * @returns Array with resolved Strapi image's data and format (if provided)
 	 */
-	image(image: ImageData | undefined) {
-		if (process.env.ALL_FALLBACK_IMAGES)
-			return this.fallbackImage;
+	image(image: ImageData | null | undefined): [ImageData, null];
+	image(image: ImageData | null | undefined, format: ImageFormat): [ImageData, ImageFormatData];
+	image(image: ImageData | null | undefined, format?: ImageFormat) {
+		let resolvedImage;
 
-		const resolvedImage = image
-			?? this.fallbackImage;
+		if (!image || process.env.ALL_FALLBACK_IMAGES) {
+			resolvedImage = this.fallbackImage;
+		} else {
+			resolvedImage = image;
 
-		//fix all the image urls
-		resolvedImage.attributes.url = this.fixMediaUrl(resolvedImage.attributes.url);
-		for (const data of Object.values(resolvedImage.attributes.formats))
-			data.url = this.fixMediaUrl(data.url);
+			//fix all the image urls
+			resolvedImage.attributes.url = this.mediaURL(resolvedImage.attributes.url);
+			for (const data of Object.values(resolvedImage.attributes.formats))
+				data.url = this.mediaURL(data.url);
+		}
 
-		return resolvedImage;
-	}
+		if (!format)
+			return [resolvedImage, null];
 
-	/**
-	 * Resolve a Strapi Image format.
-	 *
-	 * If image was `undefined`, the fallback image's format will be returned instead.
-	 *
-	 * **This will transform/fix the image format's URL for you!**
-	 * @param format - Target format
-	 * @param image - Target image data
-	 * @returns Resolved image format
-	 */
-	imageFormat(format: ImageFormat, image: ImageData | undefined) {
-		const resolvedImage = this.image(image);
-		return resolvedImage.attributes.formats[format]
+		const resolvedFormat = resolvedImage.attributes.formats[format]
 			?? resolvedImage.attributes.formats.medium!;
+
+		return [resolvedImage, resolvedFormat];
 	}
 
 	/**
-	 * Transforms a Strapi media item's URL by prepending it the media provider's hostname (if necessary).
-	 * @param url - Target media URL
-	 * @returns Transformed media URL
+	 * Resolve a Strapi image's data and return a `React.CSSProperties` object with
+	 * the `backgroundImage` property set.
+	 *
+	 * If image was `null` or `undefined`, the fallback image's data will be used.
+	 *
+	 * **This will fix the image's URL for you!**
+	 * @param image - Target image data
+	 * @param format - Target image format
+	 * @returns `React.CSSProperties` with `backgroundImage` set
 	 */
-	private fixMediaUrl(url: string) {
+	backgroundImageCSS(image: ImageData | null | undefined, format?: ImageFormat | null) {
+		const resolvedUrl = !format
+			? this.image(image)[0].attributes.url
+			: this.image(image, format)[1].url;
+		const cssProps: CSSProperties = { backgroundImage: `url('${resolvedUrl}')` };
+		return cssProps;
+	}
+
+	/**
+	 * Resolves a Strapi media item's URL by prepending it the media provider's hostname if necessary.
+	 * @param url - Target media URL
+	 * @returns Resolved media URL
+	 */
+	mediaURL(url: string) {
 		return url.startsWith('/')
 			? this.options.mediaProviderHostname + url
 			: url;

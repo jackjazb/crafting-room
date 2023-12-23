@@ -3,7 +3,7 @@ import { FC } from 'react';
 import styles from './ReleaseTile.module.scss';
 import { Release } from '@/types/strapi-responses';
 import { StrapiImage } from '@/components/strapi-image/strapi-image';
-import { md } from '@/lib/utils';
+import { markdownInline } from '@/lib/utils';
 
 /**
  * Renders a single release with a Bandcamp link.
@@ -22,15 +22,14 @@ export const ReleaseTile: FC<{ release: Release; }> = ({ release }) => {
 			/>
 
 			<div className={styles.releaseOverlay}>
-				<div
+				<div //TODO -> h2/h3/h4/h5 this
 					className={styles.releaseTitle}
-					dangerouslySetInnerHTML={{ __html: md.renderInline(release.attributes.title) }}
+					dangerouslySetInnerHTML={markdownInline(release.attributes.title)}
 				/>
 
-				<div
+				<div //TODO -> h2/h3/h4/h5 this (lower than above)
 					className={styles.releaseArtist}
-					// eslint-disable-next-line max-len
-					dangerouslySetInnerHTML={{ __html: md.renderInline(release.attributes.artist.data.attributes.name) }}
+					dangerouslySetInnerHTML={markdownInline(release.attributes.artist.data.attributes.name)}
 				/>
 
 				{release.attributes.link && (

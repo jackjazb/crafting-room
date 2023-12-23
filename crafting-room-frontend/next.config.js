@@ -5,7 +5,7 @@ module.exports = {
 		remotePatterns: [
 			{
 				protocol: 'http',
-				hostname: '**' //TODO -> this might not be good
+				hostname: '**' //TODO -> this might not be good, double check this one
 			}
 		]
 	}

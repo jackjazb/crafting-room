@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import styles from './AboutPage.module.css';
 import { strapi } from '@/lib/api/strapi-client';
 import { StrapiImage } from '@/components/strapi-image/strapi-image';
-import { md } from '@/lib/utils';
+import { markdown, markdownInline } from '@/lib/utils';
 
 const AboutPage: NextPage = async () => {
     const res = await strapi.getAboutPage();
@@ -15,13 +15,14 @@ const AboutPage: NextPage = async () => {
                 image={aboutPage.attributes.image.data}
                 format='medium'
                 priority
+                fallbackColor={false}
             />
 
-            <h1 dangerouslySetInnerHTML={{ __html: md.renderInline(aboutPage.attributes.header) }} />
+            <h1 dangerouslySetInnerHTML={markdownInline(aboutPage.attributes.header)} />
 
             <div
                 className={styles.content}
-                dangerouslySetInnerHTML={{ __html: md.render(aboutPage.attributes.content) }}
+                dangerouslySetInnerHTML={markdown(aboutPage.attributes.content)}
             />
 
             {/*
@@ -41,7 +42,7 @@ const AboutPage: NextPage = async () => {
                     </h1>
                     <div //TODO -> check if this is renderInline in strapi. if it isnt a RTE, then turn this into a <a href="mailto:[EMAIL]">
                         className={styles.content}
-                        dangerouslySetInnerHTML={{ __html: md.render(aboutPage.attributes.contact) }}
+                        dangerouslySetInnerHTML={markdown(aboutPage.attributes.contact)}
                     />
                 </>
             )}

@@ -2,6 +2,7 @@
     --transition: 200ms ease-in-out;
     --border-radius: 4px;
     --button-color: #33C3F0;
+    --fallback-image-color: #e8eef0;
 }
 
 @font-face {
