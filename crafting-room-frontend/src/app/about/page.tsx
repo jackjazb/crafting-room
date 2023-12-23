@@ -15,6 +15,7 @@ const AboutPage: NextPage = async () => {
                 image={aboutPage.attributes.image.data}
                 format='medium'
                 priority
+                fallbackColor={false}
             />
 
             <h1 dangerouslySetInnerHTML={markdownInline(aboutPage.attributes.header)} />
