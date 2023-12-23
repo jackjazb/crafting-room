@@ -103,6 +103,7 @@ class StrapiClient extends ApiClient {
 	constructor(options: StrapiClientOptions) {
 		super(options);
 		this.options = merge(
+			{},
 			StrapiClient.defaultOptions,
 			{ mediaProviderHostname: options.hostname },
 			options
