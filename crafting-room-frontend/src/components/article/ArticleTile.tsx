@@ -13,12 +13,11 @@ type Props = {
  */
 export const ArticleTile: FC<Props> = props => {
 	return (
-		<a
-			className={styles.articleTile}
-			href={`/news/${props.article.attributes.slug}`}
-		>
-			<div //TODO -> potentially convert this to StrapiImage like other tiles?
-				className={styles.articleThumbnail}
+		// TODO -> potentially convert this to StrapiImage like other tiles?
+		<div className={styles.articleTile}>
+			<a
+				className={styles.articleLink}
+				href={`/news/${props.article.attributes.slug}`}
 				style={backgroundCSS(props.article.attributes.images.data[0], 'medium')}
 			>
 				<div
@@ -45,8 +44,8 @@ export const ArticleTile: FC<Props> = props => {
 				>
 					{formatDate(props.article.attributes.createdAt)}
 				</div>
-			</div>
-		</a>
+			</a>
+		</div>
 	);
 };
 

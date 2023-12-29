@@ -46,6 +46,6 @@ export const backgroundCSS = (
 	const url = resolvedFormat?.url ?? resolvedImage.attributes.url;
 
 	return merge({},
-		{ backgroundImage: `url('${url}')`, test: 1 },
+		{ backgroundImage: `url('${url}')` },
 		fallbackBackgroundColorCSS(fallbackColor)) as CSSProperties;
 };

@@ -1,13 +1,18 @@
-.eventTile:first-child {
-	padding-top: 0;
-}
-
 .eventTile {
 	display: flex;
 	gap: 15px;
 	border-bottom: 1px solid lightgray;
 	padding: 20px 0px;
 	color: black;
+
+	&:first-child {
+		padding-top: unset;
+	}
+
+	&:last-child {
+		border-bottom: unset;
+		padding-bottom: unset;
+	}
 
 	@media (max-width: 992px) {
 		display: grid;
@@ -17,10 +22,6 @@
 	@media (max-width: 576px) {
 		gap: 10px;
 	}
-}
-
-.eventTile:last-child {
-	border-bottom: none;
 }
 
 .eventThumbnail {

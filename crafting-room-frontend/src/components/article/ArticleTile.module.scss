@@ -1,14 +1,19 @@
-.articleTile:last-of-type {
-    border: none;
-}
-
 .articleTile {
     display: flex;
     padding: 20px 0px;
     border-bottom: 1px solid lightgray;
+
+    &:first-child {
+        padding-top: unset;
+    }
+
+    &:last-child {
+        border-bottom: unset;
+        padding-bottom: unset;
+    }
 }
 
-.articleThumbnail {
+.articleLink {
     height: 200px;
     display: flex;
     flex-direction: column;
