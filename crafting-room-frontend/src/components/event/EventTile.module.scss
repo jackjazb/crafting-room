@@ -13,6 +13,10 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 	}
+
+	@media (max-width: 576px) {
+		gap: 10px;
+	}
 }
 
 .eventTile:last-child {
@@ -77,9 +81,9 @@
 	}
 }
 
-.eventOptions * {
+.eventOptions > * {
 	width: 100%;
-	padding: 0 30px;
+	padding: 0 40px;
 	margin-bottom: unset;
 
 	@media (max-width: 992px) {
