@@ -21,19 +21,44 @@ JWT_SECRET=
 
 crafting-room-frontend/.env.example
 ```python
-# The docker bridge network endpoint for Strapi
 # The host URL for Strapi.
 # - Required!
-STRAPI_HOST="http://127.0.0.1:1337"
+STRAPI_HOST=""
 
 # The host URL for Strapi media.
-# - Required!
-STRAPI_MEDIA_PROVIDER_HOST="http://127.0.0.1:1337"
-
-# Whether to use fallback images for every image on the site.
-# - Ideal for development with no media.
 # - Optional
-# ALL_FALLBACK_IMAGES=false
+# - If empty or undefined: defaults to value of `STRAPI_HOST`
+STRAPI_MEDIA_PROVIDER_HOST=""
+
+# Whether to use the fallback image for every image on the site.
+# - Ideal for development with no media.
+# - Primarily for development
+# - Optional
+# - If empty or undefined: defaults to `false`
+ALWAYS_USE_FALLBACK_IMAGE=false
+
+# Override the default fallback image with the provided image URL.
+# - This could be from a random image generator such as https://picsum.photos
+# - If you do you a random image generator, please note `DISABLE_IMAGE_CACHING` below
+# - Primarily for development
+# - Optional
+# - If empty or undefined: defaults to `/fallback.png`
+FALLBACK_IMAGE_URL=""
+
+# Whether to enable or disable caching of images.
+# - If enabled, a random querystring parameter is appended to the image URL.
+# - This prevents the browser from caching the image.
+# - Primarily intended for use with `FALLBACK_IMAGE_URL` with a random image generator
+# - Primarily for development
+# - Optional
+# - If empty or undefined: defaults to `false`
+DISABLE_IMAGE_CACHING=false
+
+# The interval between cache revalidations (in seconds), or `false` to disable.
+# - In other words, 'after this period of time, ask the server for new data on the next request'.
+# - Optional
+# - If empty or undefined: defaults to `false`
+CACHE_REVALIDATION_INTERVAL=false
 ```
 
 ## Navigating the Frontend Project

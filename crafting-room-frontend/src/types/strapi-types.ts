@@ -138,10 +138,11 @@ export type MediaData<T extends object = object> = StandardItemData<{ //standard
  */
 export type ImageData = MediaData<{
 	formats: {
-		thumbnail: ImageFormatData;
-		small: ImageFormatData & { width: 500; };
-		medium?: ImageFormatData & { width: 750; };
-		large?: ImageFormatData & { width: 1000; };
+		thumbnail?: ImageFormatData; //no predetermined width for thumbnails
+		small?: ImageFormatData<500>;
+		medium?: ImageFormatData<750>;
+		large?: ImageFormatData<1000>;
+		xlarge?: ImageFormatData<1920>;
 	};
 }>;
 
@@ -153,13 +154,13 @@ export type ImageFormat = keyof ImageData['attributes']['formats'];
 /**
  * An image size format's data.
  */
-export type ImageFormatData = {
+export type ImageFormatData<TWidth extends number = number> = {
 	name: string;
 	hash: string;
 	ext: string;
 	mime: string;
 	path: string | null;
-	width: number;
+	width: TWidth;
 	height: number;
 	size: number;
 	url: string;

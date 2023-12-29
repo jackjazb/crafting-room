@@ -1,52 +1,49 @@
 import { NextPage } from 'next';
+import { notFound } from 'next/navigation';
 import styles from './AboutPage.module.css';
-import { strapi } from '@/lib/api/strapi-client';
+import { strapi } from '@/lib/server/utils';
 import { StrapiImage } from '@/components/strapi-image/strapi-image';
-import { markdown, markdownInline } from '@/lib/utils';
+import { md, mdi } from '@/lib/utils';
 
 const AboutPage: NextPage = async () => {
-    const res = await strapi.getAboutPage();
-    const aboutPage = res.data;
+    const aboutPage = await strapi.getAboutPage().catch(notFound);
 
     return (
-        <div className='container'>
-            <StrapiImage
-                className={styles.image}
-                image={aboutPage.attributes.image.data}
-                format='medium'
-                priority
-                fallbackColor={false}
-            />
-
-            <h1 dangerouslySetInnerHTML={markdownInline(aboutPage.attributes.header)} />
-
-            <div
-                className={styles.content}
-                dangerouslySetInnerHTML={markdown(aboutPage.attributes.content)}
-            />
+        <main className='container'>
+            <section>
+                <StrapiImage
+                    className={styles.image}
+                    image={aboutPage.attributes.image.data}
+                    format='large'
+                    priority
+                    fallbackColor={false}
+                />
+                <h1 dangerouslySetInnerHTML={mdi(aboutPage.attributes.header)} />
+                <div dangerouslySetInnerHTML={md(aboutPage.attributes.content)} />
+            </section>
 
             {/*
             This will require some extra thought and conferring with Archie.
 
             All working except actual storing of emails.
 
+            <section>
             <h1>Subscribe</h1>
             <p>Subscribe to our mailing list.</p>
             <SubscribeForm />
+            </section>
 
             */}
             {aboutPage.attributes.contact && (
-                <>
+                <section>
                     <h1>
                         Contact
                     </h1>
-                    <div //TODO -> check if this is renderInline in strapi. if it isnt a RTE, then turn this into a <a href="mailto:[EMAIL]">
-                        className={styles.content}
-                        dangerouslySetInnerHTML={markdown(aboutPage.attributes.contact)}
-                    />
-                </>
+                    {/* TODO -> this should be converted to not be a RTE in strapi! */}
+                    <div dangerouslySetInnerHTML={md(aboutPage.attributes.contact)} />
+                </section>
             )}
-        </div>
+        </main>
     );
 };
 

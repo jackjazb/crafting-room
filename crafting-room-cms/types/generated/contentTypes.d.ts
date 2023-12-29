@@ -815,9 +815,10 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String;
+    slug: Attribute.UID<'api::article.article', 'title'> & Attribute.Required;
     content: Attribute.RichText;
     images: Attribute.Media;
-    author: Attribute.String;
+    author: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -849,6 +850,7 @@ export interface ApiArtistArtist extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
+    slug: Attribute.UID<'api::artist.artist', 'name'> & Attribute.Required;
     images: Attribute.Media & Attribute.Required;
     bio: Attribute.RichText & Attribute.Required;
     releases: Attribute.Relation<
@@ -925,6 +927,7 @@ export interface ApiEventEvent extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String & Attribute.Required;
+    slug: Attribute.UID<'api::event.event', 'title'> & Attribute.Required;
     description: Attribute.RichText;
     date: Attribute.Date & Attribute.Required;
     image: Attribute.Media & Attribute.Required;
@@ -999,12 +1002,14 @@ export interface ApiReleaseRelease extends Schema.CollectionType {
     singularName: 'release';
     pluralName: 'releases';
     displayName: 'Release';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     title: Attribute.String;
+    slug: Attribute.UID<'api::release.release', 'title'> & Attribute.Required;
     date: Attribute.Date;
     link: Attribute.String;
     artist: Attribute.Relation<

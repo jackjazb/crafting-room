@@ -9,11 +9,10 @@ export const Spinner: FC = () => {
 	return (
 		<div className={styles.loadingContainer}>
 			<Image
-				className='loading'
 				src='/loading.svg'
 				alt=''
-				width='64'
-				height='64'
+				width='50'
+				height='50'
 				priority
 			/>
 		</div>

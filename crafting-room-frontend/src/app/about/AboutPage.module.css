@@ -1,10 +1,5 @@
-.content {
-    font-family: sans-serif;
-}
-
 .image {
-    height: 30vh;
-    margin: 0 auto;
     display: block;
     margin: 0 auto;
+    height: 30vh;
 }

@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import { FC } from 'react';
-import { strapi } from '@/lib/api/strapi-client';
+import { strapi, fallbackBackgroundColorCSS } from '@/lib/server/utils';
 import { ImageData, ImageFormat } from '@/types/strapi-types';
-import { fallbackBackgroundColorCSS } from '@/lib/utils';
 
 type StrapiImageProps = {
 	className?: string;
@@ -13,15 +12,32 @@ type StrapiImageProps = {
 	 * available image format.
 	 */
 	image: ImageData | null | undefined;
-	/** The target image format. */
+	/**
+	 * The target image format.
+	 *
+	 * If the target format does not exist on the resolved image, the next largest format
+	 * will be used.
+	 */
 	format: ImageFormat;
-	/** Override or disable the default image fallback color. */
+	/**
+	 * Override or disable the default image fallback color.
+	 */
 	fallbackColor?: string | false;
-	/** Override the image's provided alt text. */
+	/**
+	 * Override the image's provided alt text.
+	 */
 	alt?: string;
-	/** Whether the image should lazy-load or not. */
-	lazy?: boolean;
-	/** Set to true if above the fold. */
+	/**
+	 * Whether the image should load eagerly or lazily.
+	 * @defaultValue false
+	 */
+	eager?: boolean;
+	/**
+	 * Whether the image needs to be prioritised.
+	 *
+	 * Automatically sets `eager` to `true` (disables lazy-loading).
+	 * @defaultValue false
+	 */
 	priority?: boolean;
 };
 
@@ -29,17 +45,17 @@ type StrapiImageProps = {
  * A Strapi image wrapped in a Next.js `<Image>` tag.
  */
 export const StrapiImage: FC<StrapiImageProps> = props => {
-	const [resolvedImage, resolvedFormat] = strapi.image(props.image, props.format);
+	const [image, format] = strapi.resolveImageWithFormat(props.image, props.format);
 
 	return (
 		<Image
 			className={props.className}
 			style={fallbackBackgroundColorCSS(props.fallbackColor)}
-			src={resolvedFormat.url}
-			width={resolvedFormat.width}
-			height={resolvedFormat.height}
-			alt={props.alt ?? resolvedImage.attributes.alternativeText ?? 'CRR Image'}
-			loading={props.lazy ? 'lazy' : undefined}
+			src={format.url}
+			width={format.width}
+			height={format.height}
+			alt={props.alt ?? image.attributes.alternativeText ?? 'CRR Image'}
+			loading={props.eager ? 'eager' : undefined}
 			priority={props.priority}
 		/>
 	);

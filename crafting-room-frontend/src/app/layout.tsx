@@ -1,15 +1,14 @@
-import './skeleton.css';
-import './globals.css';
-import { FC } from 'react';
+import './global.scss';
+import { FC, PropsWithChildren } from 'react';
 import { Navbar } from '@/components/navbar/Navbar';
 import { Footer } from '@/components/footer/Footer';
 
-const RootLayout: FC<{ children: React.ReactNode; }> = ({ children }) => {
+const RootLayout: FC<PropsWithChildren> = props => {
     return (
         <html lang='en'>
             <body>
                 <Navbar />
-                {children}
+                {props.children}
                 <Footer />
             </body>
         </html>

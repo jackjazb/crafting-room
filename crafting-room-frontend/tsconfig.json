@@ -22,12 +22,24 @@
         "name": "next"
       },
       {
-        "name": "typescript-plugin-css-modules"
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "rendererOptions": {
+            "sass": {
+              "includePaths": [
+                "./src/scss/**/*.scss"
+              ]
+            }
+          }
+        }
       }
     ],
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@scss/*": [
+        "./src/scss/*"
       ]
     }
   },

@@ -6,19 +6,17 @@ import { DOMAttributes } from 'react';
  * @param content - Target content
  * @returns Transformed content.
  */
-const md = markdownit();
+const mdIt = markdownit();
 
-type DangerouslySetInnerHTMLProp = DOMAttributes<never>['dangerouslySetInnerHTML'];
+type DangerouslySetInnerHTMLProp = Required<DOMAttributes<never>['dangerouslySetInnerHTML']>;
 
 /**
  * Parse markdown into HTML and return it in the form of React's `dangerouslySetInnerHTML` prop.
  * @param content - Target content
  * @returns Parsed markdown HTML
  */
-export const markdown = (content: string) => {
-	const prop: DangerouslySetInnerHTMLProp = { __html: md.render(content) };
-	return prop;
-};
+export const md = (content: string) =>
+	({ __html: mdIt.render(content) } as DangerouslySetInnerHTMLProp);
 
 /**
  * Parse markdown into HTML and return it in the form of React's `dangerouslySetInnerHTML` prop.
@@ -27,7 +25,5 @@ export const markdown = (content: string) => {
  * @param content - Target content
  * @returns Parsed markdown HTML
  */
-export const markdownInline = (content: string) => {
-	const prop: DangerouslySetInnerHTMLProp = { __html: md.renderInline(content) };
-	return prop;
-};
+export const mdi = (content: string) =>
+	({ __html: mdIt.renderInline(content) } as DangerouslySetInnerHTMLProp);

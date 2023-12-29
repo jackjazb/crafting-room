@@ -1,47 +1,53 @@
 import { NextPage } from 'next';
-import styles from './Home.module.css';
+import { notFound } from 'next/navigation';
+import styles from './Home.module.scss';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { Carousel } from '@/components/carousel/Carousel';
-import { strapi } from '@/lib/api/strapi-client';
-import { backgroundCSS, markdownInline } from '@/lib/utils';
+import { strapi } from '@/lib/server/utils';
+import { makeClass, mdi } from '@/lib/utils';
+import { StrapiImage } from '@/components/strapi-image/strapi-image';
 
 const HomePage: NextPage = async () => {
-    const res = await strapi.getHomePage();
-    const homePage = res.data;
+    const homePage = await strapi.getHomePage().catch(notFound);
+
     const features = homePage.attributes.features.data;
 
     return (
         <div>
             {features.length > 0 && (
-                <Carousel>
-                    {features.map(feature => (
-                        <a
-                            key={feature.id}
-                            href={`news/${feature.attributes.title}`}
-                        >
-                            <div
-                                className={styles.featuredImage}
-                                style={backgroundCSS(feature.attributes.images.data[0], 'medium')}
+                <section>
+                    <Carousel>
+                        {features.map(feature => (
+                            <a
+                                key={feature.id}
+                                className={styles.feature}
+                                href={`/news/${feature.attributes.title}`}
                             >
-                                <span //TODO -> h2/h3/h4/h5 this
-                                    className={styles.featureTitle}
-                                    dangerouslySetInnerHTML={markdownInline(feature.attributes.title)}
+                                <StrapiImage
+                                    className={styles.featureImage}
+                                    image={feature.attributes.images.data[0]}
+                                    format='xlarge'
+                                    priority={features.indexOf(feature) === 0}
                                 />
-                            </div>
-                        </a>
-                    ))}
-                </Carousel>
+                                <div
+                                    className={makeClass(
+                                        styles.featureTitle,
+                                        'overlay-text'
+                                    )}
+                                    dangerouslySetInnerHTML={mdi(feature.attributes.title)}
+                                />
+                            </a>
+                        ))}
+                    </Carousel>
+                </section>
             )}
 
-            <div className={styles.featuredReleases}>
+            <section className={styles.featureReleases}>
                 <h1>
                     Featured Releases
                 </h1>
-                <ReleaseGrid
-                    columns={4}
-                    releases={homePage.attributes.releases.data}
-                />
-            </div>
+                <ReleaseGrid releases={homePage.attributes.releases.data} />
+            </section>
         </div>
     );
 };

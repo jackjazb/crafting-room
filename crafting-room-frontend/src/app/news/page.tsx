@@ -1,20 +1,22 @@
 import { NextPage } from 'next';
+import { notFound } from 'next/navigation';
 import { ArticleTile } from '@/components/article/ArticleTile';
-import { strapi } from '@/lib/api/strapi-client';
+import { strapi } from '@/lib/server/utils';
 
 const NewsPage: NextPage = async () => {
-	const res = await strapi.getArticles();
-	const articles = res.data;
+	const articles = await strapi.getArticles().catch(notFound);
 
 	return (
-		<div className='container articles'>
-			{articles.map(article => (
-				<ArticleTile
-					key={article.id}
-					article={article}
-				/>
-			))}
-		</div>
+		<main className='container'>
+			<section>
+				{articles.map(article => (
+					<ArticleTile
+						key={article.id}
+						article={article}
+					/>
+				))}
+			</section>
+		</main>
 	);
 };
 

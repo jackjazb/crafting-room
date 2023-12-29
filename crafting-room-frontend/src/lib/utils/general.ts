@@ -16,17 +16,14 @@ export const ordinalIndicator = (num: number) => {
 };
 
 /**
- * Shorthand to throw if an item is `undefined`.
- * @param item - Target item
- * @param errorMsg - Target error message
- * @returns item if defined
- * @throws if item is undefined
+ * Shorthand to throw an error as an expression.
+ * @param error - Target error message or instance
  */
-export const required = <T>(item: T, errorMsg?: string) => {
-	if (item === undefined)
-		throw new Error(errorMsg ?? 'Missing item is required');
-
-	return item;
+export const throwExp = (error?: string | Error) => {
+	if (error instanceof Error)
+		throw error;
+	else
+		throw new Error(error);
 };
 
 /**

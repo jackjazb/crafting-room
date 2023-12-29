@@ -2,8 +2,9 @@ import { Event } from '@/types/strapi-responses/shared/collection-items/event';
 import { Release } from '@/types/strapi-responses/shared/collection-items/release';
 import { CollectionItem, ImageData, ItemData, PublishableItemData } from '@/types/strapi-types';
 
-export type Artist = PublishableItemData<{ //TODO -> check if this really is a publishable item. i.e. does it have `publishedAt` prop
+export type Artist = PublishableItemData<{
 	name: string;
+	slug: string;
 	bio: string;
 	links: SocialLink[];
 	images: CollectionItem<ImageData>;

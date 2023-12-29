@@ -1,54 +1,40 @@
 import { NextPage } from 'next';
-import styles from './Artists.module.css';
-import { ArtistTile } from '@/components/artist/ArtistTile';
-import { strapi } from '@/lib/api/strapi-client';
-import { Artist } from '@/types/strapi-responses';
-
-/**
- * Generate a set of artist tiles from a list of Artists.
- */
-const makeArtistTiles = (artists: Artist[]) =>
-	artists.map(artist => (
-		<ArtistTile
-			key={artist.id}
-			artist={artist}
-		/>
-	));
+import { notFound } from 'next/navigation';
+import styles from './Artists.module.scss';
+import { strapi } from '@/lib/server/utils';
+import { ArtistGrid } from '@/components/artist/ArtistGrid';
 
 /**
  * The directory page for all artists.
  */
 export const ArtistsPage: NextPage = async () => {
-	const res = await strapi.getArtistsPage();
-	const artistsPage = res.data;
+	const artistsPage = await strapi.getArtistsPage().catch(notFound);
 
-	const groups = artistsPage.attributes.groups;
+	const activeGroups = artistsPage.attributes.groups;
 	const inactive = artistsPage.attributes.inactive.artists.data;
 
 	return (
-		<div className={`${styles.artistsPage} container`}>
-			{groups.map(group => (
-				<div key={group.id}>
-					<h2>
-						{group.header}
-					</h2>
-					<div className={styles.artists}>
-						{makeArtistTiles(group.artists.data)}
-					</div>
-				</div>
+		<main className='container'>
+			{activeGroups.length > 0 && activeGroups.map(group => (
+				(group.artists.data.length > 0 && (
+					<section key={group.id}>
+						<h2>
+							{group.header}
+						</h2>
+						<ArtistGrid artists={group.artists.data} />
+					</section>
+				))
 			))}
 
 			{inactive.length > 0 && (
-				<div>
+				<section className={styles.inactive}>
 					<h2>
 						{artistsPage.attributes.inactive.header}
 					</h2>
-					<div className={`${styles.artists} ${styles.inactive}`}>
-						{makeArtistTiles(artistsPage.attributes.inactive.artists.data)}
-					</div>
-				</div>
+					<ArtistGrid artists={inactive} />
+				</section>
 			)}
-		</div>
+		</main>
 	);
 };
 
