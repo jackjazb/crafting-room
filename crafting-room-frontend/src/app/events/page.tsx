@@ -45,7 +45,7 @@ const EventsPage: NextPage = async () => {
 							<EventTile
 								key={event.id}
 								event={event}
-								canBook={false}
+								canBook={true}
 							/>
 						))}
 					</div>
