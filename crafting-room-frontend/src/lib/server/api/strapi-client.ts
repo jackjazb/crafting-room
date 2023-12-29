@@ -199,89 +199,74 @@ export class StrapiClient extends HttpClient<StrapiResponse> {
 	}
 
 	async getHomePage() {
-		return (await
-			this.get<SingleType<HomePage>>('homepage')
-		).data;
+		return (await this.get<SingleType<HomePage>>('homepage')).data;
 	}
 
 	async getAboutPage() {
-		return (await
-			this.get<SingleType<AboutPage>>('about-page')
-		).data;
+		return (await this.get<SingleType<AboutPage>>('about-page')).data;
 	}
 
 	async getArtistsPage() {
-		return (await
-			this.get<SingleType<ArtistsPage>>('artists-page')
-		).data;
+		return (await this.get<SingleType<ArtistsPage>>('artists-page')).data;
+	}
+
+	async getStorePage() {
+		return (await this.get<SingleType<StorePage>>('store-page')).data;
+	}
+
+	async getArticles() {
+		return (await this.get<Collection<Article>>(
+			'articles',
+			{ sort: ['createdAt:desc'] }
+		)).data;
+	}
+
+	async getEvents() {
+		return (await this.get<Collection<Event>>(
+			'events',
+			{ sort: ['date:desc'] }
+		)).data;
 	}
 
 	async getArtist(identifier: { id: string; } | { slug: string; }) {
 		if ('id' in identifier)
-			return (await
-				this.get<SingleType<Artist>>(`artists/${identifier.id}`)
-			).data;
+			return (await this.get<SingleType<Artist>>(`artists/${identifier.id}`)).data;
 
 		else if ('slug' in identifier)
-			return (await
-				this.get<Collection<Artist>>('artists', {
-					filters: { slug: { $eq: identifier.slug } }
-				})
-			).data[0] ?? throwExp('Query yielded no results');
+			return (await this.get<Collection<Artist>>(
+				'artists',
+				{ filters: { slug: { $eq: identifier.slug } } }
+			)).data[0] ?? throwExp('Query yielded no results');
 
 		else
 			throw new Error('Unknown identifier');
-	}
-
-	async getEvents() {
-		return (await
-			this.get<Collection<Event>>('events', { sort: ['date:desc'] })
-		).data;
 	}
 
 	async getEvent(identifier: { id: string; } | { slug: string; }) {
 		if ('id' in identifier)
-			return (await
-				this.get<SingleType<Event>>(`events/${identifier.id}`)
-			).data;
+			return (await this.get<SingleType<Event>>(`events/${identifier.id}`)).data;
 
 		else if ('slug' in identifier)
-			return (await
-				this.get<Collection<Event>>('events', {
-					filters: { slug: { $eq: identifier.slug } }
-				})
-			).data[0] ?? throwExp('Query yielded no results');
+			return (await this.get<Collection<Event>>(
+				'events',
+				{ filters: { slug: { $eq: identifier.slug } } }
+			)).data[0] ?? throwExp('Query yielded no results');
 
 		else
 			throw new Error('Unknown identifier');
-	}
-
-	async getArticles() {
-		return (await
-			this.get<Collection<Article>>('articles', { sort: ['createdAt:desc'] })
-		).data;
 	}
 
 	async getArticle(identifier: { id: string; } | { slug: string; }) {
 		if ('id' in identifier)
-			return (await
-				this.get<SingleType<Article>>(`articles/${identifier.id}`)
-			).data;
+			return (await this.get<SingleType<Article>>(`articles/${identifier.id}`)).data;
 
 		else if ('slug' in identifier)
-			return (await
-				this.get<Collection<Article>>('articles', {
-					filters: { slug: { $eq: identifier.slug } }
-				})
-			).data[0] ?? throwExp('Query yielded no results');
+			return (await this.get<Collection<Article>>(
+				'articles',
+				{ filters: { slug: { $eq: identifier.slug } } }
+			)).data[0] ?? throwExp('Query yielded no results');
 
 		else
 			throw new Error('Unknown identifier');
-	}
-
-	async getStorePage() {
-		return (await
-			this.get<SingleType<StorePage>>('store-page')
-		).data;
 	}
 }
