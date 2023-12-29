@@ -1,26 +1,25 @@
 import { NextPage } from 'next';
-import styles from './EventsPage.module.css';
+import { notFound } from 'next/navigation';
 import { EventTile } from '@/components/event/EventTile';
-import { strapi } from '@/lib/api/strapi-client';
+import { strapi } from '@/lib/server/utils';
 
 const EventsPage: NextPage = async () => {
-	const res = await strapi.getEvents();
-	const events = res.data;
+	const events = await strapi.getEvents().catch(notFound);
 
-	const today = new Date();
-	today.setDate(today.getDate() - 1);
+	//TODO -> get current date in uk time
+	const currentDate = new Date();
 
 	// Split the list of events into past and future
 	const pastEvents = events.filter(event =>
-		new Date(event.attributes.date) < today);
+		new Date(event.attributes.date) < currentDate);
 
 	const futureEvents = events.filter(event =>
 		!pastEvents.includes(event));
 
 	return (
-		<div className='container'>
+		<main className='container'>
 			{futureEvents.length > 0 && (
-				<div className={styles.eventsGroup}>
+				<section>
 					<h1>
 						Events
 					</h1>
@@ -33,11 +32,11 @@ const EventsPage: NextPage = async () => {
 							/>
 						))}
 					</div>
-				</div>
+				</section>
 			)}
 
 			{pastEvents.length > 0 && (
-				<div>
+				<section>
 					<h1>
 						Past Events
 					</h1>
@@ -50,9 +49,9 @@ const EventsPage: NextPage = async () => {
 							/>
 						))}
 					</div>
-				</div>
+				</section>
 			)}
-		</div>
+		</main>
 	);
 };
 

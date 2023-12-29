@@ -1,55 +1,60 @@
 import { FC } from 'react';
 import styles from './EventTile.module.css';
 import { StrapiImage } from '@/components/strapi-image/strapi-image';
-import { formatDate, markdownInline } from '@/lib/utils';
+import { formatDate, makeClass, mdi } from '@/lib/utils';
 import { Event } from '@/types/strapi-responses';
+
+type Props = {
+	event: Event;
+	canBook: boolean;
+};
 
 /**
  * An event tile on the events list page.
  */
-export const EventTile: FC<{ event: Event; canBook: boolean; }> = ({ event, canBook }) => {
-	const bookLink = event.attributes.link && (
-		<a href={event.attributes.link}>
-			<button className='button-primary'>
-				Book
-			</button>
-		</a>
-	);
-
+export const EventTile: FC<Props> = props => {
 	return (
 		<div
-			key={event.id}
-			className={`${styles.eventTile} ${!canBook ? styles.noBook : ''}`}
+			key={props.event.id}
+			className={makeClass(
+				styles.eventTile,
+				!props.canBook ? styles.noBook : null
+			)}
 		>
 			<StrapiImage
 				className={styles.eventThumbnail}
-				image={event.attributes.image.data}
+				image={props.event.attributes.image.data}
 				format='medium'
-				alt={event.attributes.title}
+				alt={props.event.attributes.title}
 			/>
 
 			<div className={styles.eventDetails}>
-				<div //TODO -> h2/h3/h4/h5 this
+				<div
 					className={styles.eventTitle}
-					dangerouslySetInnerHTML={markdownInline(event.attributes.title)}
+					dangerouslySetInnerHTML={mdi(props.event.attributes.title)}
 				/>
-
-				{/* TODO -> <p> this probably */}
 				<div className={styles.eventDetails}>
-					{formatDate(event.attributes.date)}
+					{formatDate(props.event.attributes.date)}
 				</div>
 			</div>
 
-			{canBook && (
-				<div className={styles.eventOptions}>
-					<a href={`events/${event.id}`}>
-						<button>
-							More Info
-						</button>
+			<div className={styles.eventOptions}>
+				<a
+					href={`/events/${props.event.attributes.slug}`}
+					className='button'
+				>
+					More Info
+				</a>
+
+				{props.canBook && props.event.attributes.link && (
+					<a
+						href={props.event.attributes.link}
+						className='button button-primary'
+					>
+						Book
 					</a>
-					{bookLink}
-				</div>
-			)}
+				)}
+			</div>
 		</div>
 	);
 };

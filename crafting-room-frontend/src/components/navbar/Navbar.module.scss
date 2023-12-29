@@ -1,3 +1,5 @@
+@use "@scss/logic" as *;
+
 .navbar {
     z-index: 99;
     position: sticky;
@@ -10,6 +12,8 @@
     width: 100%;
     background-color: black;
 
+    box-shadow: 0px -15px 10px 10px black;
+
     @media (min-width: 768px) {
         padding: 0 10px;
     }
@@ -18,7 +22,7 @@
         transform: translateX(0);
 
         .menuIcon {
-            transform: rotate(-90deg);
+            transform: rotate(0deg);
         }
 
         .menu {
@@ -28,11 +32,12 @@
 
     .menuIcon {
         color: white;
-        height: 40px;
-        width: 40px;
+        $size: 45px;
+        height: $size;
+        width: $size;
         margin: 10px 13px;
 
-        transform: rotate(0deg);
+        transform: rotate(-90deg);
         transition: transform var(--transition);
 
         @media (min-width: 768px) {
@@ -44,45 +49,40 @@
         margin: unset;
         padding: unset;
 
-        position: absolute;
-
-        transform: translateX(-100%);
-
         display: flex;
-        flex-direction: column;
-
-        top: 100%;
-        width: 100%;
-        height: calc(100dvh - var(--nav-height));
         background-color: black;
 
-        transition: transform var(--transition);
+        @media (max-width: 768px) {
+            position: absolute;
+            height: calc(100dvh - var(--nav-height));
+            top: 100%;
+            width: 100%;
 
-        @media (min-width: 768px) {
-            height: unset;
-            bottom: unset;
-            transition: unset;
-            transform: unset;
-            flex-direction: unset;
-            position: unset;
+            flex-direction: column;
+            gap: 5px;
+
+            transform: translateX(-100%);
+            transition: transform var(--transition);
         }
 
         a {
             display: flex;
             align-items: center;
             font-size: 1.4em;
-            padding: 10px 20px;
+            padding: 10px 25px;
             color: white;
+            font-weight: 600;
 
             text-decoration: none;
 
-            @media (min-width: 768px) {
-                padding-left: 25px;
-                padding-right: 25px;
+            @media (max-width: 768px) {
+                font-size: 1.7em;
+                padding-left: 20px;
+                padding-right: 20px;
             }
 
-            &:hover {
-                //TODO -> make scss vars from these colors
+            @include hover-active-swap-focus-visible {
+                //TODO -> make scss or css vars from these colors at some point
                 $color: #0fa0ce;
                 color: $color;
             }

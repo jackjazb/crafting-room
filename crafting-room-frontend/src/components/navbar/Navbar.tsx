@@ -4,6 +4,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { IoMdMore } from 'react-icons/io';
 import { CRRLogo } from '../logo/CRRLogo';
 import styles from './Navbar.module.scss';
+import { makeClass } from '@/lib/utils';
 
 /**
  * The navbar.
@@ -12,6 +13,16 @@ export const Navbar: FC = () => {
 	const nav = useRef<HTMLElement>(null);
 	const [menuOpen, setMenuOpen] = useState(false);
 
+	const openMenu = () => {
+		document.body.style.overflow = 'hidden';
+		setMenuOpen(true);
+	};
+
+	const closeMenu = () => {
+		document.body.style.overflow = '';
+		setMenuOpen(false);
+	};
+
 	const setHeight = () => {
 		nav.current!.style.setProperty('--nav-height', `${nav.current!.clientHeight}px`);
 	};
@@ -19,17 +30,24 @@ export const Navbar: FC = () => {
 	useEffect(() => {
 		setHeight();
 		addEventListener('resize', setHeight);
-		return () => removeEventListener('resize', setHeight);
+
+		return () => {
+			removeEventListener('resize', setHeight);
+			document.body.style.overflow = '';
+		};
 	}, []);
 
 	return (
 		<nav
 			ref={nav}
-			className={`${styles.navbar} ${menuOpen ? styles.open : ''}`}
+			className={makeClass(
+				styles.navbar,
+				menuOpen ? styles.open : null
+			)}
 		>
 			<IoMdMore
 				className={styles.menuIcon}
-				onClick={() => setMenuOpen(!menuOpen)}
+				onClick={() => menuOpen ? closeMenu() : openMenu()}
 			/>
 			<menu className={styles.menu}>
 				<a

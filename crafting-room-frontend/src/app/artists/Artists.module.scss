@@ -1,0 +1,9 @@
+.inactive a {
+    filter: opacity(0.6);
+    transition: filter var(--transition);
+
+    &:hover,
+    &:focus-within {
+        filter: opacity(1);
+    }
+}

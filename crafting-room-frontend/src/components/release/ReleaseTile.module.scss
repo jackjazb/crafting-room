@@ -1,19 +1,27 @@
+@use "@scss/logic" as *;
+
 .release {
     position: relative;
+    display: flex;
+
+    @include hover-active-swap-focus-within {
+        .releaseOverlay {
+            opacity: 1;
+        }
+    }
 }
 
 .releaseImage {
     aspect-ratio: 1/1;
-    min-height: 100%;
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 .releaseOverlay {
     position: absolute;
     inset: 0;
     opacity: 0;
-    transition: var(--transition);
+    transition: opacity var(--transition);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -24,40 +32,19 @@
         opacity: 1;
     }
 
-    &:hover {
-        opacity: 1;
-    }
-
-    > * {
-        background-color: black;
-        color: white;
-        padding: 5px;
-
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        line-height: 1.2em;
-
-        @media (max-width: 768px) {
-            // padding: 5px;
-        }
-    }
-
     .releaseTitle {
-        font-size: 1.3em;
+        font-weight: 600;
+        font-size: 1.5em;
     }
-}
 
-.releaseArtist {
-    font-size: 0.9em;
-}
+    .releaseArtist {
+        font-size: 1.1em;
+    }
 
-.releaseLink {
-    margin-top: auto;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.releaseLink svg {
-    font-size: 1.75em;
+    .releaseLink {
+        margin-top: auto;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 1.1em;
+    }
 }

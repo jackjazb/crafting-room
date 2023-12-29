@@ -1,0 +1,18 @@
+.eventDate.eventDate {
+	font-size: 1.6em;
+	font-style: italic;
+	margin-bottom: 1em;
+}
+
+.eventVenue {
+	font-weight: 500;
+}
+
+.bookEvent {
+	align-self: flex-end;
+	margin-top: 30px;
+
+	@media (max-width: 768px) {
+		align-self: unset;
+	}
+}

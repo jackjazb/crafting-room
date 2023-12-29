@@ -3,6 +3,7 @@
 import { FC, useRef, useState } from 'react';
 import { MdErrorOutline, MdDone } from 'react-icons/md';
 import styles from './SubscribeForm.module.css';
+import { makeClass } from '@/lib/utils';
 
 // see this page: https://stackoverflow.com/a/201378
 // eslint-disable-next-line no-control-regex
@@ -55,7 +56,7 @@ export const SubscribeForm: FC = () => {
                     data-fv-pattern-preset='email'
                 />
                 <button
-                    className='button-primary'
+                    className='button button-primary'
                     type='submit'
                 >
                     submit
@@ -63,12 +64,21 @@ export const SubscribeForm: FC = () => {
             </form>
 
             {details ? (
-                <div className={`${styles.status} ${styles.valid}`}>
+                <div
+                    className={makeClass(
+                        styles.status,
+                        styles.valid
+                    )}
+                >
                     <MdDone size={20} />
                     Thanks!
                 </div>
             ) : !valid && (
-                <div className={`${styles.status} ${styles.invalid}`}>
+                <div
+                    className={makeClass(
+                        styles.status, styles.invalid
+                    )}
+                >
                     <MdErrorOutline size={20} />
                     Please enter a valid email
                 </div>

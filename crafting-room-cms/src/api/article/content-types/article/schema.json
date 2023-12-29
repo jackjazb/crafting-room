@@ -15,6 +15,11 @@
     "title": {
       "type": "string"
     },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
     "content": {
       "type": "richtext"
     },
@@ -30,7 +35,8 @@
       ]
     },
     "author": {
-      "type": "string"
+      "type": "string",
+      "required": true
     }
   }
 }

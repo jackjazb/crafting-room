@@ -1,0 +1,73 @@
+:root {
+	--transition: 200ms ease-in-out;
+	--transition-fast: 100ms ease-in-out;
+	--border-radius: 4px;
+	--button-color: #33c3f0;
+	--fallback-image-color: #e8eef0;
+}
+
+/**
+*
+*	MAIN LAYOUT
+*
+**/
+
+* {
+	box-sizing: border-box;
+	word-break: break-word;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	margin: unset;
+	font-size: 1.5rem;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	line-height: 1.2;
+	color: #222;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	min-height: 100dvh;
+}
+
+section {
+	&:not(:last-of-type) {
+		margin-bottom: 30px;
+	}
+}
+
+form {
+	margin-bottom: unset;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	letter-spacing: unset; //unset skeleton
+	font-weight: 600;
+}
+
+img {
+	width: auto;
+	max-width: 100%;
+	object-fit: cover;
+}
+
+a {
+	text-decoration: none;
+}
+
+p {
+	line-height: 1.5;
+	font-size: 1.3em;
+
+	&:last-of-type {
+		margin-bottom: unset;
+	}
+}

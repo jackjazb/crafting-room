@@ -1,22 +1,39 @@
 import { FC } from 'react';
-import styles from './ArtistTile.module.css';
+import styles from './ArtistTile.module.scss';
 import { Artist } from '@/types/strapi-responses';
-import { backgroundCSS, markdownInline } from '@/lib/utils';
+import { makeClass, mdi } from '@/lib/utils';
+import { StrapiImage } from '@/components/strapi-image/strapi-image';
+
+type Props = {
+	artist: Artist;
+};
 
 /**
  * An artist portrait which reveals more details when clicked.
  */
-export const ArtistTile: FC<{ artist: Artist; }> = ({ artist }) => {
+export const ArtistTile: FC<Props> = props => {
 	return (
 		<a
-			href={`artists/${artist.attributes.name.toLowerCase()}`}
+			href={`/artists/${props.artist.attributes.slug}`}
 			className={styles.artist}
-			style={backgroundCSS(artist.attributes.images.data[0], 'medium')}
 		>
-			<div //TODO -> h2/h3/h4/h5 this
-				className={styles.name}
-				dangerouslySetInnerHTML={markdownInline(artist.attributes.name)}
+			<StrapiImage
+				className={styles.artistImage}
+				image={props.artist.attributes.images.data[0]}
+				format='medium'
+				alt={props.artist.attributes.name}
 			/>
+
+			<div className={styles.artistOverlay}>
+				<div
+					className={makeClass(
+						styles.artistName,
+						'overlay-text',
+						'overlay-text--small'
+					)}
+					dangerouslySetInnerHTML={mdi(props.artist.attributes.name)}
+				/>
+			</div>
 		</a>
 	);
 };

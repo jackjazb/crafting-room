@@ -1,0 +1,59 @@
+@use "sass:map";
+
+$path: "#{$assets-path}/fonts/HelveticaNeue";
+$name: "Helvetica Neue";
+$prefix: "HelveticaNeue";
+$faces: (
+	(
+		suffix: "Thin",
+		weight: map.get($font_weights, thin)
+	),
+	(
+		suffix: "UltraLight",
+		weight: map.get($font_weights, ultra-light)
+	),
+	(
+		suffix: "Light",
+		weight: map.get($font_weights, light)
+	),
+	(
+		suffix: "Regular",
+		weight: map.get($font_weights, regular)
+	),
+	(
+		suffix: "Medium",
+		weight: map.get($font_weights, medium)
+	),
+	(
+		suffix: "Bold",
+		weight: map.get($font_weights, bold)
+	),
+	(
+		suffix: "Heavy",
+		weight: map.get($font_weights, heavy)
+	),
+	(
+		suffix: "Black",
+		weight: map.get($font_weights, black)
+	)
+);
+
+@each $face in $faces {
+	@font-face {
+		font-family: $name;
+		font-style: normal;
+		font-weight: map.get($face, weight);
+		$filename: "#{$prefix}-#{map.get($face, suffix)}";
+		src:
+			url("#{$path}/woff2/#{$filename}.woff2") format("woff2"),
+			url("#{$path}/otf/#{$filename}.otf") format("opentype");
+	}
+
+	@font-face {
+		font-family: $name;
+		font-style: italic;
+		font-weight: map.get($face, weight);
+		$full-path: "#{$path}/woff2/#{$prefix}-#{map.get($face, suffix)}Italic";
+		src: url("#{$full-path}.woff2") format("opentype");
+	}
+}

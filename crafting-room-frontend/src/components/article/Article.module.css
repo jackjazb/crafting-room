@@ -1,7 +1,5 @@
 .articleTopImage {
 	width: 100%;
-	/* object-fit: cover; */
-	object-position: center;
 	height: 40vh;
 }
 
@@ -14,9 +12,4 @@
 .author {
 	margin-top: -0.7em;
 	font-style: italic;
-}
-
-.articleContent {
-	font-family: sans-serif;
-	font-size: 1.3em;
 }

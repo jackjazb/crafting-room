@@ -1,40 +1,35 @@
 import { NextPage } from 'next';
-import styles from './Store.module.css';
+import { notFound } from 'next/navigation';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
-import { strapi } from '@/lib/api/strapi-client';
-import { markdownInline } from '@/lib/utils';
+import { strapi } from '@/lib/server/utils';
+import { mdi } from '@/lib/utils';
 
 const StorePage: NextPage = async () => {
-    const res = await strapi.getStorePage();
-    const storePage = res.data;
+    const storePage = await strapi.getStorePage().catch(notFound);
 
     return (
         <div className='container'>
-            <h5>
-                More available on
-                {' '}
-                <a
-                    href='https://craftingroomrecordings.bandcamp.com/'
-                    target='_blank'
-                    rel='noreferrer'
-                >
-                    Bandcamp
-                </a>
-            </h5>
+            <section>
+                <h5>
+                    More available on
+                    {' '}
+                    <a
+                        href='https://craftingroomrecordings.bandcamp.com/'
+                        target='_blank'
+                        rel='noreferrer'
+                    >
+                        Bandcamp
+                    </a>
+                </h5>
 
-            {storePage.attributes.groups.map(group => (
-                <div
-                    key={group.id}
-                    className={styles.releaseGroup}
-                >
-                    <h2 dangerouslySetInnerHTML={markdownInline(group.header)} />
+                {storePage.attributes.groups.map(group => (
+                    <section key={group.id}>
+                        <h2 dangerouslySetInnerHTML={mdi(group.header)} />
 
-                    <ReleaseGrid
-                        columns={4}
-                        releases={group.releases.data}
-                    />
-                </div>
-            ))}
+                        <ReleaseGrid releases={group.releases.data} />
+                    </section>
+                ))}
+            </section>
         </div>
     );
 };
