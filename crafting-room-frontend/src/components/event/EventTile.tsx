@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import styles from './EventTile.module.css';
-import { StrapiImage } from '@/components/strapi-image/strapi-image';
+import styles from './EventTile.module.scss';
+import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 import { formatDate, makeClass, mdi } from '@/lib/utils';
 import { Event } from '@/types/strapi-responses';
 
@@ -33,7 +33,7 @@ export const EventTile: FC<Props> = props => {
 					className={styles.eventTitle}
 					dangerouslySetInnerHTML={mdi(props.event.attributes.title)}
 				/>
-				<div className={styles.eventDetails}>
+				<div className={styles.eventDate}>
 					{formatDate(props.event.attributes.date)}
 				</div>
 			</div>

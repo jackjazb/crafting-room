@@ -12,7 +12,7 @@ export type HttpClientOptions = {
 	hostname: string;
 	/**
 	 * Base endpoint of the API. All calls will be made with this endpoint as the root.
-	 * @defaultValue ""
+	 * @defaultValue ''
 	 */
 	baseEndpoint?: string;
 	/**
@@ -42,10 +42,6 @@ export type HttpClientOptions = {
 
 /**
  * A HTTP client based on the Fetch API.
- *
- * No longer using Axios because of this: https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#fetching-data-on-the-server-with-third-party-libraries.
- *
- * Axios uses XHR under the hood, not Fetch.
  */
 export class HttpClient<TBaseResponseData extends object = object> {
 	/**
@@ -65,12 +61,11 @@ export class HttpClient<TBaseResponseData extends object = object> {
 	protected readonly options: Required<HttpClientOptions>;
 
 	/**
+	 * A HTTP client based on the Fetch API.
 	 * @param options - Target HTTP client options
 	 */
 	constructor(options: HttpClientOptions) {
-		this.options = merge({},
-			HttpClient.defaultOptions,
-			options);
+		this.options = merge({}, HttpClient.defaultOptions, options);
 	}
 
 	/**
@@ -87,9 +82,7 @@ export class HttpClient<TBaseResponseData extends object = object> {
 		params?: object,
 		options?: RequestInit
 	) {
-		const resolvedParams = merge({},
-			this.options.baseParams,
-			params);
+		const resolvedParams = merge({}, this.options.baseParams, params);
 
 		const encodedParams = '?' + stringify(resolvedParams);
 
@@ -99,15 +92,13 @@ export class HttpClient<TBaseResponseData extends object = object> {
 			+ endpoint
 			+ encodedParams;
 
-		const resolvedOptions: RequestInit = merge({},
-			{
-				next: {
-					revalidate: this.options.cacheRevalidationInterval
-						? this.options.cacheRevalidationInterval
-						: undefined
-				}
-			},
-			options);
+		const resolvedOptions: RequestInit = merge({}, {
+			next: {
+				revalidate: this.options.cacheRevalidationInterval
+					? this.options.cacheRevalidationInterval
+					: undefined
+			}
+		}, options);
 
 		const sendRequest = async () => {
 			const response = await fetch(url, resolvedOptions);

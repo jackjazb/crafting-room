@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { FC } from 'react';
-import { strapi, fallbackBackgroundColorCSS } from '@/lib/server/utils';
+import { strapi, backgroundImageColor } from '@/lib/server-utils';
 import { ImageData, ImageFormat } from '@/types/strapi-types';
 
 type StrapiImageProps = {
@@ -50,7 +50,7 @@ export const StrapiImage: FC<StrapiImageProps> = props => {
 	return (
 		<Image
 			className={props.className}
-			style={fallbackBackgroundColorCSS(props.fallbackColor)}
+			style={backgroundImageColor(props.fallbackColor)}
 			src={format.url}
 			width={format.width}
 			height={format.height}

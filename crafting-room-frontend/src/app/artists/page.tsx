@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import styles from './Artists.module.scss';
-import { strapi } from '@/lib/server/utils';
+import { strapi } from '@/lib/server-utils';
 import { ArtistGrid } from '@/components/artist/ArtistGrid';
 
 /**

@@ -1,13 +1,10 @@
 import { FC, PropsWithChildren } from 'react';
 import styles from './SplitContent.module.scss';
-import { StrapiImage } from '@/components/strapi-image/strapi-image';
+import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 import { ImageData } from '@/types/strapi-types';
 
 type Props = PropsWithChildren<{ image: ImageData | null | undefined; }>;
 
-/**
- * The bio page for a single artist.
- */
 export const SplitContentSection: FC<Props> = props => {
 	return (
 		<section className={styles.splitContent}>

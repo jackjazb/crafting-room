@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import styles from './AboutPage.module.css';
-import { strapi } from '@/lib/server/utils';
-import { StrapiImage } from '@/components/strapi-image/strapi-image';
+import { strapi } from '@/lib/server-utils';
+import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 import { md, mdi } from '@/lib/utils';
 
 const AboutPage: NextPage = async () => {

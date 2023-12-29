@@ -1,14 +1,19 @@
-.articleTile:last-of-type {
-    border: none;
-}
-
 .articleTile {
     display: flex;
     padding: 20px 0px;
     border-bottom: 1px solid lightgray;
+
+    &:first-child {
+        padding-top: unset;
+    }
+
+    &:last-child {
+        border-bottom: unset;
+        padding-bottom: unset;
+    }
 }
 
-.articleThumbnail {
+.articleLink {
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -30,10 +35,12 @@
 
 .articleAuthor {
     font-size: 1.1em;
+    font-weight: 300;
 }
 
 .articleDate {
     font-size: 1.1em;
+    font-weight: 300;
     align-self: flex-end;
     margin-top: auto;
 }

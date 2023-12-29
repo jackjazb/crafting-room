@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styles from './ArtistTile.module.scss';
 import { Artist } from '@/types/strapi-responses';
 import { makeClass, mdi } from '@/lib/utils';
-import { StrapiImage } from '@/components/strapi-image/strapi-image';
+import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
 type Props = {
 	artist: Artist;
@@ -20,7 +20,7 @@ export const ArtistTile: FC<Props> = props => {
 			<StrapiImage
 				className={styles.artistImage}
 				image={props.artist.attributes.images.data[0]}
-				format='medium'
+				format='large'
 				alt={props.artist.attributes.name}
 			/>
 

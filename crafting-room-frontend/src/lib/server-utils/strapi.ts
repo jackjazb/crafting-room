@@ -1,4 +1,4 @@
-import { StrapiClient, StrapiClientOptions } from '@/lib/server/api/strapi-client';
+import { StrapiClient, StrapiClientOptions } from '@/lib/api/strapi-client';
 import { throwExp } from '@/lib/utils';
 
 const options: StrapiClientOptions = {

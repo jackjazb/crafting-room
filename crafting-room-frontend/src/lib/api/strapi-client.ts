@@ -1,5 +1,5 @@
 import { merge } from 'lodash';
-import { HttpClient, HttpClientOptions } from '@/lib/server/api/http-client';
+import { HttpClient, HttpClientOptions } from '@/lib/api/http-client';
 import { AboutPage, Article, Artist, ArtistsPage, Event, HomePage, StorePage } from '@/types/strapi-responses';
 import { Collection, ImageData, ImageFormat, ImageFormatData, SingleType, StrapiResponse } from '@/types/strapi-types';
 import { OptionalProps } from '@/types/utils';
@@ -37,32 +37,24 @@ export type StrapiClientOptions = HttpClientOptions & {
  * A Strapi API client.
  */
 export class StrapiClient extends HttpClient<StrapiResponse> {
-	/**
-	 * The default options for any instance.
-	 */
-	static override readonly defaultOptions: Required<OptionalProps<StrapiClientOptions>> = merge(
-		HttpClient.defaultOptions,
-		{
+	static override readonly defaultOptions: Required<OptionalProps<StrapiClientOptions>> =
+		merge({}, HttpClient.defaultOptions, {
 			mediaProviderHostname: '', //default set in constructor
 			alwaysUseFallbackImage: false,
 			disableImageCaching: false,
 			baseParams: { populate: 'deep' }
-		}
-	);
+		});
 
-	/**
-	 * The options set for this instance.
-	 */
 	protected override readonly options: Required<StrapiClientOptions>;
 
 	/**
+	 * A Strapi API client.
 	 * @param options - Target Strapi API client options
 	 */
 	constructor(options: StrapiClientOptions) {
-		const resolvedOptions = merge({},
-			StrapiClient.defaultOptions,
-			{ mediaProviderHostname: options.hostname },
-			options);
+		const resolvedOptions = merge({}, StrapiClient.defaultOptions, {
+			mediaProviderHostname: options.hostname
+		}, options);
 
 		super(resolvedOptions);
 		this.options = resolvedOptions;
@@ -71,13 +63,10 @@ export class StrapiClient extends HttpClient<StrapiResponse> {
 	/**
 	 * Resolve and return a Strapi image's data.
 	 *
-	 * If the provided image was `null` or `undefined`, the fallback image's data will
-	 * be returned.
+	 * This will fix the image's URLs.
 	 *
-	 * If `options.alwaysUseFallbackImage` is `true`, then the fallback image will
-	 * always be returned.
-	 *
-	 * **This will fix the image's URL for you!**
+	 * If the provided image was null or undefined (or if `options.alwaysUseFallbackImage`
+	 * is true) the fallback image's data will be used and returned.
 	 * @param image - Target image data
 	 * @returns Resolved image data
 	 */
@@ -113,19 +102,16 @@ export class StrapiClient extends HttpClient<StrapiResponse> {
 	/**
 	 * Resolve and return a Strapi image's data with a format.
 	 *
-	 * If the provided image was `null` or `undefined`, the fallback image's data and format will
-	 * be returned.
+	 * This will fix the image's URLs.
 	 *
-	 * If `options.alwaysUseFallbackImage` is `true`, then the fallback image will
-	 * always be returned.
+	 * If the provided image was null or undefined (or if `options.alwaysUseFallbackImage`
+	 * is true) the fallback image's data will be used and returned.
 	 *
 	 * If the target format does not exist on the resolved image, the next largest format
 	 * will be returned.
-	 *
-	 * **This will fix the image's URL for you!**
 	 * @param image - Target image data
 	 * @param format - Target image format
-	 * @returns Array with resolved image data and format
+	 * @returns Array of resolved image data and format
 	 */
 	resolveImageWithFormat(image: ImageData | null | undefined, format: ImageFormat) {
 		const resolvedImage = this.resolveImage(image);
@@ -153,7 +139,7 @@ export class StrapiClient extends HttpClient<StrapiResponse> {
 	/**
 	 * Generate a fallback set of `ImageData` using a URL.
 	 * @param url - Target URL
-	 * @returns Generated image data
+	 * @returns Generated fallback image data
 	 */
 	private generateFallbackImage(url: string) {
 		const generateFormat = (width: number, height: number) => ({
