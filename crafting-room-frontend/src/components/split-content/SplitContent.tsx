@@ -5,9 +5,6 @@ import { ImageData } from '@/types/strapi-types';
 
 type Props = PropsWithChildren<{ image: ImageData | null | undefined; }>;
 
-/**
- * The bio page for a single artist.
- */
 export const SplitContentSection: FC<Props> = props => {
 	return (
 		<section className={styles.splitContent}>

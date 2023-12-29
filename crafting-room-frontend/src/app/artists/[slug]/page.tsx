@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import styles from './Artist.module.scss';
-import { strapi } from '@/lib/server/utils';
+import { strapi } from '@/lib/server-utils';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { SplitContentSection } from '@/components/split-content/SplitContent';
 import { mdi, md } from '@/lib/utils';

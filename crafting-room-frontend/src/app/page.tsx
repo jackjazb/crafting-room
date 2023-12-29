@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import styles from './Home.module.scss';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { Carousel } from '@/components/carousel/Carousel';
-import { strapi } from '@/lib/server/utils';
+import { strapi } from '@/lib/server-utils';
 import { makeClass, mdi } from '@/lib/utils';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 

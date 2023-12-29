@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styles from './ArticleTile.module.scss';
 import { Article } from '@/types/strapi-responses';
 import { formatDate, makeClass, mdi } from '@/lib/utils';
-import { backgroundCSS } from '@/lib/server/utils';
+import { backgroundImage } from '@/lib/server-utils';
 
 type Props = {
 	article: Article;
@@ -18,7 +18,10 @@ export const ArticleTile: FC<Props> = props => {
 			<a
 				className={styles.articleLink}
 				href={`/news/${props.article.attributes.slug}`}
-				style={backgroundCSS(props.article.attributes.images.data[0], 'large')}
+				style={backgroundImage(
+					props.article.attributes.images.data[0],
+					'large'
+				)}
 			>
 				<div
 					className={makeClass(

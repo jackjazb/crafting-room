@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import { ArticleTile } from '@/components/article/ArticleTile';
-import { strapi } from '@/lib/server/utils';
+import { strapi } from '@/lib/server-utils';
 
 const NewsPage: NextPage = async () => {
 	const articles = await strapi.getArticles().catch(notFound);

@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import { EventTile } from '@/components/event/EventTile';
-import { strapi } from '@/lib/server/utils';
+import { strapi } from '@/lib/server-utils';
 
 const EventsPage: NextPage = async () => {
 	const events = await strapi.getEvents().catch(notFound);
