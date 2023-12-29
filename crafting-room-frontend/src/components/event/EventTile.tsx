@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styles from './EventTile.module.scss';
-import { StrapiImage } from '@/components/strapi-image/strapi-image';
+import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 import { formatDate, makeClass, mdi } from '@/lib/utils';
 import { Event } from '@/types/strapi-responses';
 

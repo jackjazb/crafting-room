@@ -5,7 +5,7 @@ import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { Carousel } from '@/components/carousel/Carousel';
 import { strapi } from '@/lib/server/utils';
 import { makeClass, mdi } from '@/lib/utils';
-import { StrapiImage } from '@/components/strapi-image/strapi-image';
+import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
 const HomePage: NextPage = async () => {
     const homePage = await strapi.getHomePage().catch(notFound);
