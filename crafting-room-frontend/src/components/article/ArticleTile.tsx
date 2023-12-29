@@ -18,7 +18,7 @@ export const ArticleTile: FC<Props> = props => {
 			<a
 				className={styles.articleLink}
 				href={`/news/${props.article.attributes.slug}`}
-				style={backgroundCSS(props.article.attributes.images.data[0], 'medium')}
+				style={backgroundCSS(props.article.attributes.images.data[0], 'large')}
 			>
 				<div
 					className={makeClass(

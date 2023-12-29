@@ -20,7 +20,7 @@ export const ArtistTile: FC<Props> = props => {
 			<StrapiImage
 				className={styles.artistImage}
 				image={props.artist.attributes.images.data[0]}
-				format='medium'
+				format='large'
 				alt={props.artist.attributes.name}
 			/>
 

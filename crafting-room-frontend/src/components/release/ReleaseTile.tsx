@@ -18,7 +18,7 @@ export const ReleaseTile: FC<Props> = props => {
 			<StrapiImage
 				className={styles.releaseImage}
 				image={props.release.attributes.artwork.data}
-				format='medium'
+				format='large'
 				alt={props.release.attributes.title}
 			/>
 
