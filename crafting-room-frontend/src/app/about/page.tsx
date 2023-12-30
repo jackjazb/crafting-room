@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { notFound } from 'next/navigation';
-import styles from './AboutPage.module.css';
+import styles from './AboutPage.module.scss';
 import { strapi } from '@/lib/server/services';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 import { md, mdi } from '@/lib/shared/utils';
