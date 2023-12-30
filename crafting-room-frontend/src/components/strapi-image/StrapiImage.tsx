@@ -1,15 +1,15 @@
 import Image from 'next/image';
 import { FC } from 'react';
-import { strapi, backgroundImageColor } from '@/lib/server-utils';
-import { ImageData, ImageFormat } from '@/types/strapi-types';
+import { strapi } from '@/lib/server/services';
+import { ImageData, ImageFormat } from '@/types/strapi';
+import { FALLBACK_IMAGE_COLOR } from '@/lib/server/utils';
 
 type StrapiImageProps = {
 	className?: string;
 	/**
 	 * The target image data.
 	 *
-	 * If `undefined`, a sequence of fallbacks occurs to return the next
-	 * available image format.
+	 * If the image is null or undefined, the fallback image will be used.
 	 */
 	image: ImageData | null | undefined;
 	/**
@@ -45,12 +45,19 @@ type StrapiImageProps = {
  * A Strapi image wrapped in a Next.js `<Image>` tag.
  */
 export const StrapiImage: FC<StrapiImageProps> = props => {
-	const [image, format] = strapi.resolveImageWithFormat(props.image, props.format);
+	const image = strapi.resolveImage(props.image);
+	const format = strapi.resolveImageFormat(image, props.format);
+
+	const fallbackColorCSS = {
+		backgroundColor: props.fallbackColor !== false
+			? props.fallbackColor ?? FALLBACK_IMAGE_COLOR
+			: undefined
+	};
 
 	return (
 		<Image
 			className={props.className}
-			style={backgroundImageColor(props.fallbackColor)}
+			style={fallbackColorCSS}
 			src={format.url}
 			width={format.width}
 			height={format.height}

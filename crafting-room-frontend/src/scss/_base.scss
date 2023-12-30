@@ -6,12 +6,6 @@
 	--fallback-image-color: #e8eef0;
 }
 
-/**
-*
-*	MAIN LAYOUT
-*
-**/
-
 * {
 	box-sizing: border-box;
 	word-break: break-word;
@@ -49,7 +43,7 @@ h3,
 h4,
 h5,
 h6 {
-	letter-spacing: unset; //unset skeleton
+	letter-spacing: unset; //override skeleton
 	font-weight: 600;
 }
 

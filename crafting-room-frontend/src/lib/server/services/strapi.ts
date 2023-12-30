@@ -1,7 +1,7 @@
-import { StrapiClient, StrapiClientOptions } from '@/lib/api/strapi-client';
-import { throwExp } from '@/lib/utils';
+import { StrapiService, StrapiServiceOptions } from '@/lib/shared/classes/strapi-service';
+import { throwExp } from '@/lib/shared/utils';
 
-const options: StrapiClientOptions = {
+const options: StrapiServiceOptions = {
 	hostname: process.env.STRAPI_HOST
 		? process.env.STRAPI_HOST
 		: throwExp('Missing `STRAPI_HOST` environment variable'),
@@ -16,12 +16,6 @@ const options: StrapiClientOptions = {
 if (process.env.STRAPI_MEDIA_PROVIDER_HOST)
 	options.mediaProviderHostname = process.env.STRAPI_MEDIA_PROVIDER_HOST;
 
-if (process.env.ALWAYS_USE_FALLBACK_IMAGE === 'true')
-	options.alwaysUseFallbackImage = true;
-
-if (process.env.DISABLE_IMAGE_CACHING === 'true')
-	options.disableImageCaching = true;
-
 if (
 	process.env.CACHE_REVALIDATION_INTERVAL
 	&& process.env.CACHE_REVALIDATION_INTERVAL !== 'false'
@@ -34,6 +28,6 @@ if (
 }
 
 /**
- * Instance of the Strapi API client for use on the server.
+ * Instance of the Strapi service on the server.
  */
-export const strapi = new StrapiClient(options);
+export const strapi = new StrapiService(options);

@@ -4,7 +4,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { IoMdMore } from 'react-icons/io';
 import { CRRLogo } from '../logo/CRRLogo';
 import styles from './Navbar.module.scss';
-import { makeClass } from '@/lib/utils';
+import { makeClass } from '@/lib/shared/utils';
 
 /**
  * The navbar.

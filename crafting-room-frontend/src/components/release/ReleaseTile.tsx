@@ -3,7 +3,7 @@ import { FC } from 'react';
 import styles from './ReleaseTile.module.scss';
 import { Release } from '@/types/strapi-responses';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { makeClass, mdi } from '@/lib/utils';
+import { makeClass, mdi } from '@/lib/shared/utils';
 
 type Props = {
 	release: Release;

@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import styles from './ArticleTile.module.scss';
 import { Article } from '@/types/strapi-responses';
-import { formatDate, makeClass, mdi } from '@/lib/utils';
-import { backgroundImage } from '@/lib/server-utils';
+import { formatDate, makeClass, mdi } from '@/lib/shared/utils';
+import { backgroundImage } from '@/lib/server/utils';
 
 type Props = {
 	article: Article;

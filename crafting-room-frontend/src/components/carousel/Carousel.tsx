@@ -4,7 +4,7 @@ import { Children, FC, PropsWithChildren, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx';
 import styles from './Carousel.module.scss';
-import { makeClass } from '@/lib/utils';
+import { makeClass } from '@/lib/shared/utils';
 
 /**
  * Wraps its children in an Embla carousel.

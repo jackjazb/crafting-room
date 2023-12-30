@@ -1,6 +1,6 @@
 import { Event } from '@/types/strapi-responses/shared/collection-items/event';
 import { Release } from '@/types/strapi-responses/shared/collection-items/release';
-import { CollectionItem, ImageData, ItemData, PublishableItemData } from '@/types/strapi-types';
+import { CollectionItem, ImageData, ItemData, PublishableItemData } from '@/types/strapi';
 
 export type Artist = PublishableItemData<{
 	name: string;

@@ -1,10 +1,10 @@
 import { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import styles from './Event.module.scss';
-import { strapi } from '@/lib/server-utils';
+import { strapi } from '@/lib/server/services';
 import { SplitContentSection } from '@/components/split-content/SplitContent';
-import { md, mdi } from '@/lib/utils/markdown';
-import { formatDate, makeClass } from '@/lib/utils';
+import { md, mdi } from '@/lib/shared/utils/markdown';
+import { formatDate, makeClass } from '@/lib/shared/utils';
 import { ArtistGrid } from '@/components/artist/ArtistGrid';
 
 type ServerProps = {

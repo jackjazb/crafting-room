@@ -3,9 +3,9 @@ import { stringify } from 'qs';
 import { OptionalProps } from '@/types/utils';
 
 /**
- * Options for a HTTP client.
+ * Options for an API service.
  */
-export type HttpClientOptions = {
+export type ApiServiceOptions = {
 	/**
 	 * Hostname of the API.
 	 */
@@ -24,7 +24,7 @@ export type HttpClientOptions = {
 	 * Number of times to attempt an API call before giving up.
 	 * @defaultValue 1 attempt
 	 */
-	retryCount?: number;
+	requestAttempts?: number;
 	/**
 	 * Time to wait for a response (in milliseconds) before giving up.
 	 * @defaultValue 30 seconds
@@ -41,16 +41,16 @@ export type HttpClientOptions = {
 };
 
 /**
- * A HTTP client based on the Fetch API.
+ * An API service based on the Fetch API.
  */
-export class HttpClient<TBaseResponseData extends object = object> {
+export class ApiService<TBaseResponseData extends object = object> {
 	/**
 	 * The default options for any instance.
 	 */
-	static readonly defaultOptions: Required<OptionalProps<HttpClientOptions>> = {
+	static readonly defaultOptions: Required<OptionalProps<ApiServiceOptions>> = {
 		baseEndpoint: '',
 		baseParams: null,
-		retryCount: 1,
+		requestAttempts: 1,
 		timeout: 30000,
 		cacheRevalidationInterval: false
 	};
@@ -58,14 +58,14 @@ export class HttpClient<TBaseResponseData extends object = object> {
 	/**
 	 * The options set for this instance.
 	 */
-	protected readonly options: Required<HttpClientOptions>;
+	protected readonly options: Required<ApiServiceOptions>;
 
 	/**
-	 * A HTTP client based on the Fetch API.
-	 * @param options - Target HTTP client options
+	 * An API service based on the Fetch API.
+	 * @param options - Target API service options
 	 */
-	constructor(options: HttpClientOptions) {
-		this.options = merge({}, HttpClient.defaultOptions, options);
+	constructor(options: ApiServiceOptions) {
+		this.options = merge({}, ApiService.defaultOptions, options);
 	}
 
 	/**
@@ -82,9 +82,8 @@ export class HttpClient<TBaseResponseData extends object = object> {
 		params?: object,
 		options?: RequestInit
 	) {
-		const resolvedParams = merge({}, this.options.baseParams, params);
-
-		const encodedParams = '?' + stringify(resolvedParams);
+		const _params = merge({}, this.options.baseParams, params);
+		const encodedParams = '?' + stringify(_params);
 
 		const url = this.options.hostname
 			+ this.options.baseEndpoint
@@ -92,27 +91,27 @@ export class HttpClient<TBaseResponseData extends object = object> {
 			+ endpoint
 			+ encodedParams;
 
-		const resolvedOptions: RequestInit = merge({}, {
-			next: {
-				revalidate: this.options.cacheRevalidationInterval
-					? this.options.cacheRevalidationInterval
-					: undefined
-			}
-		}, options);
+		const _options: RequestInit =
+			merge({}, {
+				next: {
+					revalidate: this.options.cacheRevalidationInterval
+						? this.options.cacheRevalidationInterval
+						: undefined
+				}
+			}, options);
 
 		const sendRequest = async () => {
-			const response = await fetch(url, resolvedOptions);
+			const response = await fetch(url, _options);
 			if (!response.ok)
 				throw new Error('Response was not OK');
-
 			return response;
 		};
 
 		let attempts = 0;
 
-		const startAttemptingRequest = async (): Promise<Response> => {
-			if (attempts >= this.options.retryCount)
-				throw new Error(`Maximum number of fetch request attempts (${this.options.retryCount}) has been reached`);
+		const attemptRequest = async (): Promise<Response> => {
+			if (attempts >= this.options.requestAttempts)
+				throw new Error(`Maximum number of fetch request attempts (${this.options.requestAttempts}) has been reached`);
 
 			attempts++;
 
@@ -125,11 +124,11 @@ export class HttpClient<TBaseResponseData extends object = object> {
 				return response;
 
 			} catch (e) {
-				return await startAttemptingRequest();
+				return await attemptRequest();
 			}
 		};
 
-		const response = await startAttemptingRequest();
+		const response = await attemptRequest();
 		return await response.json() as TData;
 	}
 }
