@@ -21,20 +21,22 @@ export const EventTile: FC<Props> = props => {
 				!props.canBook ? styles.noBook : null
 			)}
 		>
-			<StrapiImage
-				className={styles.eventThumbnail}
-				image={props.event.attributes.image.data}
-				format='medium'
-				alt={props.event.attributes.title}
-			/>
-
-			<div className={styles.eventDetails}>
-				<div
-					className={styles.eventTitle}
-					dangerouslySetInnerHTML={mdi(props.event.attributes.title)}
+			<div className={styles.eventMain}>
+				<StrapiImage
+					className={styles.eventThumbnail}
+					image={props.event.attributes.image.data}
+					format='medium'
+					alt={props.event.attributes.title}
 				/>
-				<div className={styles.eventDate}>
-					{formatDate(props.event.attributes.date)}
+
+				<div className={styles.eventDetails}>
+					<div
+						className={styles.eventTitle}
+						dangerouslySetInnerHTML={mdi(props.event.attributes.title)}
+					/>
+					<div className={styles.eventDate}>
+						{formatDate(props.event.attributes.date)}
+					</div>
 				</div>
 			</div>
 

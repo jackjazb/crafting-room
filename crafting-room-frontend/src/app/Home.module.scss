@@ -1,3 +1,7 @@
+.carousel {
+    margin-bottom: unset;
+}
+
 .feature {
     position: relative;
     display: flex;
@@ -21,6 +25,6 @@
     font-size: 1.5em;
 }
 
-.featureReleases {
-    margin: 0 20px;
+.featuredReleases {
+    padding-top: 20px;
 }
