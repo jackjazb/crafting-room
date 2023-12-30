@@ -39,7 +39,7 @@
         "./src/*"
       ],
       "@scss/*": [
-        "./src/scss/*"
+        "./src/lib/scss/*"
       ]
     }
   },

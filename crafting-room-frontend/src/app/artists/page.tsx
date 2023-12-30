@@ -1,14 +1,14 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import styles from './Artists.module.scss';
-import { strapi } from '@/lib/server/services';
+import { cms } from '@/lib/server/services';
 import { ArtistGrid } from '@/components/artist/ArtistGrid';
 
 /**
  * The directory page for all artists.
  */
 export const ArtistsPage: NextPage = async () => {
-	const artistsPage = await strapi.getArtistsPage().catch(notFound);
+	const artistsPage = await cms.getArtistsPage().catch(notFound);
 
 	const activeGroups = artistsPage.attributes.groups;
 	const inactive = artistsPage.attributes.inactive.artists.data;

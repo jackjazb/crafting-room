@@ -1,9 +1,9 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import styles from './Article.module.scss';
-import { strapi } from '@/lib/server/services';
+import { cms } from '@/lib/server/services';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { mdi, md } from '@/lib/shared/utils';
+import { mdi, md, formatDate } from '@/lib/utils';
 
 type ServerProps = {
     params: { slug: string; };
@@ -11,27 +11,35 @@ type ServerProps = {
 
 const ArticlePage: NextPage<ServerProps> = async props => {
     const { slug } = props.params;
-    const article = await strapi.getArticle({ slug }).catch(notFound);
+    const article = await cms.getArticle({ slug }).catch(notFound);
 
     return (
         <main>
-            <section>
-                <StrapiImage
-                    className={styles.articleTopImage}
-                    image={article.attributes.images.data[0]}
-                    format='xlarge'
-                    priority
-                />
+            <StrapiImage
+                className={styles.articleTopImage}
+                image={article.attributes.images.data[0]}
+                format='source'
+                priority
+            />
 
-                <article className='container'>
+            <article className='container'>
+                <hgroup>
                     <h1 dangerouslySetInnerHTML={mdi(article.attributes.title)} />
-                    <h5
-                        className={styles.author}
-                        dangerouslySetInnerHTML={mdi(article.attributes.author)}
-                    />
-                    <div dangerouslySetInnerHTML={md(article.attributes.content)} />
-                </article>
-            </section>
+                    <p className={styles.subtitle}>
+                        <span className={styles.date}>
+                            {formatDate(article.attributes.createdAt, 'numeric')}
+                        </span>
+                        {' '}
+                        ▸
+                        {' '}
+                        <span
+                            className={styles.author}
+                            dangerouslySetInnerHTML={mdi(article.attributes.author)}
+                        />
+                    </p>
+                </hgroup>
+                <div dangerouslySetInnerHTML={md(article.attributes.content)} />
+            </article>
         </main>
     );
 };

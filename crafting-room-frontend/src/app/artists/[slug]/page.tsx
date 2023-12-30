@@ -1,10 +1,10 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import styles from './Artist.module.scss';
-import { strapi } from '@/lib/server/services';
+import { cms } from '@/lib/server/services';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { SplitContentSection } from '@/components/split-content/SplitContent';
-import { mdi, md } from '@/lib/shared/utils';
+import { mdi, md } from '@/lib/utils';
 import { IconLink } from '@/components/icon-link/IconLink';
 
 type ServerProps = {
@@ -16,7 +16,7 @@ type ServerProps = {
  */
 const ArtistPage: NextPage<ServerProps> = async props => {
     const { slug } = props.params;
-    const artist = await strapi.getArtist({ slug }).catch(notFound);
+    const artist = await cms.getArtist({ slug }).catch(notFound);
 
     return (
         <main className='container'>

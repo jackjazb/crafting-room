@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import type { FC } from 'react';
+import Link from 'next/link';
 import styles from './ArticleTile.module.scss';
-import { Article } from '@/types/strapi-responses';
-import { formatDate, makeClass, mdi } from '@/lib/shared/utils';
-import { backgroundImage } from '@/lib/server/utils';
+import type { Article } from '@/lib/types';
+import { formatDate, makeClass, mdi } from '@/lib/utils';
+import { media } from '@/lib/server/services';
 
 type Props = {
 	article: Article;
@@ -13,26 +14,26 @@ type Props = {
  */
 export const ArticleTile: FC<Props> = props => {
 	return (
-		// TODO -> potentially convert this to StrapiImage like other tiles?
-		<div className={styles.articleTile}>
-			<a
-				className={styles.articleLink}
+		// TODO: potentially convert this to StrapiImage like other tiles?
+		<div className={styles.tile}>
+			<Link
+				className={styles.link}
 				href={`/news/${props.article.attributes.slug}`}
-				style={backgroundImage(
+				style={media.createBackground(
 					props.article.attributes.images.data[0],
-					'large'
+					'xlarge'
 				)}
 			>
 				<div
 					className={makeClass(
-						styles.articleTitle,
+						styles.title,
 						'overlay-text'
 					)}
 					dangerouslySetInnerHTML={mdi(props.article.attributes.title)}
 				/>
 				<div
 					className={makeClass(
-						styles.articleAuthor,
+						styles.author,
 						'overlay-text',
 						'overlay-text--small'
 					)}
@@ -40,14 +41,14 @@ export const ArticleTile: FC<Props> = props => {
 				/>
 				<div
 					className={makeClass(
-						styles.articleDate,
+						styles.date,
 						'overlay-text',
 						'overlay-text--small'
 					)}
 				>
-					{formatDate(props.article.attributes.createdAt)}
+					{formatDate(props.article.attributes.createdAt, 'abbreviated')}
 				</div>
-			</a>
+			</Link>
 		</div>
 	);
 };

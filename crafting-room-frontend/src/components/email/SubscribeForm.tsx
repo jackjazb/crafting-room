@@ -1,9 +1,10 @@
 'use client';
 
-import { FC, useRef, useState } from 'react';
+import type { FC } from 'react';
+import { useRef, useState } from 'react';
 import { MdErrorOutline, MdDone } from 'react-icons/md';
-import styles from './SubscribeForm.module.css';
-import { makeClass } from '@/lib/shared/utils';
+import styles from './SubscribeForm.module.scss';
+import { makeClass } from '@/lib/utils';
 
 // see this page: https://stackoverflow.com/a/201378
 // eslint-disable-next-line no-control-regex
@@ -76,7 +77,8 @@ export const SubscribeForm: FC = () => {
             ) : !valid && (
                 <div
                     className={makeClass(
-                        styles.status, styles.invalid
+                        styles.status,
+                        styles.invalid
                     )}
                 >
                     <MdErrorOutline size={20} />

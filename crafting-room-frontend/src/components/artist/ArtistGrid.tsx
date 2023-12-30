@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import styles from './ArtistGrid.module.scss';
-import { Artist } from '@/types/strapi-responses';
+import type { Artist } from '@/lib/types';
 import { ArtistTile } from '@/components/artist/ArtistTile';
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 
 export const ArtistGrid: FC<Props> = props => {
 	return (
-		<div className={styles.artistGrid}>
+		<div className={styles.grid}>
 			{props.artists.map(artist => (
 				<ArtistTile
 					key={artist.id}

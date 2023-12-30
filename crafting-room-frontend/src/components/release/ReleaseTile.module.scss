@@ -1,23 +1,27 @@
-@import "@/scss/logic";
+@import "@scss/logic";
 
-.release {
+.wrapper {
     position: relative;
     display: flex;
 
+    @include hover-active-swap-focus-visible {
+        text-decoration: none;
+    }
+
     @include hover-active-swap-focus-within {
-        .releaseOverlay {
+        .overlay {
             opacity: 1;
         }
     }
 }
 
-.releaseImage {
+.image {
     aspect-ratio: 1/1;
     width: 100%;
     height: 100%;
 }
 
-.releaseOverlay {
+.overlay {
     position: absolute;
     inset: 0;
     opacity: 0;
@@ -28,24 +32,33 @@
     gap: 5px;
     padding: 10px;
 
-    @media (max-width: 768px) {
+    @include media-breakpoint-down(md) {
         opacity: 1;
     }
+}
 
-    .releaseTitle {
-        font-weight: 600;
+.title {
+    font-weight: 600;
+    font-size: 1.8em;
+
+    @include media-breakpoint-down(lg) {
         font-size: 1.5em;
     }
+}
 
-    .releaseArtist {
-        font-size: 1.1em;
-        font-weight: 300;
-    }
+.artist {
+    font-weight: 300;
+    font-size: 1.3em;
 
-    .releaseLink {
-        margin-top: auto;
-        margin-left: auto;
-        margin-right: auto;
+    @include media-breakpoint-down(lg) {
         font-size: 1.1em;
     }
+}
+
+.link {
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+
+    font-size: 1.1em;
 }

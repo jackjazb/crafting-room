@@ -1,9 +1,10 @@
 import { RxExternalLink } from 'react-icons/rx';
-import { FC } from 'react';
+import type { FC } from 'react';
+import Link from 'next/link';
 import styles from './ReleaseTile.module.scss';
-import { Release } from '@/types/strapi-responses';
+import type { Release } from '@/lib/types';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { makeClass, mdi } from '@/lib/shared/utils';
+import { makeClass, mdi } from '@/lib/utils';
 
 type Props = {
 	release: Release;
@@ -14,25 +15,25 @@ type Props = {
  */
 export const ReleaseTile: FC<Props> = props => {
 	return (
-		<div className={styles.release}>
+		<div className={styles.wrapper}>
 			<StrapiImage
-				className={styles.releaseImage}
+				className={styles.image}
 				image={props.release.attributes.artwork.data}
 				format='large'
 				alt={props.release.attributes.title}
 			/>
 
-			<div className={styles.releaseOverlay}>
+			<div className={styles.overlay}>
 				<div
 					className={makeClass(
-						styles.releaseTitle,
+						styles.title,
 						'overlay-text'
 					)}
 					dangerouslySetInnerHTML={mdi(props.release.attributes.title)}
 				/>
 				<div
 					className={makeClass(
-						styles.releaseArtist,
+						styles.artist,
 						'overlay-text',
 						'overlay-text--small'
 					)}
@@ -42,18 +43,18 @@ export const ReleaseTile: FC<Props> = props => {
 				/>
 
 				{props.release.attributes.link && (
-					<a
+					<Link
 						className={makeClass(
-							styles.releaseLink,
+							styles.link,
 							'button-black'
 						)}
 						href={props.release.attributes.link}
 						target='_blank'
-						rel='noreferrer'
+						rel='external'
 					>
 						<RxExternalLink />
 						Bandcamp
-					</a>
+					</Link>
 				)}
 			</div>
 		</div>

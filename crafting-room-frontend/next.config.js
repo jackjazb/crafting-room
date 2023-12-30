@@ -12,7 +12,7 @@ module.exports = {
 		remotePatterns: [
 			{
 				protocol: 'http',
-				hostname: '**' //TODO -> these might not be good... double check this one
+				hostname: '**' //TODO: these might not be good... double check this one
 			},
 			{
 				protocol: 'https',
@@ -21,6 +21,8 @@ module.exports = {
 		]
 	},
 	sassOptions: {
-		includePaths: [join(__dirname, 'scss/**/*.scss')]
+		includePaths: [
+			join(__dirname, 'lib/scss/**/*.scss')
+		]
 	}
 };

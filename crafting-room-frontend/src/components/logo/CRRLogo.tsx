@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 /**
  * This is a bit nasty, but it's the easiest way of loading the injecting the SVG

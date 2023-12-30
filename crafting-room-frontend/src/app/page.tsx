@@ -1,14 +1,17 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import styles from './Home.module.scss';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { Carousel } from '@/components/carousel/Carousel';
-import { strapi } from '@/lib/server/services';
-import { makeClass, mdi } from '@/lib/shared/utils';
+import { cms } from '@/lib/server/services';
+import { makeClass, mdi } from '@/lib/utils';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
 const HomePage: NextPage = async () => {
-    const homePage = await strapi.getHomePage().catch(notFound);
+    //TODO: doing `notFound` on page requests like this is misleading as
+    //no matter the api failure response, `notFound` is called
+    const homePage = await cms.getHomePage().catch(notFound);
 
     const features = homePage.attributes.features.data;
 
@@ -18,15 +21,15 @@ const HomePage: NextPage = async () => {
                 <section className={styles.carousel}>
                     <Carousel>
                         {features.map(feature => (
-                            <a
+                            <Link
                                 key={feature.id}
                                 className={styles.feature}
-                                href={`/news/${feature.attributes.title}`}
+                                href={`/news/${feature.attributes.slug}`}
                             >
                                 <StrapiImage
                                     className={styles.featureImage}
                                     image={feature.attributes.images.data[0]}
-                                    format='xlarge'
+                                    format='source'
                                     priority={features.indexOf(feature) === 0}
                                 />
                                 <div
@@ -36,7 +39,7 @@ const HomePage: NextPage = async () => {
                                     )}
                                     dangerouslySetInnerHTML={mdi(feature.attributes.title)}
                                 />
-                            </a>
+                            </Link>
                         ))}
                     </Carousel>
                 </section>

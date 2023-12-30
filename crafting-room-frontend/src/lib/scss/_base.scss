@@ -1,0 +1,101 @@
+:root {
+	--transition: 150ms ease-in-out;
+	--transition-fast: 50ms ease-in-out;
+	--border-radius: 4px;
+	--button-color: #33c3f0;
+	--fallback-image-color: #cdd6da;
+	--link: #0fa0ce;
+}
+
+* {
+	box-sizing: border-box;
+	word-break: break-word;
+	// -webkit-tap-highlight-color: transparent;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+::selection {
+	background-color: var(--link);
+	color: white;
+}
+
+body {
+	margin: unset;
+	font-size: 1.5rem;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	line-height: 1.2;
+	color: #222;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	min-height: 100dvh;
+}
+
+section {
+	margin-bottom: 35px;
+
+	&:last-of-type {
+		margin-bottom: unset;
+	}
+
+	@include media-breakpoint-down(md) {
+		margin-bottom: 30px;
+
+		&:last-of-type {
+			margin-bottom: unset;
+		}
+	}
+}
+
+form {
+	margin-bottom: unset;
+}
+
+hgroup {
+	margin-bottom: 2rem;
+
+	* {
+		margin-bottom: 0.5rem;
+		margin-top: unset;
+	}
+
+	*:last-child {
+		margin-bottom: unset;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	letter-spacing: unset; //override skeleton
+	font-weight: 600;
+}
+
+img {
+	width: auto;
+	max-width: 100%;
+	object-fit: cover;
+}
+
+a {
+	text-decoration: none;
+
+	@include hover-active-swap-focus-visible {
+		text-decoration: underline;
+	}
+}
+
+p {
+	line-height: 1.5;
+	font-size: 1.3em;
+
+	&:last-of-type {
+		margin-bottom: unset;
+	}
+}

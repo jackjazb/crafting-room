@@ -1,0 +1,59 @@
+.container {
+	position: relative;
+	width: 80%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 30px 20px;
+
+	@include media-breakpoint-down(md) {
+		width: 100%;
+		padding: 20px;
+	}
+}
+
+.container-fluid {
+	position: relative;
+	width: 100%;
+	padding: 30px 20px;
+
+	@include media-breakpoint-down(md) {
+		padding: 20px;
+	}
+}
+
+.overlay-text {
+	--overlay-text-padding: 10px;
+	padding: var(--overlay-text-padding);
+	background-color: black;
+	color: white;
+	font-weight: 500;
+
+	@include media-breakpoint-down(lg) {
+		padding-bottom: calc(var(--overlay-text-padding) - 2px);
+	}
+
+	&--small {
+		--overlay-text-padding: 5px;
+	}
+}
+
+.button-black {
+	@extend .overlay-text;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	cursor: pointer;
+
+	@include hover-active-swap-focus-visible {
+		color: var(--link);
+		background-color: #080808;
+
+		transition:
+			color var(--transition-fast),
+			background-color var(--transition-fast);
+	}
+
+	svg {
+		font-size: 1.5em;
+	}
+}

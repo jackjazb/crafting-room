@@ -1,4 +1,6 @@
-.articleTile {
+@import "@scss/logic";
+
+.tile {
     display: flex;
     padding: 20px 0px;
     border-bottom: 1px solid lightgray;
@@ -13,7 +15,7 @@
     }
 }
 
-.articleLink {
+.link {
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -22,23 +24,27 @@
     gap: 7.5px;
     padding: 15px;
     background-size: cover;
+
+    @include hover-active-swap-focus-visible {
+        text-decoration: none;
+    }
 }
 
-.articleTitle {
+.title {
     font-weight: 600;
     font-size: 1.7em;
 
-    @media (max-width: 768px) {
+    @include media-breakpoint-down(md) {
         font-size: 1.4em;
     }
 }
 
-.articleAuthor {
+.author {
     font-size: 1.1em;
     font-weight: 300;
 }
 
-.articleDate {
+.date {
     font-size: 1.1em;
     font-weight: 300;
     align-self: flex-end;

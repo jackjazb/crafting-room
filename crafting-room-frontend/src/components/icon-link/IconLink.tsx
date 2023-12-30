@@ -1,8 +1,9 @@
 import { BsGlobe } from 'react-icons/bs';
 import { SiSpotify, SiInstagram, SiFacebook, SiTwitter, SiLinktree, SiYoutube, SiBandcamp } from 'react-icons/si';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
+import Link from 'next/link';
 import styles from './IconLink.module.scss';
-import { LinkType } from '@/types/strapi-responses';
+import type { LinkType } from '@/lib/types';
 
 const ICON_SIZE = 30;
 
@@ -20,7 +21,7 @@ const iconLinks: Icons = {
 	instagram: { node: <SiInstagram size={ICON_SIZE} />, color: '#f24c5f' },
 	facebook: { node: <SiFacebook size={ICON_SIZE} />, color: '#0865ff' },
 	twitter: { node: <SiTwitter size={ICON_SIZE} />, color: '#249ef0' },
-	website: { node: <BsGlobe size={ICON_SIZE} />, color: '#565656' },
+	website: { node: <BsGlobe size={ICON_SIZE} />, color: '#0fa0ce' },
 	linktree: { node: <SiLinktree size={ICON_SIZE} />, color: '#41e760' },
 	youtube: { node: <SiYoutube size={ICON_SIZE} />, color: '#ff0000' },
 	bandcamp: { node: <SiBandcamp size={ICON_SIZE} />, color: '#639aaa' }
@@ -36,16 +37,16 @@ type Props = {
  */
 export const IconLink: FC<Props> = props => {
 	return (
-		<a
+		<Link
 			className={styles.iconLink}
 			href={props.link}
 			target='_blank'
-			rel='noreferrer'
+			rel='external'
 			style={{
 				'--icon-link-color': iconLinks[props.icon].color
 			} as React.CSSProperties}
 		>
 			{iconLinks[props.icon].node}
-		</a>
+		</Link>
 	);
 };

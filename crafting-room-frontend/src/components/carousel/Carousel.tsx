@@ -1,10 +1,11 @@
 'use client';
 
-import { Children, FC, PropsWithChildren, useCallback } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import { Children, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { RxCaretLeft, RxCaretRight } from 'react-icons/rx';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
 import styles from './Carousel.module.scss';
-import { makeClass } from '@/lib/shared/utils';
+import { makeClass } from '@/lib/utils';
 
 /**
  * Wraps its children in an Embla carousel.
@@ -47,7 +48,7 @@ export const Carousel: FC<PropsWithChildren> = props => {
                 tabIndex={0}
                 onClick={scrollPrev}
             >
-                <RxCaretLeft size={45} />
+                <FaArrowLeft size={32} />
             </button>
             <button
                 className={makeClass(
@@ -58,7 +59,7 @@ export const Carousel: FC<PropsWithChildren> = props => {
                 tabIndex={0}
                 onClick={scrollNext}
             >
-                <RxCaretRight size={45} />
+                <FaArrowRight size={32} />
             </button>
         </div>
     );

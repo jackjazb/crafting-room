@@ -1,17 +1,17 @@
-import { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import styles from './SplitContent.module.scss';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { ImageData } from '@/types/strapi';
+import type { Image } from '@/lib/types';
 
-type Props = PropsWithChildren<{ image: ImageData | null | undefined; }>;
+type Props = PropsWithChildren<{ image: Image; }>;
 
 export const SplitContentSection: FC<Props> = props => {
 	return (
-		<section className={styles.splitContent}>
+		<section className={styles.wrapper}>
 			<StrapiImage
 				className={styles.image}
 				image={props.image}
-				format='large'
+				format='xlarge'
 				priority
 			/>
 			<div className={styles.content}>

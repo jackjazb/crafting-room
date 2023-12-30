@@ -1,12 +1,12 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import { EventTile } from '@/components/event/EventTile';
-import { strapi } from '@/lib/server/services';
+import { cms } from '@/lib/server/services';
 
 const EventsPage: NextPage = async () => {
-	const events = await strapi.getEvents().catch(notFound);
+	const events = await cms.getEvents().catch(notFound);
 
-	//TODO -> get current date in uk time
+	//TODO: get current date in uk time
 	const currentDate = new Date();
 
 	// Split the list of events into past and future

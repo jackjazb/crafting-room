@@ -1,13 +1,17 @@
-@import "@/scss/logic";
+@import "@scss/logic";
 
 .iconLink {
 	display: flex;
 	padding: 5px;
 	color: black;
-	transition: color var(--transition-fast);
 
 	&:hover {
 		color: black; //override default
+		transition: color var(--transition-fast);
+	}
+
+	@include hover-active-swap-focus-visible {
+		text-decoration: none;
 	}
 
 	@include hover-active-swap-focus-visible {

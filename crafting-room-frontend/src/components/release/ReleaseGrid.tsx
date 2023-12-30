@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import styles from './ReleaseGrid.module.scss';
 import { ReleaseTile } from './ReleaseTile';
-import { Release } from '@/types/strapi-responses';
+import type { Release } from '@/lib/types';
 
 type Props = {
 	className?: string;
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const ReleaseGrid: FC<Props> = props => {
-	if (props.order === 'date') {
+	if (props.order === 'date')
 		props.releases.sort((a, b) => {
 			const aDate = new Date(a.attributes.date);
 			const bDate = new Date(b.attributes.date);
@@ -22,10 +22,9 @@ export const ReleaseGrid: FC<Props> = props => {
 			else
 				return 0;
 		});
-	}
 
 	return (
-		<div className={styles.releaseGrid}>
+		<div className={styles.grid}>
 			{props.releases.map(release => (
 				<ReleaseTile
 					key={release.id}

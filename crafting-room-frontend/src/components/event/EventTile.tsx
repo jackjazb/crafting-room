@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import type { FC } from 'react';
+import Link from 'next/link';
 import styles from './EventTile.module.scss';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { formatDate, makeClass, mdi } from '@/lib/shared/utils';
-import { Event } from '@/types/strapi-responses';
+import { formatDate, makeClass, mdi } from '@/lib/utils';
+import type { Event } from '@/lib/types';
 
 type Props = {
 	event: Event;
@@ -17,44 +18,46 @@ export const EventTile: FC<Props> = props => {
 		<div
 			key={props.event.id}
 			className={makeClass(
-				styles.eventTile,
+				styles.tile,
 				!props.canBook ? styles.noBook : null
 			)}
 		>
-			<div className={styles.eventMain}>
+			<div className={styles.content}>
 				<StrapiImage
-					className={styles.eventThumbnail}
+					className={styles.thumbnail}
 					image={props.event.attributes.image.data}
 					format='medium'
 					alt={props.event.attributes.title}
 				/>
 
-				<div className={styles.eventDetails}>
+				<div className={styles.details}>
 					<div
-						className={styles.eventTitle}
+						className={styles.title}
 						dangerouslySetInnerHTML={mdi(props.event.attributes.title)}
 					/>
-					<div className={styles.eventDate}>
-						{formatDate(props.event.attributes.date)}
+					<div className={styles.date}>
+						{formatDate(props.event.attributes.date, 'full')}
 					</div>
 				</div>
 			</div>
 
-			<div className={styles.eventOptions}>
-				<a
-					href={`/events/${props.event.attributes.slug}`}
+			<div className={styles.options}>
+				<Link
 					className='button'
+					href={`/events/${props.event.attributes.slug}`}
 				>
 					More Info
-				</a>
+				</Link>
 
 				{props.canBook && props.event.attributes.link && (
-					<a
-						href={props.event.attributes.link}
+					<Link
 						className='button button-primary'
+						href={props.event.attributes.link}
+						target='_blank'
+						rel='external'
 					>
 						Book
-					</a>
+					</Link>
 				)}
 			</div>
 		</div>

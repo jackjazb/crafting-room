@@ -1,17 +1,19 @@
-.releaseGrid {
+@import "@scss/logic";
+
+.grid {
 	display: grid;
 	gap: 20px;
 	grid-template-columns: repeat(4, 1fr);
 
-	@media (max-width: 1200px) {
+	@include media-breakpoint-down(xl) {
 		grid-template-columns: repeat(3, 1fr);
 	}
 
-	@media (max-width: 992px) {
+	@include media-breakpoint-down(lg) {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	@media (max-width: 576px) {
+	@include media-breakpoint-down(sm) {
 		grid-template-columns: repeat(1, 1fr);
 	}
 }

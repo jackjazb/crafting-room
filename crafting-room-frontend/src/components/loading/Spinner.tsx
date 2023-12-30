@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { FC } from 'react';
-import styles from './Spinner.module.css';
+import type { FC } from 'react';
+import styles from './Spinner.module.scss';
 
 /**
  * The loading spinner icon.
@@ -10,9 +10,9 @@ export const Spinner: FC = () => {
 		<div className={styles.loadingContainer}>
 			<Image
 				src='/loading.svg'
-				alt=''
-				width='50'
-				height='50'
+				alt='Loading...'
+				width={50}
+				height={50}
 				priority
 			/>
 		</div>

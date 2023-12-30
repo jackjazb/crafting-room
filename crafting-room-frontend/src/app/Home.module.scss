@@ -1,5 +1,7 @@
+@import "@scss/logic";
+
 .carousel {
-    margin-bottom: unset;
+    margin-bottom: unset; //override section styles
 }
 
 .feature {
@@ -7,7 +9,11 @@
     display: flex;
     height: 70vh;
 
-    @media (max-width: 992px) {
+    @include hover-active-swap-focus-visible {
+        text-decoration: none;
+    }
+
+    @include media-breakpoint-down(lg) {
         height: 60vh;
     }
 }
@@ -22,7 +28,12 @@
     bottom: 0;
     margin: 20px;
     font-weight: 600;
-    font-size: 1.5em;
+
+    font-size: 1.8em;
+
+    @include media-breakpoint-down(lg) {
+        font-size: 1.5em;
+    }
 }
 
 .featuredReleases {

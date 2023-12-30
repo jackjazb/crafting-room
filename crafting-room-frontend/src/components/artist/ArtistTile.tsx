@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import type { FC } from 'react';
+import Link from 'next/link';
 import styles from './ArtistTile.module.scss';
-import { Artist } from '@/types/strapi-responses';
-import { makeClass, mdi } from '@/lib/shared/utils';
+import type { Artist } from '@/lib/types';
+import { makeClass, mdi } from '@/lib/utils';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
 type Props = {
@@ -13,27 +14,27 @@ type Props = {
  */
 export const ArtistTile: FC<Props> = props => {
 	return (
-		<a
+		<Link
+			className={styles.link}
 			href={`/artists/${props.artist.attributes.slug}`}
-			className={styles.artist}
 		>
 			<StrapiImage
-				className={styles.artistImage}
+				className={styles.image}
 				image={props.artist.attributes.images.data[0]}
 				format='large'
 				alt={props.artist.attributes.name}
 			/>
 
-			<div className={styles.artistOverlay}>
+			<div className={styles.overlay}>
 				<div
 					className={makeClass(
-						styles.artistName,
+						styles.name,
 						'overlay-text',
 						'overlay-text--small'
 					)}
 					dangerouslySetInnerHTML={mdi(props.artist.attributes.name)}
 				/>
 			</div>
-		</a>
+		</Link>
 	);
 };

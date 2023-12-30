@@ -1,10 +1,11 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import styles from './Event.module.scss';
-import { strapi } from '@/lib/server/services';
+import { cms } from '@/lib/server/services';
 import { SplitContentSection } from '@/components/split-content/SplitContent';
-import { md, mdi } from '@/lib/shared/utils/markdown';
-import { formatDate, makeClass } from '@/lib/shared/utils';
+import { md, mdi } from '@/lib/utils/markdown';
+import { formatDate, makeClass } from '@/lib/utils';
 import { ArtistGrid } from '@/components/artist/ArtistGrid';
 
 type ServerProps = {
@@ -13,9 +14,9 @@ type ServerProps = {
 
 const EventPage: NextPage<ServerProps> = async props => {
     const { slug } = props.params;
-    const event = await strapi.getEvent({ slug }).catch(notFound);
+    const event = await cms.getEvent({ slug }).catch(notFound);
 
-    //TODO -> get current date in uk time
+    //TODO: get current date in uk time
     const currentDate = new Date();
     const eventDate = new Date(event.attributes.date);
     const eventIsInFuture = eventDate > currentDate;
@@ -23,36 +24,39 @@ const EventPage: NextPage<ServerProps> = async props => {
     return (
         <main className='container'>
             <SplitContentSection image={event.attributes.image.data}>
-                <h1 dangerouslySetInnerHTML={mdi(event.attributes.title)} />
-
-                <div className={styles.eventDate}>
-                    <span
-                        className={styles.eventVenue}
-                        dangerouslySetInnerHTML={mdi(event.attributes.venue)}
-                    />
-                    {' '}
-                    ~
-                    {' '}
-                    {formatDate(event.attributes.date)}
-                </div>
+                <hgroup>
+                    <h1 dangerouslySetInnerHTML={mdi(event.attributes.title)} />
+                    <p className={styles.subtitle}>
+                        <span
+                            className={styles.venue}
+                            dangerouslySetInnerHTML={mdi(event.attributes.venue)}
+                        />
+                        {' '}
+                        ▸
+                        {' '}
+                        <span className={styles.date}>
+                            {formatDate(event.attributes.date, 'numeric')}
+                        </span>
+                    </p>
+                </hgroup>
 
                 {event.attributes.description && (
                     <div dangerouslySetInnerHTML={md(event.attributes.description)} />
                 )}
 
                 {event.attributes.link && eventIsInFuture && (
-                    <a
+                    <Link
                         className={makeClass(
-                            styles.bookEvent,
+                            styles.book,
                             'button',
                             'button-primary'
                         )}
                         href={event.attributes.link}
                         target='_blank'
-                        rel='noreferrer'
+                        rel='external'
                     >
                         Book Tickets
-                    </a>
+                    </Link>
                 )}
             </SplitContentSection>
 

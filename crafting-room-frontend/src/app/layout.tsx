@@ -1,5 +1,5 @@
-import './global.scss';
-import { FC, PropsWithChildren } from 'react';
+import '@scss/main.scss';
+import type { FC, PropsWithChildren } from 'react';
 import { Navbar } from '@/components/navbar/Navbar';
 import { Footer } from '@/components/footer/Footer';
 

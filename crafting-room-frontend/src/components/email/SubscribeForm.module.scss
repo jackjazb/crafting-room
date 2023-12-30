@@ -1,0 +1,47 @@
+@import "@scss/logic";
+
+.subscribe {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    margin-bottom: 20px;
+
+    @include media-breakpoint-down(md) {
+        flex-direction: column;
+    }
+}
+
+.subscribeForm {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    @include media-breakpoint-down(md) {
+        flex-direction: column;
+    }
+}
+
+.subscribeForm input,
+.subscribeForm button {
+    margin-bottom: 0;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0px 10px;
+    border-radius: 4px;
+}
+
+.status.valid {
+    color: limegreen;
+}
+
+.status.invalid {
+    color: firebrick;
+}
+
+.status ul li {
+    list-style: none;
+}

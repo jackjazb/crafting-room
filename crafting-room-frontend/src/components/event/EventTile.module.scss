@@ -1,4 +1,6 @@
-.eventTile {
+@import "@scss/logic";
+
+.tile {
 	display: flex;
 	gap: 15px;
 	border-bottom: 1px solid lightgray;
@@ -14,85 +16,85 @@
 		padding-bottom: unset;
 	}
 
-	@media (max-width: 768px) {
+	@include media-breakpoint-down(md) {
 		flex-direction: column;
 	}
 
-	// @media (max-width: 576px) {
+	// @include media-breakpoint-down(sm) {
 	// 	gap: 10px;
 	// }
+
+	&.noBook .thumbnail {
+		filter: grayscale(1) opacity(0.7);
+	}
 }
 
-.eventMain {
+.content {
 	flex-grow: 1;
 	display: flex;
 	gap: 15px;
 
-	@media (max-width: 576px) {
+	@include media-breakpoint-down(sm) {
 		gap: 12px;
 	}
 }
 
-.eventThumbnail {
+.thumbnail {
 	aspect-ratio: 1/1;
 	height: 100px;
 
-	@media (max-width: 768px) {
+	@include media-breakpoint-down(md) {
 		height: 80px;
 	}
 }
 
-.eventDetails {
+.details {
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
 	gap: 3px;
 	font-size: 1.2em;
 
-	@media (max-width: 768px) {
+	@include media-breakpoint-down(md) {
 		font-size: 1.1em;
 	}
 
-	@media (max-width: 576px) {
+	@include media-breakpoint-down(sm) {
 		font-size: 1em;
 	}
 }
 
-.eventTitle {
+.title {
 	font-size: 1.6em;
 	font-weight: 600;
 
-	@media (max-width: 768px) {
+	@include media-breakpoint-down(md) {
 		font-size: 1.3em;
 	}
 }
 
-.eventDate {
-	font-weight: 500;
+.date {
+	font-weight: normal;
 }
 
-.eventOptions {
+.options {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	gap: 10px;
 
-	@media (max-width: 768px) {
+	@include media-breakpoint-down(md) {
 		flex-direction: unset;
 	}
-}
 
-.eventOptions > * {
-	width: 100%;
-	padding: 0 40px;
-	margin-bottom: unset;
+	> * {
+		width: 100%;
+		padding: 0 40px;
+		margin-bottom: unset;
 
-	@media (max-width: 992px) {
-		padding: 0 15px;
+		@include media-breakpoint-down(lg) {
+			padding: 0 15px;
+		}
 	}
-}
-
-.eventTile.noBook .eventThumbnail {
-	filter: grayscale(1) opacity(0.7);
 }

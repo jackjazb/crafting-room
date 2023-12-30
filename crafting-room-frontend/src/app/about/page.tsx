@@ -1,12 +1,12 @@
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import styles from './AboutPage.module.scss';
-import { strapi } from '@/lib/server/services';
+import { cms } from '@/lib/server/services';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { md, mdi } from '@/lib/shared/utils';
+import { md, mdi } from '@/lib/utils';
 
 const AboutPage: NextPage = async () => {
-    const aboutPage = await strapi.getAboutPage().catch(notFound);
+    const aboutPage = await cms.getAboutPage().catch(notFound);
 
     return (
         <main className='container'>
@@ -14,7 +14,7 @@ const AboutPage: NextPage = async () => {
                 <StrapiImage
                     className={styles.image}
                     image={aboutPage.attributes.image.data}
-                    format='large'
+                    format='xlarge'
                     priority
                     fallbackColor={false}
                 />
@@ -39,7 +39,7 @@ const AboutPage: NextPage = async () => {
                     <h1>
                         Contact
                     </h1>
-                    {/* TODO -> this should be converted to not be a RTE in strapi! */}
+                    {/* TODO: this should be converted to not be a RTE in strapi! */}
                     <div dangerouslySetInnerHTML={md(aboutPage.attributes.contact)} />
                 </section>
             )}

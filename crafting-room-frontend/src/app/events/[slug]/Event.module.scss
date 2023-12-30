@@ -1,18 +1,24 @@
-.eventDate.eventDate {
-	font-size: 1.6em;
+@import "@scss/logic";
+
+.subtitle.subtitle {
+	font-size: 1.35em;
+}
+
+.date {
 	font-style: italic;
 	margin-bottom: 1em;
 }
 
-.eventVenue {
+.venue {
 	font-weight: 500;
 }
 
-.bookEvent {
+.book {
 	align-self: flex-end;
-	margin-top: 30px;
+	margin-top: 2rem;
+	margin-bottom: unset;
 
-	@media (max-width: 768px) {
+	@include media-breakpoint-down(md) {
 		align-self: unset;
 	}
 }

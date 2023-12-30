@@ -30,11 +30,6 @@ STRAPI_HOST=""
 # - If empty or undefined: defaults to value of `STRAPI_HOST`
 STRAPI_MEDIA_PROVIDER_HOST=""
 
-# Override the default fallback image with the provided image URL.
-# - Optional
-# - If empty or undefined: defaults to `/fallback.png`
-FALLBACK_IMAGE_URL=""
-
 # The interval between cache revalidations (in seconds), or `false` to disable.
 # - In other words, 'after this period of time, ask the server for new
 # data on the next request'.

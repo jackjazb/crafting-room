@@ -1,10 +1,12 @@
 'use client';
 
-import { FC, useEffect, useRef, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IoMdMore } from 'react-icons/io';
+import Link from 'next/link';
 import { CRRLogo } from '../logo/CRRLogo';
 import styles from './Navbar.module.scss';
-import { makeClass } from '@/lib/shared/utils';
+import { makeClass } from '@/lib/utils';
 
 /**
  * The navbar.
@@ -50,33 +52,50 @@ export const Navbar: FC = () => {
 				onClick={() => menuOpen ? closeMenu() : openMenu()}
 			/>
 			<menu className={styles.menu}>
-				<a
+				<Link
 					className={styles.crrIcon}
 					href='/'
+					onClick={closeMenu}
 				>
 					<CRRLogo />
-				</a>
-				<a
+				</Link>
+				<Link
 					className={styles.homeTextOption}
 					href='/'
+					onClick={closeMenu}
 				>
 					Home
-				</a>
-				<a href='/artists'>
+				</Link>
+				<Link
+					href='/artists'
+					onClick={closeMenu}
+				>
 					Artists
-				</a>
-				<a href='/news'>
+				</Link>
+				<Link
+					href='/news'
+					onClick={closeMenu}
+				>
 					News
-				</a>
-				<a href='/store'>
+				</Link>
+				<Link
+					href='/store'
+					onClick={closeMenu}
+				>
 					Store
-				</a>
-				<a href='/events'>
+				</Link>
+				<Link
+					href='/events'
+					onClick={closeMenu}
+				>
 					Events
-				</a>
-				<a href='/about'>
+				</Link>
+				<Link
+					href='/about'
+					onClick={closeMenu}
+				>
 					About
-				</a>
+				</Link>
 			</menu>
 		</nav>
 	);

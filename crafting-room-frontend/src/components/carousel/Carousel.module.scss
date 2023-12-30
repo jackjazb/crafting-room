@@ -1,3 +1,5 @@
+@import "@scss/logic";
+
 /**
  * From https://www.embla-carousel.com/
  */
@@ -25,43 +27,29 @@
         transform: translateY(-50%);
         display: flex;
         overflow: hidden;
-        border-radius: 100%;
+        // border-radius: 100%;
         cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
+        padding: 8px;
 
         color: #fffb;
-        transition: color var(--transition-fast);
 
-        &:focus-visible {
+        @include hover-active-swap-focus-visible {
+            color: white;
+            transition: color var(--transition-fast);
+
             &::after {
-                opacity: 1;
+                opacity: 0.85;
+                transition: opacity var(--transition-fast);
             }
         }
 
-        @media (pointer: coarse) {
-            &:active {
-                color: white;
+        @include media-breakpoint-down(md) {
+            padding: 6px;
 
-                &::after {
-                    opacity: 1;
-                }
-            }
-        }
-
-        @media (pointer: fine) {
-            &:hover,
-            &:active {
-                color: white;
-
-                &::after {
-                    opacity: 0.9;
-                }
-            }
-
-            &:active {
-                &::after {
-                    opacity: 1;
-                }
+            svg {
+                $size: 27px;
+                width: $size;
+                height: $size;
             }
         }
 
@@ -70,9 +58,8 @@
             position: absolute;
             z-index: -1;
             inset: 0;
-            backdrop-filter: blur(5px) brightness(0.5);
-            opacity: 0.75;
-            transition: opacity var(--transition-fast);
+            background-color: black;
+            opacity: 0.6;
         }
     }
 
