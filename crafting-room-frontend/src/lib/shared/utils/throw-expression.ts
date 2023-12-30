@@ -1,6 +1,6 @@
 /**
  * Shorthand to throw an error as an expression.
- * @param error - Target error message or instance
+ * @param error - Error message or instance
  */
 export const throwExp = (error?: string | Error) => {
 	if (error instanceof Error)

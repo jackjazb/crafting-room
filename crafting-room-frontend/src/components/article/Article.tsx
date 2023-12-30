@@ -16,7 +16,7 @@ export const Article: FC<Props> = props => {
         <>
             <StrapiImage
                 className={styles.articleTopImage}
-                image={props.article.attributes.images.data[0]}
+                image={props.article.attributes.images.data[0]!}
                 format='xlarge'
                 priority
             />

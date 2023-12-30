@@ -3,7 +3,7 @@ import styles from './SplitContent.module.scss';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 import { ImageData } from '@/types/strapi';
 
-type Props = PropsWithChildren<{ image: ImageData | null | undefined; }>;
+type Props = PropsWithChildren<{ image: ImageData; }>;
 
 export const SplitContentSection: FC<Props> = props => {
 	return (

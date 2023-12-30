@@ -5,11 +5,6 @@ const options: StrapiServiceOptions = {
 	hostname: process.env.STRAPI_HOST
 		? process.env.STRAPI_HOST
 		: throwExp('Missing `STRAPI_HOST` environment variable'),
-
-	fallbackImageURL: process.env.FALLBACK_IMAGE_URL
-		? process.env.FALLBACK_IMAGE_URL
-		: '/fallback.png',
-
 	baseEndpoint: '/api'
 };
 
@@ -28,6 +23,6 @@ if (
 }
 
 /**
- * Instance of the Strapi service on the server.
+ * Strapi service instance on the server.
  */
 export const strapi = new StrapiService(options);

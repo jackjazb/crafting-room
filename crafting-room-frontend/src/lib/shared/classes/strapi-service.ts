@@ -10,11 +10,9 @@ import { throwExp } from '@/lib/shared/utils';
  */
 export type StrapiServiceOptions = ApiServiceOptions & {
 	/**
-	 * Set the default fallback image with the provided image URL.
-	 */
-	fallbackImageURL: string;
-	/**
-	 * The hostname for the media provider. Will be prepended to all Strapi media URLs.
+	 * Hostname for the media provider.
+	 *
+	 * Will be prepended to all Strapi media URLs.
 	 * @defaultValue Strapi hostname
 	 */
 	mediaProviderHostname?: string;
@@ -34,7 +32,7 @@ export class StrapiService extends ApiService<StrapiResponse> {
 
 	/**
 	 * A Strapi service.
-	 * @param options - Target Strapi service options
+	 * @param options - Strapi service options
 	 */
 	constructor(options: StrapiServiceOptions) {
 		const _options =
@@ -47,26 +45,15 @@ export class StrapiService extends ApiService<StrapiResponse> {
 	}
 
 	/**
-	 * Resolve and return a Strapi image.
-	 *
-	 * This will fix the image's URLs.
-	 *
-	 * If the image is null or undefined, the fallback image will be returned.
-	 * @param image - Target image data
-	 * @returns Resolved image data
+	 * Resolve and return a Strapi media item's URL by prepending the media
+	 * provider's hostname if necessary.
+	 * @param url - Media URL
+	 * @returns Resolved media URL
 	 */
-	resolveImage(image: ImageData | null | undefined) {
-		const resolvedImage = image
-			?? this.generateFallbackImage(this.options.fallbackImageURL);
-
-		//fix all the image urls
-		if (image) {
-			resolvedImage.attributes.url = this.fixMediaURL(resolvedImage.attributes.url);
-			for (const data of Object.values(resolvedImage.attributes.formats))
-				data.url = this.fixMediaURL(data.url);
-		}
-
-		return resolvedImage;
+	mediaURL(url: string) {
+		return url.startsWith('/')
+			? this.options.mediaProviderHostname + url
+			: url;
 	}
 
 	/**
@@ -74,74 +61,14 @@ export class StrapiService extends ApiService<StrapiResponse> {
 	 *
 	 * If the target format does not exist on the image, the next largest format will
 	 * be returned.
-	 * @param image - Target image data
-	 * @param format - Target image format
+	 * @param image - Image data
+	 * @param targetFormat - Target image format
 	 * @returns Resolved image format
 	 */
-	resolveImageFormat(image: ImageData, format: ImageFormat) {
-		return image.attributes.formats[format]
+	imageFormat(image: ImageData, targetFormat: ImageFormat) {
+		return image.attributes.formats[targetFormat]
 			?? Object.values(image.attributes.formats)
 				.sort((a, b) => b.width - a.width)[0]!;
-	}
-
-	/**
-	 * Resolves a Strapi media item's URL by prepending the media provider's hostname
-	 * if necessary.
-	 * @param url - Target media URL
-	 * @returns Resolved media URL
-	 */
-	fixMediaURL(url: string) {
-		return url.startsWith('/')
-			? this.options.mediaProviderHostname + url
-			: url;
-	}
-
-	/**
-	 * Generate a fallback Strapi image using a URL.
-	 * @param url - Target URL
-	 * @returns Generated fallback image
-	 */
-	private generateFallbackImage(url: string) {
-		const generateFormat = (width: number, height: number) => ({
-			name: '',
-			hash: '',
-			ext: '',
-			mime: '',
-			path: null,
-			width,
-			height,
-			size: 0,
-			url
-		});
-
-		return {
-			id: 1,
-			attributes: {
-				createdAt: '',
-				updatedAt: '',
-				name: '',
-				alternativeText: 'Missing image',
-				caption: null,
-				width: 128,
-				height: 128,
-				formats: {
-					thumbnail: generateFormat(32, 18),
-					xsmall: generateFormat(64, 36),
-					small: generateFormat(500, 281),
-					medium: generateFormat(750, 422),
-					large: generateFormat(1000, 563),
-					xlarge: generateFormat(1920, 1080)
-				},
-				hash: '',
-				ext: 'webp',
-				mime: '',
-				size: '',
-				url,
-				previewUrl: null,
-				provider: '',
-				provider_metadata: null
-			}
-		} as ImageData;
 	}
 
 	async getHomePage() {

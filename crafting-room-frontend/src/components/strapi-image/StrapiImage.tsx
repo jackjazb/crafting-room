@@ -7,15 +7,13 @@ import { FALLBACK_IMAGE_COLOR } from '@/lib/server/utils';
 type StrapiImageProps = {
 	className?: string;
 	/**
-	 * The target image data.
-	 *
-	 * If the image is null or undefined, the fallback image will be used.
+	 * The image data.
 	 */
-	image: ImageData | null | undefined;
+	image: ImageData;
 	/**
 	 * The target image format.
 	 *
-	 * If the target format does not exist on the resolved image, the next largest format
+	 * If the target format does not exist on the image, the next largest format
 	 * will be used.
 	 */
 	format: ImageFormat;
@@ -24,18 +22,13 @@ type StrapiImageProps = {
 	 */
 	fallbackColor?: string | false;
 	/**
-	 * Override the image's provided alt text.
+	 * Override the image's default alternate text.
 	 */
 	alt?: string;
 	/**
-	 * Whether the image should load eagerly or lazily.
-	 * @defaultValue false
-	 */
-	eager?: boolean;
-	/**
 	 * Whether the image needs to be prioritised.
 	 *
-	 * Automatically sets `eager` to `true` (disables lazy-loading).
+	 * This automcatically disables lazy loading.
 	 * @defaultValue false
 	 */
 	priority?: boolean;
@@ -45,24 +38,21 @@ type StrapiImageProps = {
  * A Strapi image wrapped in a Next.js `<Image>` tag.
  */
 export const StrapiImage: FC<StrapiImageProps> = props => {
-	const image = strapi.resolveImage(props.image);
-	const format = strapi.resolveImageFormat(image, props.format);
-
-	const fallbackColorCSS = {
-		backgroundColor: props.fallbackColor !== false
-			? props.fallbackColor ?? FALLBACK_IMAGE_COLOR
-			: undefined
-	};
+	const format = strapi.imageFormat(props.image, props.format);
+	const url = strapi.mediaURL(format.url);
+	const backgroundColor = props.fallbackColor !== false
+		? props.fallbackColor ?? FALLBACK_IMAGE_COLOR
+		: undefined;
 
 	return (
 		<Image
 			className={props.className}
-			style={fallbackColorCSS}
-			src={format.url}
+			style={{ backgroundColor }}
+			src={url}
 			width={format.width}
 			height={format.height}
-			alt={props.alt ?? image.attributes.alternativeText ?? 'CRR Image'}
-			loading={props.eager ? 'eager' : undefined}
+			alt={props?.alt ?? props.image.attributes.alternativeText ?? 'CRR Image'}
+			loading={props.priority ? 'eager' : 'lazy'}
 			priority={props.priority}
 		/>
 	);

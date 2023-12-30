@@ -20,7 +20,7 @@ const ArtistPage: NextPage<ServerProps> = async props => {
 
     return (
         <main className='container'>
-            <SplitContentSection image={artist.attributes.images.data[0]}>
+            <SplitContentSection image={artist.attributes.images.data[0]!}>
                 <h1 dangerouslySetInnerHTML={mdi(artist.attributes.name)} />
                 <div dangerouslySetInnerHTML={md(artist.attributes.bio)} />
 

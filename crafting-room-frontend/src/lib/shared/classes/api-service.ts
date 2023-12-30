@@ -21,7 +21,7 @@ export type ApiServiceOptions = {
 	 */
 	baseParams?: Record<string, string> | null;
 	/**
-	 * Number of times to attempt an API call before giving up.
+	 * Number of times to attempt a request before giving up.
 	 * @defaultValue 1 attempt
 	 */
 	requestAttempts?: number;
@@ -31,7 +31,7 @@ export type ApiServiceOptions = {
 	 */
 	timeout?: number;
 	/**
-	 * The interval between cache revalidations (in seconds), or false to disable.
+	 * Interval between cache revalidations (in seconds), or false to disable.
 	 *
 	 * In other words, *"after this period of time, ask the server for new data on
 	 * the next request"*.
@@ -62,7 +62,7 @@ export class ApiService<TBaseResponseData extends object = object> {
 
 	/**
 	 * An API service based on the Fetch API.
-	 * @param options - Target API service options
+	 * @param options - API service options
 	 */
 	constructor(options: ApiServiceOptions) {
 		this.options = merge({}, ApiService.defaultOptions, options);

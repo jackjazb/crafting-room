@@ -4,7 +4,7 @@ import { ordinalIndicator } from '@/lib/shared/utils';
  * Formats a date string in the following format:
  *
  * `[weekday-name], [day-of-month] [month-name] [year-if-not-current]`
- * @param dateStr - Target date string
+ * @param dateStr - Date string
  * @returns Formatted date
  */
 export const formatDate = (dateStr: string) => {
