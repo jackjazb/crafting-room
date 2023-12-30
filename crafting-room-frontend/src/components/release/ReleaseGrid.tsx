@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './ReleaseGrid.module.scss';
 import { ReleaseTile } from './ReleaseTile';
-import { Release } from '@/types/strapi-responses';
+import { Release } from '@/types/strapi-data-types';
 
 type Props = {
 	className?: string;

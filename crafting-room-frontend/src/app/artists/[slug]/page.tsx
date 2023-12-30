@@ -4,7 +4,7 @@ import styles from './Artist.module.scss';
 import { strapi } from '@/lib/server/services';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { SplitContentSection } from '@/components/split-content/SplitContent';
-import { mdi, md } from '@/lib/shared/utils';
+import { mdi, md } from '@/lib/utils';
 import { IconLink } from '@/components/icon-link/IconLink';
 
 type ServerProps = {

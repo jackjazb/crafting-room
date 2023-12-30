@@ -1,5 +1,5 @@
-import { StrapiService, StrapiServiceOptions } from '@/lib/shared/classes/strapi-service';
-import { throwExp } from '@/lib/shared/utils';
+import { StrapiService, StrapiServiceOptions } from '@/lib/classes/strapi-service';
+import { throwExp } from '@/lib/utils';
 
 const options: StrapiServiceOptions = {
 	hostname: process.env.STRAPI_HOST

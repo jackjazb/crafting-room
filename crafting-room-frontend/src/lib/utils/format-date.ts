@@ -1,4 +1,4 @@
-import { ordinalIndicator } from '@/lib/shared/utils';
+import { ordinalIndicator } from '@/lib/utils';
 
 /**
  * Formats a date string in the following format:

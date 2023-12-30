@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import styles from './Article.module.scss';
 import { strapi } from '@/lib/server/services';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { mdi, md } from '@/lib/shared/utils';
+import { mdi, md } from '@/lib/utils';
 
 type ServerProps = {
     params: { slug: string; };

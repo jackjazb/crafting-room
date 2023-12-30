@@ -1,9 +1,9 @@
 import { merge } from 'lodash';
-import { ApiService, ApiServiceOptions } from '@/lib/shared/classes/api-service';
-import { AboutPage, Article, Artist, ArtistsPage, Event, HomePage, StorePage } from '@/types/strapi-responses';
-import { Collection, Image, ImageFormatName, SingleType, StrapiResponse } from '@/types/strapi';
+import { ApiService, ApiServiceOptions } from '@/lib/classes/api-service';
+import { AboutPage, Article, Artist, ArtistsPage, Event, HomePage, StorePage } from '@/types/strapi-data-types';
+import { Collection, Image, ImageFormatName, SingleType, StrapiResponse } from '@/types/strapi-types';
 import { OptionalProps } from '@/types/utils';
-import { throwExp } from '@/lib/shared/utils';
+import { throwExp } from '@/lib/utils';
 
 /**
  * Options for a Strapi service.

@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import { Image, ImageFormatName } from '@/types/strapi';
+import { Image, ImageFormatName } from '@/types/strapi-types';
 import { strapi } from '@/lib/server/services';
 
 /** CURRENTLY NOT IN USE */

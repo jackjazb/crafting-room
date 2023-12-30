@@ -1,4 +1,4 @@
-import { Image, Item, PublishableItemData } from '@/types/strapi';
+import { Image, Item, PublishableItemData } from '@/types/strapi-types';
 
 export type AboutPage = PublishableItemData<{
 	header: string;

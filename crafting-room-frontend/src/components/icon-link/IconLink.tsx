@@ -2,7 +2,7 @@ import { BsGlobe } from 'react-icons/bs';
 import { SiSpotify, SiInstagram, SiFacebook, SiTwitter, SiLinktree, SiYoutube, SiBandcamp } from 'react-icons/si';
 import { FC, ReactNode } from 'react';
 import styles from './IconLink.module.scss';
-import { LinkType } from '@/types/strapi-responses';
+import { LinkType } from '@/types/strapi-data-types';
 
 const ICON_SIZE = 30;
 

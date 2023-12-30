@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styles from './ArtistGrid.module.scss';
-import { Artist } from '@/types/strapi-responses';
+import { Artist } from '@/types/strapi-data-types';
 import { ArtistTile } from '@/components/artist/ArtistTile';
 
 type Props = {

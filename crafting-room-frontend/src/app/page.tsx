@@ -4,7 +4,7 @@ import styles from './Home.module.scss';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { Carousel } from '@/components/carousel/Carousel';
 import { strapi } from '@/lib/server/services';
-import { makeClass, mdi } from '@/lib/shared/utils';
+import { makeClass, mdi } from '@/lib/utils';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
 const HomePage: NextPage = async () => {

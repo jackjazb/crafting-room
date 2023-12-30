@@ -1,9 +1,9 @@
 import { RxExternalLink } from 'react-icons/rx';
 import { FC } from 'react';
 import styles from './ReleaseTile.module.scss';
-import { Release } from '@/types/strapi-responses';
+import { Release } from '@/types/strapi-data-types';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { makeClass, mdi } from '@/lib/shared/utils';
+import { makeClass, mdi } from '@/lib/utils';
 
 type Props = {
 	release: Release;

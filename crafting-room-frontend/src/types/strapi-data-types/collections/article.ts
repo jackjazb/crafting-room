@@ -1,4 +1,4 @@
-import { Image, PublishableItemData, RequiredCollectionItem } from '@/types/strapi';
+import { Image, PublishableItemData, RequiredCollectionItem } from '@/types/strapi-types';
 
 export type Article = PublishableItemData<{
 	title: string;

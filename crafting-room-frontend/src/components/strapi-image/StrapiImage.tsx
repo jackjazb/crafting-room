@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { FC } from 'react';
 import { strapi } from '@/lib/server/services';
-import { Image as IImage, ImageFormatName } from '@/types/strapi';
+import { Image as IImage, ImageFormatName } from '@/types/strapi-types';
 import { FALLBACK_IMAGE_COLOR } from '@/lib/server/utils';
 
 type StrapiImageProps = {

@@ -1,5 +1,5 @@
-import { Artist } from '@/types/strapi-responses/shared/collection-items/artist';
-import { Image, Item, PublishableItemData } from '@/types/strapi';
+import { Artist } from '@/types/strapi-data-types/collections/artist';
+import { Image, Item, PublishableItemData } from '@/types/strapi-types';
 
 export type Release = PublishableItemData<{
 	title: string;

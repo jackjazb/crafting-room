@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import styles from './Article.module.css';
-import { Article as StrapiArticle } from '@/types/strapi-responses';
+import { Article as StrapiArticle } from '@/types/strapi-data-types';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { md, mdi } from '@/lib/shared/utils';
+import { md, mdi } from '@/lib/utils';
 
 type Props = {
     article: StrapiArticle;

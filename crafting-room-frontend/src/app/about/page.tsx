@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import styles from './AboutPage.module.scss';
 import { strapi } from '@/lib/server/services';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { md, mdi } from '@/lib/shared/utils';
+import { md, mdi } from '@/lib/utils';
 
 const AboutPage: NextPage = async () => {
     const aboutPage = await strapi.getAboutPage().catch(notFound);

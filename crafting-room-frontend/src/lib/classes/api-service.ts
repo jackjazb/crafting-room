@@ -75,7 +75,7 @@ export class ApiService<TBaseData extends object = object> {
 	 * @param endpoint - Target endpoint
 	 * @param params - Request querystring parameters
 	 * @param options - Fetch request options
-	 * @returns Promise containing response data
+	 * @returns Response data
 	 */
 	async get<TData extends TBaseData = TBaseData>(
 		endpoint: string,

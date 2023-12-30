@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from 'react';
 import styles from './SplitContent.module.scss';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { Image } from '@/types/strapi';
+import { Image } from '@/types/strapi-types';
 
 type Props = PropsWithChildren<{ image: Image; }>;
 
