@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { FC } from 'react';
 import { strapi } from '@/lib/server/services';
-import { ImageData, ImageFormat } from '@/types/strapi';
+import { Image as IImage, ImageFormatName } from '@/types/strapi';
 import { FALLBACK_IMAGE_COLOR } from '@/lib/server/utils';
 
 type StrapiImageProps = {
@@ -9,14 +9,14 @@ type StrapiImageProps = {
 	/**
 	 * The image data.
 	 */
-	image: ImageData;
+	image: IImage;
 	/**
 	 * The target image format.
 	 *
 	 * If the target format does not exist on the image, the next largest format
 	 * will be used.
 	 */
-	format: ImageFormat;
+	format: ImageFormatName;
 	/**
 	 * Override or disable the default image fallback color.
 	 */

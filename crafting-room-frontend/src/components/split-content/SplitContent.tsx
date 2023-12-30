@@ -1,9 +1,9 @@
 import { FC, PropsWithChildren } from 'react';
 import styles from './SplitContent.module.scss';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { ImageData } from '@/types/strapi';
+import { Image } from '@/types/strapi';
 
-type Props = PropsWithChildren<{ image: ImageData; }>;
+type Props = PropsWithChildren<{ image: Image; }>;
 
 export const SplitContentSection: FC<Props> = props => {
 	return (

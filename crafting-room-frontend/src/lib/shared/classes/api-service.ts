@@ -26,7 +26,7 @@ export type ApiServiceOptions = {
 	 */
 	requestAttempts?: number;
 	/**
-	 * Time to wait for a response (in milliseconds) before giving up.
+	 * Time to wait for a response (in seconds) before giving up.
 	 * @defaultValue 30 seconds
 	 */
 	timeout?: number;
@@ -35,15 +35,15 @@ export type ApiServiceOptions = {
 	 *
 	 * In other words, *"after this period of time, ask the server for new data on
 	 * the next request"*.
-	 * @defaultValue false, never revalidate
+	 * @defaultValue null, never revalidate
 	 */
-	cacheRevalidationInterval?: number | false;
+	cacheRevalidationInterval?: number | null;
 };
 
 /**
  * An API service based on the Fetch API.
  */
-export class ApiService<TBaseResponseData extends object = object> {
+export class ApiService<TBaseData extends object = object> {
 	/**
 	 * The default options for any instance.
 	 */
@@ -51,8 +51,8 @@ export class ApiService<TBaseResponseData extends object = object> {
 		baseEndpoint: '',
 		baseParams: null,
 		requestAttempts: 1,
-		timeout: 30000,
-		cacheRevalidationInterval: false
+		timeout: 30,
+		cacheRevalidationInterval: null
 	};
 
 	/**
@@ -77,7 +77,7 @@ export class ApiService<TBaseResponseData extends object = object> {
 	 * @param options - Fetch request options
 	 * @returns Promise containing response data
 	 */
-	async get<TData extends TBaseResponseData = TBaseResponseData>(
+	async get<TData extends TBaseData = TBaseData>(
 		endpoint: string,
 		params?: object,
 		options?: RequestInit
@@ -93,11 +93,7 @@ export class ApiService<TBaseResponseData extends object = object> {
 
 		const _options: RequestInit =
 			merge({}, {
-				next: {
-					revalidate: this.options.cacheRevalidationInterval
-						? this.options.cacheRevalidationInterval
-						: undefined
-				}
+				next: { revalidate: this.options.cacheRevalidationInterval }
 			}, options);
 
 		const sendRequest = async () => {
@@ -118,7 +114,7 @@ export class ApiService<TBaseResponseData extends object = object> {
 			try {
 				const response = await new Promise<Response>((resolve, reject) => {
 					void sendRequest().then(resolve).catch(reject);
-					setTimeout(reject, this.options.timeout);
+					setTimeout(reject, this.options.timeout * 1000);
 				});
 
 				return response;

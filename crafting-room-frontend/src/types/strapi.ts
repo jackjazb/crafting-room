@@ -27,8 +27,8 @@ export type StrapiRequestParams<TResponse extends StrapiResponse> = Partial<{
 export type StrapiResponse = SingleType | Collection;
 
 /**
- * Strapi response received when querying a single type, or a single collection item, using
- * the REST API.
+ * Strapi response received when querying a single type, or a single collection
+ * item, using the REST API.
  */
 export type SingleType<T extends ItemData = ItemData> = Item<T>; //standard item
 
@@ -53,7 +53,9 @@ export type Collection<T extends ItemData = ItemData> = { //collection item
 // Item types
 
 /**
- * A base item. Contains item data within it.
+ * A Strapi item.
+ *
+ * Contains a single item's data within it.
  */
 export type Item<T extends ItemData = ItemData> = {
 	data: T;
@@ -61,10 +63,21 @@ export type Item<T extends ItemData = ItemData> = {
 };
 
 /**
- * A base collection item. Contains item data within it.
+ * A Strapi collection item.
+ *
+ * Contains multiple (**zero or more**) items' data within it.
  */
 export type CollectionItem<T extends ItemData = ItemData> = {
 	data: T[];
+};
+
+/**
+ * A required Strapi collection item.
+ *
+ * Contains multiple (**one or more**) items' data within it.
+ */
+export type RequiredCollectionItem<T extends ItemData = ItemData> = {
+	data: [T, ...T[]];
 };
 
 
@@ -112,7 +125,7 @@ export type PublishableItemData<T extends object = object> = StandardItemData<{
 /**
  * Properties for a media item.
  */
-export type MediaData<T extends object = object> = StandardItemData<{ //standard, not a publishable item
+export type MediaItem<T extends object = object> = StandardItemData<{ //standard, not a publishable item
 	name: string;
 	alternativeText: string | null;
 	caption: string | null;
@@ -136,25 +149,25 @@ export type MediaData<T extends object = object> = StandardItemData<{ //standard
  *
  * An image may or may not have larger formats available: it depends on its original size.
  */
-export type ImageData = MediaData<{
+export type Image = MediaItem<{
 	formats: {
-		thumbnail?: ImageFormatData; //no predetermined width for thumbnails
-		small?: ImageFormatData<500>;
-		medium?: ImageFormatData<750>;
-		large?: ImageFormatData<1000>;
-		xlarge?: ImageFormatData<1920>;
+		thumbnail?: ImageFormat; //no predetermined width for thumbnails
+		small?: ImageFormat<500>;
+		medium?: ImageFormat<750>;
+		large?: ImageFormat<1000>;
+		xlarge?: ImageFormat<1920>;
 	};
 }>;
 
 /**
- * An image size format.
+ * An image size format name.
  */
-export type ImageFormat = keyof ImageData['attributes']['formats'];
+export type ImageFormatName = keyof Image['attributes']['formats'];
 
 /**
- * An image size format's data.
+ * An image size format.
  */
-export type ImageFormatData<TWidth extends number = number> = {
+export type ImageFormat<TWidth extends number = number> = {
 	name: string;
 	hash: string;
 	ext: string;

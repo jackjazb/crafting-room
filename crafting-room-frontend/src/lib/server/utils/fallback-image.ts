@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import { ImageData, ImageFormat } from '@/types/strapi';
+import { Image, ImageFormatName } from '@/types/strapi';
 import { strapi } from '@/lib/server/services';
 
 /** CURRENTLY NOT IN USE */
@@ -16,8 +16,8 @@ export const FALLBACK_IMAGE_COLOR = 'var(--fallback-image-color)';
  * @returns React.CSSProperties with background properties set
  */
 export const backgroundImage = (
-	image: ImageData,
-	targetFormat: ImageFormat,
+	image: Image,
+	targetFormat: ImageFormatName,
 	fallbackColor?: string | false
 ) => {
 	const url = strapi.mediaURL(

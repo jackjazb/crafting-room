@@ -25,7 +25,7 @@ const HomePage: NextPage = async () => {
                             >
                                 <StrapiImage
                                     className={styles.featureImage}
-                                    image={feature.attributes.images.data[0]!}
+                                    image={feature.attributes.images.data[0]}
                                     format='xlarge'
                                     priority={features.indexOf(feature) === 0}
                                 />

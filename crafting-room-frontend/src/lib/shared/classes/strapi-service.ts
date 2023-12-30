@@ -1,7 +1,7 @@
 import { merge } from 'lodash';
 import { ApiService, ApiServiceOptions } from '@/lib/shared/classes/api-service';
 import { AboutPage, Article, Artist, ArtistsPage, Event, HomePage, StorePage } from '@/types/strapi-responses';
-import { Collection, ImageData, ImageFormat, SingleType, StrapiResponse } from '@/types/strapi';
+import { Collection, Image, ImageFormatName, SingleType, StrapiResponse } from '@/types/strapi';
 import { OptionalProps } from '@/types/utils';
 import { throwExp } from '@/lib/shared/utils';
 
@@ -65,7 +65,7 @@ export class StrapiService extends ApiService<StrapiResponse> {
 	 * @param targetFormat - Target image format
 	 * @returns Resolved image format
 	 */
-	imageFormat(image: ImageData, targetFormat: ImageFormat) {
+	imageFormat(image: Image, targetFormat: ImageFormatName) {
 		return image.attributes.formats[targetFormat]
 			?? Object.values(image.attributes.formats)
 				.sort((a, b) => b.width - a.width)[0]!;

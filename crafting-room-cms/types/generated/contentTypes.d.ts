@@ -817,7 +817,7 @@ export interface ApiArticleArticle extends Schema.CollectionType {
     title: Attribute.String;
     slug: Attribute.UID<'api::article.article', 'title'> & Attribute.Required;
     content: Attribute.RichText;
-    images: Attribute.Media;
+    images: Attribute.Media & Attribute.Required;
     author: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1017,7 +1017,7 @@ export interface ApiReleaseRelease extends Schema.CollectionType {
       'manyToOne',
       'api::artist.artist'
     >;
-    artwork: Attribute.Media;
+    artwork: Attribute.Media & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

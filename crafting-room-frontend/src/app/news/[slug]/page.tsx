@@ -18,7 +18,7 @@ const ArticlePage: NextPage<ServerProps> = async props => {
             <section>
                 <StrapiImage
                     className={styles.articleTopImage}
-                    image={article.attributes.images.data[0]!}
+                    image={article.attributes.images.data[0]}
                     format='xlarge'
                     priority
                 />
