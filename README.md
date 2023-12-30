@@ -31,15 +31,13 @@ STRAPI_HOST=""
 STRAPI_MEDIA_PROVIDER_HOST=""
 
 # Override the default fallback image with the provided image URL.
-# - This could be from a random image generator such as https://picsum.photos
-# - If you do you a random image generator, please note `DISABLE_IMAGE_CACHING` below
-# - Primarily for development
 # - Optional
 # - If empty or undefined: defaults to `/fallback.png`
 FALLBACK_IMAGE_URL=""
 
 # The interval between cache revalidations (in seconds), or `false` to disable.
-# - In other words, 'after this period of time, ask the server for new data on the next request'.
+# - In other words, 'after this period of time, ask the server for new
+# data on the next request'.
 # - Optional
 # - If empty or undefined: defaults to `false`
 CACHE_REVALIDATION_INTERVAL=false
