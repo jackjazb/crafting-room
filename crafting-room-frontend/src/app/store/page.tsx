@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
-import { strapi } from '@/lib/server-utils';
-import { mdi } from '@/lib/utils';
+import { strapi } from '@/lib/server/services';
+import { mdi } from '@/lib/shared/utils';
 
 const StorePage: NextPage = async () => {
     const storePage = await strapi.getStorePage().catch(notFound);

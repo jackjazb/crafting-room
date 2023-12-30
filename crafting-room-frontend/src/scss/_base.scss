@@ -6,12 +6,6 @@
 	--fallback-image-color: #e8eef0;
 }
 
-/**
-*
-*	MAIN LAYOUT
-*
-**/
-
 * {
 	box-sizing: border-box;
 	word-break: break-word;
@@ -34,8 +28,18 @@ body {
 }
 
 section {
-	&:not(:last-of-type) {
+	margin-bottom: 35px;
+
+	&:last-of-type {
+		margin-bottom: unset;
+	}
+
+	@media (max-width: 768px) {
 		margin-bottom: 30px;
+
+		&:last-of-type {
+			margin-bottom: unset;
+		}
 	}
 }
 
@@ -49,7 +53,7 @@ h3,
 h4,
 h5,
 h6 {
-	letter-spacing: unset; //unset skeleton
+	letter-spacing: unset; //override skeleton
 	font-weight: 600;
 }
 

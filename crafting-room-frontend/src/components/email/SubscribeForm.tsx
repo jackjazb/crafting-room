@@ -3,7 +3,7 @@
 import { FC, useRef, useState } from 'react';
 import { MdErrorOutline, MdDone } from 'react-icons/md';
 import styles from './SubscribeForm.module.css';
-import { makeClass } from '@/lib/utils';
+import { makeClass } from '@/lib/shared/utils';
 
 // see this page: https://stackoverflow.com/a/201378
 // eslint-disable-next-line no-control-regex

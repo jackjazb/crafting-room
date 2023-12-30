@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './ArtistTile.module.scss';
 import { Artist } from '@/types/strapi-responses';
-import { makeClass, mdi } from '@/lib/utils';
+import { makeClass, mdi } from '@/lib/shared/utils';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
 type Props = {

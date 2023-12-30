@@ -4,6 +4,7 @@ import { ReleaseTile } from './ReleaseTile';
 import { Release } from '@/types/strapi-responses';
 
 type Props = {
+	className?: string;
 	releases: Release[];
 	order?: 'date';
 };

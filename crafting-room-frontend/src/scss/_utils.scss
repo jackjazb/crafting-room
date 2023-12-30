@@ -1,19 +1,23 @@
 .container {
 	position: relative;
-	width: 100%;
-	max-width: 960px;
-	padding: 0 20px;
-	box-sizing: border-box;
-	margin: 0 auto;
-	padding: 20px;
+	width: 80%;
 	max-width: 1200px;
+	margin: 0 auto;
+	padding: 30px 20px;
 
-	@media (min-width: 400px) {
+	@media (max-width: 768px) {
 		width: 100%;
+		padding: 20px;
 	}
+}
 
-	@media (min-width: 550px) {
-		width: 80%;
+.container-fluid {
+	position: relative;
+	width: 100%;
+	padding: 30px 20px;
+
+	@media (max-width: 768px) {
+		padding: 20px;
 	}
 }
 

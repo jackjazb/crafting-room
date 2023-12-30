@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 import styles from './Home.module.scss';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { Carousel } from '@/components/carousel/Carousel';
-import { strapi } from '@/lib/server-utils';
-import { makeClass, mdi } from '@/lib/utils';
+import { strapi } from '@/lib/server/services';
+import { makeClass, mdi } from '@/lib/shared/utils';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
 const HomePage: NextPage = async () => {
@@ -13,9 +13,9 @@ const HomePage: NextPage = async () => {
     const features = homePage.attributes.features.data;
 
     return (
-        <div>
+        <main>
             {features.length > 0 && (
-                <section>
+                <section className={styles.carousel}>
                     <Carousel>
                         {features.map(feature => (
                             <a
@@ -42,13 +42,18 @@ const HomePage: NextPage = async () => {
                 </section>
             )}
 
-            <section className={styles.featureReleases}>
+            <section
+                className={makeClass(
+                    styles.featuredReleases,
+                    'container-fluid'
+                )}
+            >
                 <h1>
                     Featured Releases
                 </h1>
                 <ReleaseGrid releases={homePage.attributes.releases.data} />
             </section>
-        </div>
+        </main>
     );
 };
 
