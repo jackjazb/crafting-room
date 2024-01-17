@@ -21,7 +21,11 @@
      * Extra button controls
      */
     .arrow {
-        all: unset;
+        border: unset;
+        padding: unset;
+        margin: unset;
+        height: unset;
+
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
