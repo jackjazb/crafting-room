@@ -1,13 +1,14 @@
 import { FC } from 'react';
+import Link from 'next/link';
 import styles from './EventTile.module.scss';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { formatDate, makeClass, mdi } from '@/lib/utils';
-import { Event } from '@/types/strapi-data-types';
+import { formatDate, createClass, mdi } from '@/lib/utils';
+import { Event } from '@/lib/types/strapi-data';
 
-type Props = {
+interface Props {
 	event: Event;
 	canBook: boolean;
-};
+}
 
 /**
  * An event tile on the events list page.
@@ -16,7 +17,7 @@ export const EventTile: FC<Props> = props => {
 	return (
 		<div
 			key={props.event.id}
-			className={makeClass(
+			className={createClass(
 				styles.eventTile,
 				!props.canBook ? styles.noBook : null
 			)}
@@ -41,12 +42,12 @@ export const EventTile: FC<Props> = props => {
 			</div>
 
 			<div className={styles.eventOptions}>
-				<a
+				<Link
 					href={`/events/${props.event.attributes.slug}`}
 					className='button'
 				>
 					More Info
-				</a>
+				</Link>
 
 				{props.canBook && props.event.attributes.link && (
 					<a

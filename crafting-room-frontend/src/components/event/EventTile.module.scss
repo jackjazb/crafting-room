@@ -1,3 +1,5 @@
+@import "@scss/logic";
+
 .eventTile {
 	display: flex;
 	gap: 15px;
@@ -14,13 +16,9 @@
 		padding-bottom: unset;
 	}
 
-	@media (max-width: 768px) {
+	@include media-breakpoint-down(md) {
 		flex-direction: column;
 	}
-
-	// @media (max-width: 576px) {
-	// 	gap: 10px;
-	// }
 }
 
 .eventMain {
@@ -28,7 +26,7 @@
 	display: flex;
 	gap: 15px;
 
-	@media (max-width: 576px) {
+	@include media-breakpoint-down(sm) {
 		gap: 12px;
 	}
 }
@@ -37,7 +35,7 @@
 	aspect-ratio: 1/1;
 	height: 100px;
 
-	@media (max-width: 768px) {
+	@include media-breakpoint-down(md) {
 		height: 80px;
 	}
 }
@@ -49,11 +47,11 @@
 	gap: 3px;
 	font-size: 1.2em;
 
-	@media (max-width: 768px) {
+	@include media-breakpoint-down(md) {
 		font-size: 1.1em;
 	}
 
-	@media (max-width: 576px) {
+	@include media-breakpoint-down(sm) {
 		font-size: 1em;
 	}
 }
@@ -62,7 +60,7 @@
 	font-size: 1.6em;
 	font-weight: 600;
 
-	@media (max-width: 768px) {
+	@include media-breakpoint-down(md) {
 		font-size: 1.3em;
 	}
 }
@@ -78,7 +76,7 @@
 	justify-content: center;
 	gap: 10px;
 
-	@media (max-width: 768px) {
+	@include media-breakpoint-down(md) {
 		flex-direction: unset;
 	}
 }
@@ -88,7 +86,7 @@
 	padding: 0 40px;
 	margin-bottom: unset;
 
-	@media (max-width: 992px) {
+	@include media-breakpoint-down(lg) {
 		padding: 0 15px;
 	}
 }

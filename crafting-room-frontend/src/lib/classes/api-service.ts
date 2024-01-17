@@ -1,20 +1,22 @@
 import { merge } from 'lodash';
 import { stringify } from 'qs';
-import { OptionalProps } from '@/types/utils';
+import { OptionalProps } from '@/lib/types/utils';
 
 /**
  * Options for an API service.
  */
-export type ApiServiceOptions = {
+export interface ApiServiceOptions {
 	/**
 	 * Hostname of the API.
 	 */
 	hostname: string;
 	/**
-	 * Base endpoint of the API. All calls will be made with this endpoint as the root.
-	 * @defaultValue ''
+	 * Base URL path of the API. This will be appended to the hostname on every request.
+	 *
+	 * ***Don't include a trailing slash - it's automatically appended.***
+	 * @defaultValue null
 	 */
-	baseEndpoint?: string;
+	basePath?: string | null;
 	/**
 	 * Base URL parameters to be passed on every request.
 	 * @defaultValue null
@@ -27,6 +29,8 @@ export type ApiServiceOptions = {
 	requestAttempts?: number;
 	/**
 	 * Time to wait for a response (in seconds) before giving up.
+	 *
+	 * This applies to each individual request attempt.
 	 * @defaultValue 30 seconds
 	 */
 	timeout?: number;
@@ -38,17 +42,17 @@ export type ApiServiceOptions = {
 	 * @defaultValue null, never revalidate
 	 */
 	cacheRevalidationInterval?: number | null;
-};
+}
 
 /**
  * An API service based on the Fetch API.
  */
 export class ApiService<TBaseData extends object = object> {
 	/**
-	 * The default options for any instance.
+	 * The default options for any API service instance.
 	 */
 	static readonly defaultOptions: Required<OptionalProps<ApiServiceOptions>> = {
-		baseEndpoint: '',
+		basePath: null,
 		baseParams: null,
 		requestAttempts: 1,
 		timeout: 30,
@@ -56,7 +60,7 @@ export class ApiService<TBaseData extends object = object> {
 	};
 
 	/**
-	 * The options set for this instance.
+	 * The options set for this API service instance.
 	 */
 	protected readonly options: Required<ApiServiceOptions>;
 
@@ -86,7 +90,7 @@ export class ApiService<TBaseData extends object = object> {
 		const encodedParams = '?' + stringify(_params);
 
 		const url = this.options.hostname
-			+ this.options.baseEndpoint
+			+ (this.options.basePath ?? '')
 			+ '/'
 			+ endpoint
 			+ encodedParams;
@@ -112,12 +116,11 @@ export class ApiService<TBaseData extends object = object> {
 			attempts++;
 
 			try {
-				const response = await new Promise<Response>((resolve, reject) => {
+				return new Promise<Response>((resolve, reject) => {
+					// TODO -> do actual cancellation here, see AbortController
 					void sendRequest().then(resolve).catch(reject);
 					setTimeout(reject, this.options.timeout * 1000);
 				});
-
-				return response;
 
 			} catch (e) {
 				return await attemptRequest();
@@ -125,6 +128,6 @@ export class ApiService<TBaseData extends object = object> {
 		};
 
 		const response = await attemptRequest();
-		return await response.json() as TData;
+		return response.json() as Promise<TData>;
 	}
 }

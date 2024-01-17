@@ -1,33 +1,30 @@
 import { merge } from 'lodash';
 import { ApiService, ApiServiceOptions } from '@/lib/classes/api-service';
-import { AboutPage, Article, Artist, ArtistsPage, Event, HomePage, StorePage } from '@/types/strapi-data-types';
-import { Collection, Image, ImageFormatName, SingleType, StrapiResponse } from '@/types/strapi-types';
-import { OptionalProps } from '@/types/utils';
+import { AboutPage, Article, Artist, ArtistsPage, Event, HomePage, StorePage } from '@/lib/types/strapi-data';
+import { StrapiResponse, SingleResponse, CollectionResponse } from '@/lib/types/strapi';
+import { OptionalProps } from '@/lib/types/utils';
 import { throwExp } from '@/lib/utils';
 
 /**
  * Options for a Strapi service.
  */
-export type StrapiServiceOptions = ApiServiceOptions & {
-	/**
-	 * Hostname for the media provider.
-	 *
-	 * Will be prepended to all Strapi media URLs.
-	 * @defaultValue Strapi hostname
-	 */
-	mediaProviderHostname?: string;
-};
+export interface StrapiServiceOptions extends ApiServiceOptions { }
 
 /**
  * A Strapi service.
+ *
+ * Handles performing requests to the Strapi API.
  */
 export class StrapiService extends ApiService<StrapiResponse> {
+	/**
+	 * The default options for any Strapi service instance.
+	 */
 	static override readonly defaultOptions: Required<OptionalProps<StrapiServiceOptions>> =
-		merge({}, ApiService.defaultOptions, {
-			mediaProviderHostname: '', //default set in constructor
-			baseParams: { populate: 'deep' }
-		});
+		merge({}, ApiService.defaultOptions);
 
+	/**
+	 * The options set for this Strapi service instance.
+	 */
 	protected override readonly options: Required<StrapiServiceOptions>;
 
 	/**
@@ -35,69 +32,38 @@ export class StrapiService extends ApiService<StrapiResponse> {
 	 * @param options - Strapi service options
 	 */
 	constructor(options: StrapiServiceOptions) {
-		const _options =
-			merge({}, StrapiService.defaultOptions, {
-				mediaProviderHostname: options.hostname
-			}, options);
-
+		const _options = merge({}, StrapiService.defaultOptions, options);
 		super(_options);
 		this.options = _options;
 	}
 
-	/**
-	 * Resolve and return a Strapi media item's URL by prepending the media
-	 * provider's hostname if necessary.
-	 * @param url - Media URL
-	 * @returns Resolved media URL
-	 */
-	mediaURL(url: string) {
-		return url.startsWith('/')
-			? this.options.mediaProviderHostname + url
-			: url;
-	}
-
-	/**
-	 * Resolve and return a Strapi image's format.
-	 *
-	 * If the target format does not exist on the image, the next largest format will
-	 * be returned.
-	 * @param image - Image data
-	 * @param targetFormat - Target image format
-	 * @returns Resolved image format
-	 */
-	imageFormat(image: Image, targetFormat: ImageFormatName) {
-		return image.attributes.formats[targetFormat]
-			?? Object.values(image.attributes.formats)
-				.sort((a, b) => b.width - a.width)[0]!;
-	}
-
 	async getHomePage() {
 		return (
-			await this.get<SingleType<HomePage>>('homepage')
+			await this.get<SingleResponse<HomePage>>('homepage')
 		).data;
 	}
 
 	async getAboutPage() {
 		return (
-			await this.get<SingleType<AboutPage>>('about-page')
+			await this.get<SingleResponse<AboutPage>>('about-page')
 		).data;
 	}
 
 	async getArtistsPage() {
 		return (
-			await this.get<SingleType<ArtistsPage>>('artists-page')
+			await this.get<SingleResponse<ArtistsPage>>('artists-page')
 		).data;
 	}
 
 	async getStorePage() {
 		return (
-			await this.get<SingleType<StorePage>>('store-page')
+			await this.get<SingleResponse<StorePage>>('store-page')
 		).data;
 	}
 
 	async getArticles() {
 		return (
-			await this.get<Collection<Article>>('articles', {
+			await this.get<CollectionResponse<Article>>('articles', {
 				sort: ['createdAt:desc']
 			})
 		).data;
@@ -105,7 +71,7 @@ export class StrapiService extends ApiService<StrapiResponse> {
 
 	async getEvents() {
 		return (
-			await this.get<Collection<Event>>('events', {
+			await this.get<CollectionResponse<Event>>('events', {
 				sort: ['date:desc']
 			})
 		).data;
@@ -114,12 +80,12 @@ export class StrapiService extends ApiService<StrapiResponse> {
 	async getArtist(key: { id: string; } | { slug: string; }) {
 		if ('id' in key)
 			return (
-				await this.get<SingleType<Artist>>(`artists/${key.id}`)
+				await this.get<SingleResponse<Artist>>(`artists/${key.id}`)
 			).data;
 
 		else if ('slug' in key)
 			return (
-				await this.get<Collection<Artist>>('artists', {
+				await this.get<CollectionResponse<Artist>>('artists', {
 					filters: { slug: { $eq: key.slug } }
 				})
 			).data[0] ?? throwExp('No result found');
@@ -131,12 +97,12 @@ export class StrapiService extends ApiService<StrapiResponse> {
 	async getEvent(key: { id: string; } | { slug: string; }) {
 		if ('id' in key)
 			return (
-				await this.get<SingleType<Event>>(`events/${key.id}`)
+				await this.get<SingleResponse<Event>>(`events/${key.id}`)
 			).data;
 
 		else if ('slug' in key)
 			return (
-				await this.get<Collection<Event>>('events', {
+				await this.get<CollectionResponse<Event>>('events', {
 					filters: { slug: { $eq: key.slug } }
 				})
 			).data[0] ?? throwExp('No result found');
@@ -148,12 +114,12 @@ export class StrapiService extends ApiService<StrapiResponse> {
 	async getArticle(key: { id: string; } | { slug: string; }) {
 		if ('id' in key)
 			return (
-				await this.get<SingleType<Article>>(`articles/${key.id}`)
+				await this.get<SingleResponse<Article>>(`articles/${key.id}`)
 			).data;
 
 		else if ('slug' in key)
 			return (
-				await this.get<Collection<Article>>('articles', {
+				await this.get<CollectionResponse<Article>>('articles', {
 					filters: { slug: { $eq: key.slug } }
 				})
 			).data[0] ?? throwExp('No result found');

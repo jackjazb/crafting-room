@@ -1,4 +1,4 @@
-import './global.scss';
+import '@scss/global.scss';
 import { FC, PropsWithChildren } from 'react';
 import { Navbar } from '@/components/navbar/Navbar';
 import { Footer } from '@/components/footer/Footer';

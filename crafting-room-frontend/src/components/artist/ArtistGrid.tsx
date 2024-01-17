@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import styles from './ArtistGrid.module.scss';
-import { Artist } from '@/types/strapi-data-types';
+import { Artist } from '@/lib/types/strapi-data';
 import { ArtistTile } from '@/components/artist/ArtistTile';
 
-type Props = {
+interface Props {
 	artists: Artist[];
-};
+}
 
 export const ArtistGrid: FC<Props> = props => {
 	return (

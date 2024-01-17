@@ -1,19 +1,20 @@
 import { FC } from 'react';
+import Link from 'next/link';
 import styles from './ArtistTile.module.scss';
-import { Artist } from '@/types/strapi-data-types';
-import { makeClass, mdi } from '@/lib/utils';
+import { Artist } from '@/lib/types/strapi-data';
+import { createClass, mdi } from '@/lib/utils';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
-type Props = {
+interface Props {
 	artist: Artist;
-};
+}
 
 /**
  * An artist portrait which reveals more details when clicked.
  */
 export const ArtistTile: FC<Props> = props => {
 	return (
-		<a
+		<Link
 			href={`/artists/${props.artist.attributes.slug}`}
 			className={styles.artist}
 		>
@@ -26,7 +27,7 @@ export const ArtistTile: FC<Props> = props => {
 
 			<div className={styles.artistOverlay}>
 				<div
-					className={makeClass(
+					className={createClass(
 						styles.artistName,
 						'overlay-text',
 						'overlay-text--small'
@@ -34,6 +35,6 @@ export const ArtistTile: FC<Props> = props => {
 					dangerouslySetInnerHTML={mdi(props.artist.attributes.name)}
 				/>
 			</div>
-		</a>
+		</Link>
 	);
 };

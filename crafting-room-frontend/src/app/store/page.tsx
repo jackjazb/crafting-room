@@ -8,8 +8,8 @@ const StorePage: NextPage = async () => {
     const storePage = await strapi.getStorePage().catch(notFound);
 
     return (
-        <div className='container'>
-            <section>
+        <main>
+            <section className='container'>
                 <h5>
                     More available on
                     {' '}
@@ -30,7 +30,7 @@ const StorePage: NextPage = async () => {
                     </section>
                 ))}
             </section>
-        </div>
+        </main>
     );
 };
 

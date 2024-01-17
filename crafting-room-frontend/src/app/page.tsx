@@ -1,10 +1,11 @@
 import { NextPage } from 'next';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import styles from './Home.module.scss';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { Carousel } from '@/components/carousel/Carousel';
 import { strapi } from '@/lib/server/services';
-import { makeClass, mdi } from '@/lib/utils';
+import { createClass, mdi } from '@/lib/utils';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
 const HomePage: NextPage = async () => {
@@ -15,13 +16,13 @@ const HomePage: NextPage = async () => {
     return (
         <main>
             {features.length > 0 && (
-                <section className={styles.carousel}>
+                <section className='no-section-margin'>
                     <Carousel>
                         {features.map(feature => (
-                            <a
+                            <Link
                                 key={feature.id}
                                 className={styles.feature}
-                                href={`/news/${feature.attributes.title}`}
+                                href={`/news/${feature.attributes.slug}`}
                             >
                                 <StrapiImage
                                     className={styles.featureImage}
@@ -30,24 +31,20 @@ const HomePage: NextPage = async () => {
                                     priority={features.indexOf(feature) === 0}
                                 />
                                 <div
-                                    className={makeClass(
+                                    className={createClass(
                                         styles.featureTitle,
-                                        'overlay-text'
+                                        'overlay-text',
+                                        'overlay-text--large'
                                     )}
                                     dangerouslySetInnerHTML={mdi(feature.attributes.title)}
                                 />
-                            </a>
+                            </Link>
                         ))}
                     </Carousel>
                 </section>
             )}
 
-            <section
-                className={makeClass(
-                    styles.featuredReleases,
-                    'container-fluid'
-                )}
-            >
+            <section className='container-fluid'>
                 <h1>
                     Featured Releases
                 </h1>

@@ -14,12 +14,12 @@ const EventsPage: NextPage = async () => {
 		new Date(event.attributes.date) < currentDate);
 
 	const futureEvents = events.filter(event =>
-		!pastEvents.includes(event));
+		new Date(event.attributes.date) >= currentDate);
 
 	return (
-		<main className='container'>
+		<main>
 			{futureEvents.length > 0 && (
-				<section>
+				<section className='container'>
 					<h1>
 						Events
 					</h1>
@@ -36,7 +36,7 @@ const EventsPage: NextPage = async () => {
 			)}
 
 			{pastEvents.length > 0 && (
-				<section>
+				<section className='container'>
 					<h1>
 						Past Events
 					</h1>

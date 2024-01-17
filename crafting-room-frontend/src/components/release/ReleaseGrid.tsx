@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import styles from './ReleaseGrid.module.scss';
 import { ReleaseTile } from './ReleaseTile';
-import { Release } from '@/types/strapi-data-types';
+import { Release } from '@/lib/types/strapi-data';
 
-type Props = {
+interface Props {
 	className?: string;
 	releases: Release[];
 	order?: 'date';
-};
+}
 
 export const ReleaseGrid: FC<Props> = props => {
 	if (props.order === 'date') {

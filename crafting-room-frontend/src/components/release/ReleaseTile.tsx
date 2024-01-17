@@ -1,13 +1,13 @@
 import { RxExternalLink } from 'react-icons/rx';
 import { FC } from 'react';
 import styles from './ReleaseTile.module.scss';
-import { Release } from '@/types/strapi-data-types';
+import { Release } from '@/lib/types/strapi-data';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { makeClass, mdi } from '@/lib/utils';
+import { createClass, mdi } from '@/lib/utils';
 
-type Props = {
+interface Props {
 	release: Release;
-};
+}
 
 /**
  * Renders a single release with a Bandcamp link.
@@ -24,14 +24,14 @@ export const ReleaseTile: FC<Props> = props => {
 
 			<div className={styles.releaseOverlay}>
 				<div
-					className={makeClass(
+					className={createClass(
 						styles.releaseTitle,
 						'overlay-text'
 					)}
 					dangerouslySetInnerHTML={mdi(props.release.attributes.title)}
 				/>
 				<div
-					className={makeClass(
+					className={createClass(
 						styles.releaseArtist,
 						'overlay-text',
 						'overlay-text--small'
@@ -43,7 +43,7 @@ export const ReleaseTile: FC<Props> = props => {
 
 				{props.release.attributes.link && (
 					<a
-						className={makeClass(
+						className={createClass(
 							styles.releaseLink,
 							'button-black'
 						)}

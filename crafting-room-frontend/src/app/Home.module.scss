@@ -1,13 +1,11 @@
-.carousel {
-    margin-bottom: unset;
-}
+@import "@scss/logic";
 
 .feature {
     position: relative;
     display: flex;
     height: 70vh;
 
-    @media (max-width: 992px) {
+    @include media-breakpoint-down(lg) {
         height: 60vh;
     }
 }
@@ -23,8 +21,4 @@
     margin: 20px;
     font-weight: 600;
     font-size: 1.5em;
-}
-
-.featuredReleases {
-    padding-top: 20px;
 }

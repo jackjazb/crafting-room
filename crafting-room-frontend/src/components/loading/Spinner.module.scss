@@ -1,0 +1,9 @@
+@import "@scss/logic";
+
+.loadingContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: load 0.75s linear infinite;
+    flex-grow: 1;
+}

@@ -5,11 +5,9 @@ const options: StrapiServiceOptions = {
 	hostname: process.env.STRAPI_HOST
 		? process.env.STRAPI_HOST
 		: throwExp('Missing `STRAPI_HOST` environment variable'),
-	baseEndpoint: '/api'
+	basePath: '/api',
+	baseParams: { populate: 'deep' }
 };
-
-if (process.env.STRAPI_MEDIA_PROVIDER_HOST)
-	options.mediaProviderHostname = process.env.STRAPI_MEDIA_PROVIDER_HOST;
 
 if (
 	process.env.CACHE_REVALIDATION_INTERVAL

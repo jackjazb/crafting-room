@@ -1,51 +1,85 @@
+/* eslint-disable react/jsx-closing-bracket-location */
 import { BsGlobe } from 'react-icons/bs';
 import { SiSpotify, SiInstagram, SiFacebook, SiTwitter, SiLinktree, SiYoutube, SiBandcamp } from 'react-icons/si';
-import { FC, ReactNode } from 'react';
+import { CSSProperties, FC, ReactNode } from 'react';
+import { IconBaseProps } from 'react-icons';
 import styles from './IconLink.module.scss';
-import { LinkType } from '@/types/strapi-data-types';
+import { SocialLinkType } from '@/lib/types/strapi-data';
 
-const ICON_SIZE = 30;
-
-type IconType = LinkType
+type IconType = SocialLinkType
 	| 'youtube'
 	| 'bandcamp';
 
-type Icons = Record<IconType, {
-	node: ReactNode;
-	color: string;
-}>;
+type Icons = {
+	[key in IconType]: {
+		node: ReactNode;
+		color: string;
+	};
+};
+
+const iconProps: IconBaseProps = {
+	overflow: 'visible',
+	size: 30
+};
 
 const iconLinks: Icons = {
-	spotify: { node: <SiSpotify size={ICON_SIZE} />, color: '#25d865' },
-	instagram: { node: <SiInstagram size={ICON_SIZE} />, color: '#f24c5f' },
-	facebook: { node: <SiFacebook size={ICON_SIZE} />, color: '#0865ff' },
-	twitter: { node: <SiTwitter size={ICON_SIZE} />, color: '#249ef0' },
-	website: { node: <BsGlobe size={ICON_SIZE} />, color: '#565656' },
-	linktree: { node: <SiLinktree size={ICON_SIZE} />, color: '#41e760' },
-	youtube: { node: <SiYoutube size={ICON_SIZE} />, color: '#ff0000' },
-	bandcamp: { node: <SiBandcamp size={ICON_SIZE} />, color: '#639aaa' }
+	spotify: {
+		node: <SiSpotify {...iconProps} />,
+		color: '#25d865'
+	},
+	instagram: {
+		node: <SiInstagram {...iconProps} />,
+		color: '#f24c5f'
+	},
+	facebook: {
+		node: <SiFacebook {...iconProps} />,
+		color: '#0865ff'
+	},
+	twitter: {
+		node: <SiTwitter {...iconProps} />,
+		color: '#249ef0'
+	},
+	website: {
+		node: <BsGlobe {...iconProps} />,
+		color: '#565656'
+	},
+	linktree: {
+		node: <SiLinktree {...iconProps} />,
+		color: '#41e760'
+	},
+	youtube: {
+		node: <SiYoutube {...iconProps} />,
+		color: '#ff0000'
+	},
+	bandcamp: {
+		node: <SiBandcamp {...iconProps} />,
+		color: '#639aaa'
+	}
 };
 
-type Props = {
+interface Props {
 	icon: IconType;
 	link: string;
-};
+}
 
 /**
  * An icon with a link.
  */
 export const IconLink: FC<Props> = props => {
+	const icon = iconLinks[props.icon];
+	const style = {
+		'--icon-link-color': icon.color
+	} as CSSProperties;
+
 	return (
 		<a
 			className={styles.iconLink}
 			href={props.link}
 			target='_blank'
 			rel='noreferrer'
-			style={{
-				'--icon-link-color': iconLinks[props.icon].color
-			} as React.CSSProperties}
+			style={style}
 		>
-			{iconLinks[props.icon].node}
+			{icon.node}
 		</a>
 	);
 };

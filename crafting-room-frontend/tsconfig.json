@@ -1,57 +1,62 @@
 {
-  "extends": "../tsconfig.types.json",
-  "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      },
-      {
-        "name": "typescript-plugin-css-modules",
-        "options": {
-          "rendererOptions": {
-            "sass": {
-              "includePaths": [
-                "./src/scss/**/*.scss"
-              ]
-            }
-          }
-        }
-      }
-    ],
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@scss/*": [
-        "./src/scss/*"
-      ]
-    }
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    ".next/types/**/*.ts",
-    ".eslintrc.js"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+	"extends": "../tsconfig.types.json",
+	"compilerOptions": {
+		"target": "es5",
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"esnext"
+		],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"incremental": true,
+		"plugins": [
+			{
+				"name": "next"
+			},
+			{
+				"name": "typescript-plugin-css-modules",
+				"options": {
+					"rendererOptions": {
+						"sass": {
+							"includePaths": [
+								"./src/lib/scss/**/*.scss"
+							]
+						}
+					}
+				}
+			}
+		],
+		"paths": {
+			"@/*": [
+				"./src/*"
+			],
+			"@scss/*": [
+				"./src/lib/scss/*"
+			],
+			"~/*": [
+				// TODO -> this stinks. accommodate for workspace and local modules
+				"./node_modules/*",
+				"../node_modules/*"
+			]
+		}
+	},
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"**/*.js",
+		".next/types/**/*.ts",
+		".eslintrc.js"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }

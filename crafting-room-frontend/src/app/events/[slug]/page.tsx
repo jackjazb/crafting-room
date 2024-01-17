@@ -4,12 +4,12 @@ import styles from './Event.module.scss';
 import { strapi } from '@/lib/server/services';
 import { SplitContentSection } from '@/components/split-content/SplitContent';
 import { md, mdi } from '@/lib/utils/markdown';
-import { formatDate, makeClass } from '@/lib/utils';
+import { formatDate, createClass } from '@/lib/utils';
 import { ArtistGrid } from '@/components/artist/ArtistGrid';
 
-type ServerProps = {
+interface ServerProps {
     params: { slug: string; };
-};
+}
 
 const EventPage: NextPage<ServerProps> = async props => {
     const { slug } = props.params;
@@ -21,8 +21,11 @@ const EventPage: NextPage<ServerProps> = async props => {
     const eventIsInFuture = eventDate > currentDate;
 
     return (
-        <main className='container'>
-            <SplitContentSection image={event.attributes.image.data}>
+        <main>
+            <SplitContentSection
+                className='container'
+                image={event.attributes.image.data}
+            >
                 <h1 dangerouslySetInnerHTML={mdi(event.attributes.title)} />
 
                 <div className={styles.eventDate}>
@@ -42,7 +45,7 @@ const EventPage: NextPage<ServerProps> = async props => {
 
                 {event.attributes.link && eventIsInFuture && (
                     <a
-                        className={makeClass(
+                        className={createClass(
                             styles.bookEvent,
                             'button',
                             'button-primary'
@@ -57,7 +60,7 @@ const EventPage: NextPage<ServerProps> = async props => {
             </SplitContentSection>
 
             {event.attributes.artists && event.attributes.artists.data.length > 0 && (
-                <section>
+                <section className='container'>
                     <h1>
                         Artists
                     </h1>

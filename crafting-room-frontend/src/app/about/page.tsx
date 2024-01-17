@@ -9,8 +9,8 @@ const AboutPage: NextPage = async () => {
     const aboutPage = await strapi.getAboutPage().catch(notFound);
 
     return (
-        <main className='container'>
-            <section>
+        <main>
+            <section className='container'>
                 <StrapiImage
                     className={styles.image}
                     image={aboutPage.attributes.image.data}
@@ -35,7 +35,7 @@ const AboutPage: NextPage = async () => {
 
             */}
             {aboutPage.attributes.contact && (
-                <section>
+                <section className='container'>
                     <h1>
                         Contact
                     </h1>

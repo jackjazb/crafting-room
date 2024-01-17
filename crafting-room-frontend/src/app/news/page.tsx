@@ -7,8 +7,8 @@ const NewsPage: NextPage = async () => {
 	const articles = await strapi.getArticles().catch(notFound);
 
 	return (
-		<main className='container'>
-			<section>
+		<main>
+			<section className='container'>
 				{articles.map(article => (
 					<ArticleTile
 						key={article.id}

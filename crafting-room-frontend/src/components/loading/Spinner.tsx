@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { FC } from 'react';
-import styles from './Spinner.module.css';
+import styles from './Spinner.module.scss';
 
 /**
  * The loading spinner icon.

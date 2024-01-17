@@ -1,15 +1,14 @@
-import Image from 'next/image';
-import { FC } from 'react';
-import { strapi } from '@/lib/server/services';
-import { Image as IImage, ImageFormatName } from '@/types/strapi-types';
-import { FALLBACK_IMAGE_COLOR } from '@/lib/server/utils';
+import NextImage from 'next/image';
+import { CSSProperties, FC } from 'react';
+import { strapiMedia } from '@/lib/server/services';
+import { Image, ImageFormatName } from '@/lib/types/strapi';
 
-type StrapiImageProps = {
+interface Props {
 	className?: string;
 	/**
 	 * The image data.
 	 */
-	image: IImage;
+	image: Image;
 	/**
 	 * The target image format.
 	 *
@@ -32,22 +31,24 @@ type StrapiImageProps = {
 	 * @defaultValue false
 	 */
 	priority?: boolean;
-};
+}
 
 /**
  * A Strapi image wrapped in a Next.js `<Image>` tag.
  */
-export const StrapiImage: FC<StrapiImageProps> = props => {
-	const format = strapi.imageFormat(props.image, props.format);
-	const url = strapi.mediaURL(format.url);
-	const backgroundColor = props.fallbackColor !== false
-		? props.fallbackColor ?? FALLBACK_IMAGE_COLOR
-		: undefined;
+export const StrapiImage: FC<Props> = props => {
+	const format = strapiMedia.getImageFormat(props.image, props.format);
+	const url = strapiMedia.getURL(format.url);
+	const style: CSSProperties = {
+		backgroundColor: props.fallbackColor !== false
+			? props.fallbackColor ?? strapiMedia.fallbackImageColor ?? undefined
+			: undefined
+	};
 
 	return (
-		<Image
+		<NextImage
 			className={props.className}
-			style={{ backgroundColor }}
+			style={style}
 			src={url}
 			width={format.width}
 			height={format.height}

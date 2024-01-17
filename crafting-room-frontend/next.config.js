@@ -21,6 +21,8 @@ module.exports = {
 		]
 	},
 	sassOptions: {
-		includePaths: [join(__dirname, 'scss/**/*.scss')]
+		includePaths: [
+			join(__dirname, 'scss/**/*.scss')
+		]
 	}
 };

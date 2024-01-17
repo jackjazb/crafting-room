@@ -1,0 +1,67 @@
+.container {
+	position: relative;
+	width: 80%;
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 20px;
+	padding-right: 20px;
+
+	@include media-breakpoint-down(md) {
+		width: 100%;
+	}
+}
+
+.container-fluid {
+	position: relative;
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.overlay-text {
+	--overlay-text-px: 10px;
+	--overlay-text-py: 10px;
+	padding: var(--overlay-text-py) var(--overlay-text-px);
+	background-color: black;
+	color: white;
+	font-weight: 500;
+
+	//hacky fixes to stop font being too big on mobile
+	@include media-breakpoint-down(lg) {
+		padding-bottom: calc(var(--overlay-text-py) - 2px);
+	}
+	@include media-breakpoint-down(md) {
+		padding-bottom: calc(var(--overlay-text-py) - 4px);
+	}
+
+	&--small {
+		--overlay-text-px: 7.5px;
+		--overlay-text-py: 5px;
+	}
+
+	&--large {
+		--overlay-text-px: 12.5px;
+		--overlay-text-py: 15px;
+	}
+}
+
+.button-black {
+	@extend .overlay-text;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	cursor: pointer;
+	transition:
+		color var(--transition-fast),
+		background-color var(--transition-fast);
+
+	@include hover-active-swap-focus-visible {
+		color: #0fa0ce;
+		background-color: #333;
+	}
+
+	svg {
+		font-size: 1.5em;
+	}
+}

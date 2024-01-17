@@ -1,0 +1,10 @@
+//a single entry exporting all sass logic.
+
+@import "variables";
+@import "mixins";
+
+//underscores not normally required here.
+//but required for `typescript-plugin-css-modules` to work.
+@import "~/bootstrap/scss/_functions";
+@import "~/bootstrap/scss/_variables";
+@import "~/bootstrap/scss/mixins/_breakpoints";

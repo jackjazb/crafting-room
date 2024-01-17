@@ -5,9 +5,9 @@ import { strapi } from '@/lib/server/services';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 import { mdi, md } from '@/lib/utils';
 
-type ServerProps = {
+interface ServerProps {
     params: { slug: string; };
-};
+}
 
 const ArticlePage: NextPage<ServerProps> = async props => {
     const { slug } = props.params;
@@ -15,23 +15,25 @@ const ArticlePage: NextPage<ServerProps> = async props => {
 
     return (
         <main>
-            <section>
-                <StrapiImage
-                    className={styles.articleTopImage}
-                    image={article.attributes.images.data[0]}
-                    format='xlarge'
-                    priority
-                />
+            <article>
+                <section className='no-section-margin'>
+                    <StrapiImage
+                        className={styles.articleTopImage}
+                        image={article.attributes.images.data[0]}
+                        format='xlarge'
+                        priority
+                    />
+                </section>
 
-                <article className='container'>
+                <section className='container'>
                     <h1 dangerouslySetInnerHTML={mdi(article.attributes.title)} />
                     <h5
                         className={styles.author}
                         dangerouslySetInnerHTML={mdi(article.attributes.author)}
                     />
                     <div dangerouslySetInnerHTML={md(article.attributes.content)} />
-                </article>
-            </section>
+                </section>
+            </article>
         </main>
     );
 };

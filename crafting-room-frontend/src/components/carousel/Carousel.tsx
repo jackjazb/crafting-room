@@ -4,7 +4,7 @@ import { Children, FC, PropsWithChildren, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx';
 import styles from './Carousel.module.scss';
-import { makeClass } from '@/lib/utils';
+import { createClass } from '@/lib/utils';
 
 /**
  * Wraps its children in an Embla carousel.
@@ -39,7 +39,7 @@ export const Carousel: FC<PropsWithChildren> = props => {
                 </div>
             </div>
             <button
-                className={makeClass(
+                className={createClass(
                     styles.arrow,
                     styles.prev
                 )}
@@ -50,7 +50,7 @@ export const Carousel: FC<PropsWithChildren> = props => {
                 <RxCaretLeft size={45} />
             </button>
             <button
-                className={makeClass(
+                className={createClass(
                     styles.arrow,
                     styles.next
                 )}

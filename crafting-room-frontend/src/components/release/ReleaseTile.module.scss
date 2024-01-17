@@ -1,4 +1,4 @@
-@import "@/scss/logic";
+@import "@scss/logic";
 
 .release {
     position: relative;
@@ -28,7 +28,7 @@
     gap: 5px;
     padding: 10px;
 
-    @media (max-width: 768px) {
+    @include media-breakpoint-down(md) {
         opacity: 1;
     }
 
