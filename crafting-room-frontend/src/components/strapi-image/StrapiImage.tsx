@@ -17,7 +17,7 @@ interface Props {
 	 */
 	format: ImageFormatName;
 	/**
-	 * Override or disable the default image fallback color.
+	 * Override or disable the default media fallback color.
 	 */
 	fallbackColor?: string | false;
 	/**
@@ -41,7 +41,7 @@ export const StrapiImage: FC<Props> = props => {
 	const url = strapiMedia.getURL(format.url);
 	const style: CSSProperties = {
 		backgroundColor: props.fallbackColor !== false
-			? props.fallbackColor ?? strapiMedia.fallbackImageColor ?? undefined
+			? props.fallbackColor ?? strapiMedia.fallbackColor ?? undefined
 			: undefined
 	};
 

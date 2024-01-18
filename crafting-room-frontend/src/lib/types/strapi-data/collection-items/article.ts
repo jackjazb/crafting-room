@@ -1,6 +1,6 @@
-import { Image, Item, RequiredCollection } from '@/lib/types/strapi';
+import { Image, PublishableItem, RequiredCollection } from '@/lib/types/strapi';
 
-export interface Article extends Item<{
+export interface Article extends PublishableItem<{
 	title: string;
 	slug: string;
 	content: string;

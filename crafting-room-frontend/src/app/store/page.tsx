@@ -5,7 +5,8 @@ import { strapi } from '@/lib/server/services';
 import { mdi } from '@/lib/utils';
 
 const StorePage: NextPage = async () => {
-    const storePage = await strapi.getStorePage().catch(notFound);
+    const storePage = await strapi.getStorePage()
+        .catch(notFound);
 
     return (
         <main>

@@ -9,7 +9,8 @@ import { createClass } from '@/lib/utils';
  * The directory page for all artists.
  */
 export const ArtistsPage: NextPage = async () => {
-	const artistsPage = await strapi.getArtistsPage().catch(notFound);
+	const artistsPage = await strapi.getArtistsPage()
+		.catch(notFound);
 
 	const activeGroups = artistsPage.attributes.groups;
 	const inactive = artistsPage.attributes.inactive.artists.data;

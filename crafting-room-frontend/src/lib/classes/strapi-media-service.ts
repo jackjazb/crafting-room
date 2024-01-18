@@ -16,9 +16,9 @@ export interface StrapiMediaServiceOptions {
 	 */
 	mediaProviderHostname: string;
 	/**
-	 * Default fallback image color.
+	 * Default fallback media color.
 	 *
-	 * The default background color shown behind images while they load in.
+	 * The default background color shown behind media while it loads in.
 	 * @defaultValue null
 	 */
 	defaultFallbackColor?: string | null;
@@ -52,9 +52,9 @@ export class StrapiMediaService {
 	}
 
 	/**
-	 * The default background color shown behind images while they load in.
+	 * The default background color shown behind media while it loads in.
 	 */
-	get fallbackImageColor() {
+	get fallbackColor() {
 		return this.options.defaultFallbackColor;
 	}
 

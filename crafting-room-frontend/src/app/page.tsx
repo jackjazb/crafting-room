@@ -9,7 +9,8 @@ import { createClass, mdi } from '@/lib/utils';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
 const HomePage: NextPage = async () => {
-    const homePage = await strapi.getHomePage().catch(notFound);
+    const homePage = await strapi.getHomePage()
+        .catch(notFound);
 
     const features = homePage.attributes.features.data;
 

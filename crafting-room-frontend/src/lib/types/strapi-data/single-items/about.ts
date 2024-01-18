@@ -1,6 +1,6 @@
-import { Image, Single, Item } from '@/lib/types/strapi';
+import { Image, Single, PublishableItem } from '@/lib/types/strapi';
 
-export interface AboutPage extends Item<{
+export interface AboutPage extends PublishableItem<{
 	header: string;
 	content: string;
 	contact?: string;

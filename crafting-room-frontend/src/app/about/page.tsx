@@ -6,7 +6,8 @@ import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 import { md, mdi } from '@/lib/utils';
 
 const AboutPage: NextPage = async () => {
-    const aboutPage = await strapi.getAboutPage().catch(notFound);
+    const aboutPage = await strapi.getAboutPage()
+        .catch(notFound);
 
     return (
         <main>

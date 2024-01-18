@@ -13,7 +13,7 @@ export interface ApiServiceOptions {
 	/**
 	 * Base URL path of the API. This will be appended to the hostname on every request.
 	 *
-	 * ***Don't include a trailing slash - it's automatically appended.***
+	 * Include a leading, **but not a trailing slash - it's automatically appended**.
 	 * @defaultValue null
 	 */
 	basePath?: string | null;
@@ -47,7 +47,10 @@ export interface ApiServiceOptions {
 /**
  * An API service based on the Fetch API.
  */
-export class ApiService<TBaseData extends object = object> {
+export class ApiService<
+	TBaseResponse extends object = object,
+	TBaseParams extends object = object
+> {
 	/**
 	 * The default options for any API service instance.
 	 */
@@ -73,17 +76,21 @@ export class ApiService<TBaseData extends object = object> {
 	}
 
 	/**
-	 * Send a GET request.
+	 * Send a GET request to the API.
 	 *
 	 * The response data type should be provided to provide effective typings.
 	 * @param endpoint - Target endpoint
-	 * @param params - Request querystring parameters
+	 * @param params - Request parameters
 	 * @param options - Fetch request options
 	 * @returns Response data
+	 * @throws Error if request failed, took too long, or reached max attempts
 	 */
-	async get<TData extends TBaseData = TBaseData>(
+	async get<
+		TResponse extends TBaseResponse = TBaseResponse,
+		TParams extends TBaseParams = TBaseParams
+	>(
 		endpoint: string,
-		params?: object,
+		params?: TParams,
 		options?: RequestInit
 	) {
 		const _params = merge({}, this.options.baseParams, params);
@@ -128,6 +135,6 @@ export class ApiService<TBaseData extends object = object> {
 		};
 
 		const response = await attemptRequest();
-		return response.json() as Promise<TData>;
+		return response.json() as Promise<TResponse>;
 	}
 }

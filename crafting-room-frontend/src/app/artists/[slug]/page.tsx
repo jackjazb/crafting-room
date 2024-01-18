@@ -15,8 +15,8 @@ interface ServerProps {
  * An individual artist's bio page
  */
 const ArtistPage: NextPage<ServerProps> = async props => {
-    const { slug } = props.params;
-    const artist = await strapi.getArtist({ slug }).catch(notFound);
+    const artist = await strapi.getArtist({ slug: props.params.slug })
+        .catch(notFound);
 
     return (
         <main>

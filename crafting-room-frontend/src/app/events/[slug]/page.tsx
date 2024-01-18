@@ -12,8 +12,8 @@ interface ServerProps {
 }
 
 const EventPage: NextPage<ServerProps> = async props => {
-    const { slug } = props.params;
-    const event = await strapi.getEvent({ slug }).catch(notFound);
+    const event = await strapi.getEvent({ slug: props.params.slug })
+        .catch(notFound);
 
     //TODO -> get current date in uk time
     const currentDate = new Date();

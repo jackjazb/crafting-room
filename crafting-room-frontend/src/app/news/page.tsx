@@ -4,7 +4,8 @@ import { ArticleTile } from '@/components/article/ArticleTile';
 import { strapi } from '@/lib/server/services';
 
 const NewsPage: NextPage = async () => {
-	const articles = await strapi.getArticles().catch(notFound);
+	const articles = await strapi.getArticles()
+		.catch(notFound);
 
 	return (
 		<main>

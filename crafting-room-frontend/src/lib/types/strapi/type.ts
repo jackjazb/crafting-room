@@ -1,29 +1,27 @@
-import { BaseItem, Component } from './item';
+import { Item, Component } from './item';
 
 /**
  * A single Strapi component.
  *
- * Contains a single component within it.
+ * Contains a single component within.
  */
-export interface SingleComponent extends Component { }
+export type SingleComponent<TItem extends Component = Component> = TItem;
 
 /**
  * A repeated Strapi component.
  *
- * Contains multiple (**zero or more**) component within it.
+ * Contains multiple (**zero or more**) components within.
  */
-export type RepeatedComponent<
-	TItem extends Component = Component
-> = TItem[];
+export type RepeatedComponent<TItem extends Component = Component> =
+	TItem[];
 
 /**
  * A required repeated Strapi component.
  *
- * Contains multiple (**one or more**) component within it.
+ * Contains multiple (**one or more**) components within.
  */
-export type RequiredRepeatedComponent<
-	TItem extends Component = Component
-> = [TItem, ...TItem[]];
+export type RequiredRepeatedComponent<TItem extends Component = Component> =
+	[TItem, ...TItem[]];
 
 /**
  * A Strapi single-type.
@@ -31,7 +29,7 @@ export type RequiredRepeatedComponent<
  * Contains a single item within.
  */
 export interface Single<
-	TItem extends BaseItem = BaseItem
+	TItem extends Item = Item
 > {
 	data: TItem;
 	meta: {
@@ -42,17 +40,17 @@ export interface Single<
 /**
  * A Strapi collection.
  *
- * Contains multiple (**zero or more**) items within it.
+ * Contains multiple (**zero or more**) items within.
  */
-export interface Collection<TItem extends BaseItem = BaseItem> {
+export interface Collection<TItem extends Item = Item> {
 	data: TItem[];
 }
 
 /**
  * A required Strapi collection.
  *
- * Contains multiple (**one or more**) items within it.
+ * Contains multiple (**one or more**) items within.
  */
-export interface RequiredCollection<TItem extends BaseItem = BaseItem> {
+export interface RequiredCollection<TItem extends Item = Item> {
 	data: [TItem, ...TItem[]];
 }

@@ -1,7 +1,7 @@
 import { Artist } from '@/lib/types/strapi-data/collection-items/artist';
-import { Image, Single, Item } from '@/lib/types/strapi';
+import { Image, Single, PublishableItem } from '@/lib/types/strapi';
 
-export interface Release extends Item<{
+export interface Release extends PublishableItem<{
 	title: string;
 	slug: string;
 	date: string;

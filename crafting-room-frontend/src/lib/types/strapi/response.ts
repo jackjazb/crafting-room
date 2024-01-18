@@ -4,28 +4,22 @@ import { Item } from './item';
 /**
  * A response from the Strapi API.
  *
- * There are two main types of REST API responses from Strapi (as far as I'm
- * aware) - the 'single type' response and the 'collection' response.
+ * There are two types of responses from the Strapi API (as far as I'm
+ * aware) - the 'single type' and the 'collection' response.
  */
 export type StrapiResponse = SingleResponse | CollectionResponse;
 
 /**
- * Strapi response received when querying a single item from the API.
+ * Response received when querying a single item from the Strapi API.
  */
-export interface SingleResponse<
-	T extends Item = Item
-> extends Single<T> {
-	meta: {
-		[key: string]: unknown;
-	};
+export interface SingleResponse<T extends Item = Item> extends Single<T> {
+	meta: Record<string, unknown>;
 }
 
 /**
- * Strapi response received when querying a collection using the REST API.
+ * Response received when querying a collection from the Strapi API.
  */
-export interface CollectionResponse<
-	T extends Item = Item
-> extends Collection<T> {
+export interface CollectionResponse<T extends Item = Item> extends Collection<T> {
 	meta: {
 		pagination: {
 			page: number;

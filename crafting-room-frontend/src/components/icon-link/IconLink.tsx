@@ -6,12 +6,8 @@ import { IconBaseProps } from 'react-icons';
 import styles from './IconLink.module.scss';
 import { SocialLinkType } from '@/lib/types/strapi-data';
 
-type IconType = SocialLinkType
-	| 'youtube'
-	| 'bandcamp';
-
 type Icons = {
-	[key in IconType]: {
+	[key in SocialLinkType]: {
 		node: ReactNode;
 		color: string;
 	};
@@ -22,7 +18,7 @@ const iconProps: IconBaseProps = {
 	size: 30
 };
 
-const iconLinks: Icons = {
+const icons: Icons = {
 	spotify: {
 		node: <SiSpotify {...iconProps} />,
 		color: '#25d865'
@@ -58,7 +54,7 @@ const iconLinks: Icons = {
 };
 
 interface Props {
-	icon: IconType;
+	icon: SocialLinkType;
 	link: string;
 }
 
@@ -66,10 +62,7 @@ interface Props {
  * An icon with a link.
  */
 export const IconLink: FC<Props> = props => {
-	const icon = iconLinks[props.icon];
-	const style = {
-		'--icon-link-color': icon.color
-	} as CSSProperties;
+	const icon = icons[props.icon];
 
 	return (
 		<a
@@ -77,7 +70,9 @@ export const IconLink: FC<Props> = props => {
 			href={props.link}
 			target='_blank'
 			rel='noreferrer'
-			style={style}
+			style={{
+				'--icon-link-color': icon.color
+			} as CSSProperties}
 		>
 			{icon.node}
 		</a>

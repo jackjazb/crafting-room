@@ -1,7 +1,7 @@
 import { merge } from 'lodash';
 import { ApiService, ApiServiceOptions } from '@/lib/classes/api-service';
 import { AboutPage, Article, Artist, ArtistsPage, Event, HomePage, StorePage } from '@/lib/types/strapi-data';
-import { StrapiResponse, SingleResponse, CollectionResponse } from '@/lib/types/strapi';
+import { StrapiResponse, SingleResponse, CollectionResponse, StrapiRequestParams, Item, SingleRequestParams, CollectionRequestParams } from '@/lib/types/strapi';
 import { OptionalProps } from '@/lib/types/utils';
 import { throwExp } from '@/lib/utils';
 
@@ -15,7 +15,7 @@ export interface StrapiServiceOptions extends ApiServiceOptions { }
  *
  * Handles performing requests to the Strapi API.
  */
-export class StrapiService extends ApiService<StrapiResponse> {
+export class StrapiService extends ApiService<StrapiResponse, StrapiRequestParams> {
 	/**
 	 * The default options for any Strapi service instance.
 	 */
@@ -37,93 +37,117 @@ export class StrapiService extends ApiService<StrapiResponse> {
 		this.options = _options;
 	}
 
-	async getHomePage() {
+	/**
+	 * Retrieve a single item from the Strapi API.
+	 * @param endpoint - Target endpoint
+	 * @param params - Request parameters
+	 * @param options - Fetch request options
+	 * @returns Single type
+	 * @throws Error if request failed, took too long, or reached max attempts
+	 */
+	private async getSingle<
+		TItem extends Item = Item,
+		TResponse extends SingleResponse<TItem> = SingleResponse<TItem>,
+		TParams extends SingleRequestParams = SingleRequestParams
+	>(endpoint: string, params?: TParams, options?: RequestInit) {
 		return (
-			await this.get<SingleResponse<HomePage>>('homepage')
+			await this.get<TResponse, TParams>(endpoint, params, options)
 		).data;
+	}
+
+	/**
+	 * Retrieve a collection of items from the Strapi API.
+	 * @param endpoint - Target endpoint
+	 * @param params - Request parameters
+	 * @param options - Fetch request options
+	 * @returns Collection
+	 * @throws Error if request failed, took too long, or reached max attempts
+	 */
+	private async getCollection<
+		TItem extends Item = Item,
+		TResponse extends CollectionResponse<TItem> = CollectionResponse<TItem>,
+		TParams extends CollectionRequestParams = CollectionRequestParams
+	>(endpoint: string, params?: TParams, options?: RequestInit) {
+		return (
+			await this.get<TResponse, TParams>(endpoint, params, options)
+		).data;
+	}
+
+	/**
+	 * Retrieve the first item within a collection of items from the Strapi API.
+	 * @param endpoint - Target endpoint
+	 * @param params - Request parameters
+	 * @param options - Fetch request options
+	 * @returns First item within collection
+	 * @throws Error if request failed, took too long, or reached max attempts, or if collection is empty
+	 */
+	private async getCollectionFirstItem<
+		TItem extends Item = Item,
+		TResponse extends CollectionResponse<TItem> = CollectionResponse<TItem>,
+		TParams extends CollectionRequestParams = CollectionRequestParams
+	>(endpoint: string, params?: TParams, options?: RequestInit) {
+		return (
+			await this.get<TResponse, TParams>(endpoint, params, options)
+		).data[0] ?? throwExp('No result found');
+	}
+
+	async getHomePage() {
+		return this.getSingle<HomePage>('homepage');
 	}
 
 	async getAboutPage() {
-		return (
-			await this.get<SingleResponse<AboutPage>>('about-page')
-		).data;
+		return this.getSingle<AboutPage>('about-page');
 	}
 
 	async getArtistsPage() {
-		return (
-			await this.get<SingleResponse<ArtistsPage>>('artists-page')
-		).data;
+		return this.getSingle<ArtistsPage>('artists-page');
 	}
 
 	async getStorePage() {
-		return (
-			await this.get<SingleResponse<StorePage>>('store-page')
-		).data;
+		return this.getSingle<StorePage>('store-page');
 	}
 
 	async getArticles() {
-		return (
-			await this.get<CollectionResponse<Article>>('articles', {
-				sort: ['createdAt:desc']
-			})
-		).data;
+		return this.getCollection<Article>('articles', {
+			sort: ['createdAt:desc']
+		});
 	}
 
 	async getEvents() {
-		return (
-			await this.get<CollectionResponse<Event>>('events', {
-				sort: ['date:desc']
-			})
-		).data;
+		return this.getCollection<Event>('events', {
+			sort: ['date:desc']
+		});
 	}
 
-	async getArtist(key: { id: string; } | { slug: string; }) {
+	async getArtist(key: { id: string | number; } | { slug: string; }) {
 		if ('id' in key)
-			return (
-				await this.get<SingleResponse<Artist>>(`artists/${key.id}`)
-			).data;
-
+			return this.getSingle<Artist>(`artists/${key.id}`);
 		else if ('slug' in key)
-			return (
-				await this.get<CollectionResponse<Artist>>('artists', {
-					filters: { slug: { $eq: key.slug } }
-				})
-			).data[0] ?? throwExp('No result found');
-
+			return this.getCollectionFirstItem<Artist>('artists', {
+				filters: { slug: { $eq: key.slug } }
+			});
 		else
 			throw new Error('Unknown key');
 	}
 
-	async getEvent(key: { id: string; } | { slug: string; }) {
+	async getEvent(key: { id: string | number; } | { slug: string; }) {
 		if ('id' in key)
-			return (
-				await this.get<SingleResponse<Event>>(`events/${key.id}`)
-			).data;
-
+			return this.getSingle<Event>(`events/${key.id}`);
 		else if ('slug' in key)
-			return (
-				await this.get<CollectionResponse<Event>>('events', {
-					filters: { slug: { $eq: key.slug } }
-				})
-			).data[0] ?? throwExp('No result found');
-
+			return this.getCollectionFirstItem<Event>('events', {
+				filters: { slug: { $eq: key.slug } }
+			});
 		else
 			throw new Error('Unknown key');
 	}
 
-	async getArticle(key: { id: string; } | { slug: string; }) {
+	async getArticle(key: { id: string | number; } | { slug: string; }) {
 		if ('id' in key)
-			return (
-				await this.get<SingleResponse<Article>>(`articles/${key.id}`)
-			).data;
-
+			return this.getSingle<Article>(`articles/${key.id}`);
 		else if ('slug' in key)
-			return (
-				await this.get<CollectionResponse<Article>>('articles', {
-					filters: { slug: { $eq: key.slug } }
-				})
-			).data[0] ?? throwExp('No result found');
-
+			return this.getCollectionFirstItem<Article>('articles', {
+				filters: { slug: { $eq: key.slug } }
+			});
 		else
 			throw new Error('Unknown key');
 	}

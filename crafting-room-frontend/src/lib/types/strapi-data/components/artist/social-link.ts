@@ -11,4 +11,6 @@ export type SocialLinkType =
 	'facebook' |
 	'twitter' |
 	'website' |
-	'linktree';
+	'linktree' |
+	'youtube' |
+	'bandcamp';

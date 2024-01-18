@@ -10,8 +10,8 @@ interface ServerProps {
 }
 
 const ArticlePage: NextPage<ServerProps> = async props => {
-    const { slug } = props.params;
-    const article = await strapi.getArticle({ slug }).catch(notFound);
+    const article = await strapi.getArticle({ slug: props.params.slug })
+        .catch(notFound);
 
     return (
         <main>

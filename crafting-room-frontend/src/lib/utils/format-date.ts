@@ -1,7 +1,7 @@
 import { ordinalIndicator } from '@/lib/utils';
 
 /**
- * Formats a date string in the following format:
+ * Format a date string in the following format:
  *
  * `[weekday-name], [day-of-month] [month-name] [year-if-not-current]`
  * @param dateStr - Date string
