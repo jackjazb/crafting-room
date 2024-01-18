@@ -12,6 +12,7 @@ export const Navbar: FC = () => {
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	const openMenu = () => {
+		setHeight();
 		document.body.style.overflow = 'hidden';
 		setMenuOpen(true);
 	};
@@ -21,19 +22,19 @@ export const Navbar: FC = () => {
 		setMenuOpen(false);
 	};
 
-	useEffect(() => {
-		const setHeight = () => {
-			nav.current!.style.setProperty(
-				'--nav-height',
-				`${nav.current!.clientHeight}px`
-			);
-		};
+	const setHeight = () => {
+		nav.current!.style.setProperty(
+			'--nav-height',
+			`${nav.current!.clientHeight}px`
+		);
+	};
 
-		setHeight();
-		addEventListener('resize', setHeight);
+	useEffect(() => {
+		// setHeight();
+		// addEventListener('resize', setHeight);
 
 		return () => {
-			removeEventListener('resize', setHeight);
+			// removeEventListener('resize', setHeight);
 			document.body.style.overflow = '';
 		};
 	}, []);
