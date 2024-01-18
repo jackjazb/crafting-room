@@ -1,71 +1,51 @@
-import { Artist, ArtistsPage, strapiFetch } from "@/lib/strapi-client";
-import { ArtistTile } from "@/components/artist/ArtistTile";
-import styles from './Artists.module.css';
-import ArtistPage from "./[name]/page";
-
-async function getArtistsPage() {
-	const path = 'artists-page';
-	const params = {
-		populate: {
-			groups: {
-				populate: {
-					artists: {
-						populate: "*"
-					}
-				}
-			},
-			inactive: {
-				populate: {
-					artists: {
-						populate: "*"
-					}
-				}
-			}
-		}
-	};
-	const response = await strapiFetch(path, params);
-	return response.data;
-}
+import { NextPage } from 'next';
+import { notFound } from 'next/navigation';
+import styles from './Artists.module.scss';
+import { strapi } from '@/lib/server/services';
+import { ArtistGrid } from '@/components/artist/ArtistGrid';
+import { createClass } from '@/lib/utils';
 
 /**
- * Generates a set of artist tiles from a list of Artists
+ * The directory page for all artists.
  */
-const artistTiles = (artists: Array<Artist>) => {
-	return artists.map(artist =>
-		<ArtistTile artist={artist} key={artist.id} />
-	);
-}
+export const ArtistsPage: NextPage = async () => {
+	const artistsPage = await strapi.getArtistsPage()
+		.catch(notFound);
 
-/**
- * The directory page for all artists
- * 
- */
-export default async function Artists() {
-	const artistsPage: ArtistsPage = await getArtistsPage();
-
-	const groups = artistsPage.attributes.groups
-	const artistGroups = groups.map(group => (
-		<div>
-			<h2>{group.header}</h2>
-			<div className={styles.artists}>
-				{artistTiles(group.artists.data)}
-			</div>
-		</div>
-	));
-
-	const inactive = artistsPage.attributes.inactive.artists.data
-	const inactiveGroup = inactive.length > 0 ?
-		<div>
-			<h2>{artistsPage.attributes.inactive.header}</h2>
-			<div className={`${styles.artists} ${styles.inactive}`}>
-				{artistTiles(inactive)}
-			</div>
-		</div>
-		: undefined;
+	const activeGroups = artistsPage.attributes.groups;
+	const inactive = artistsPage.attributes.inactive.artists.data;
 
 	return (
-		<div className={`${styles.artistsPage} container`}>
-			{artistGroups}
-			{inactiveGroup}
-		</div >);
-}
+		<main>
+			{activeGroups.length > 0 && activeGroups.map(group => (
+				(group.artists.data.length > 0 && (
+					<section
+						key={group.id}
+						className='container'
+					>
+						<h2>
+							{group.header}
+						</h2>
+						<ArtistGrid artists={group.artists.data} />
+					</section>
+				))
+			))}
+
+			{inactive.length > 0 && (
+				<section
+					className={createClass(
+						styles.inactive,
+						'container'
+					)}
+				>
+					<h2>
+						{artistsPage.attributes.inactive.header}
+					</h2>
+					<ArtistGrid artists={inactive} />
+				</section>
+			)}
+		</main>
+	);
+};
+
+export default ArtistsPage;

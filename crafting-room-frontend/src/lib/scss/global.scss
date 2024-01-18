@@ -1,0 +1,10 @@
+//the main/base/global styles for the application.
+@import "logic";
+
+@import "skeleton";
+// perhaps bootstrap-reboot might be more appropriate over this skeleton now?
+// @import "~/bootstrap/scss/bootstrap-reboot";
+
+@import "fonts/HelveticaNeue";
+@import "base";
+@import "utils";

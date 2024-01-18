@@ -1,39 +1,51 @@
-import { AboutPage, resolveImageUrl, strapiFetch } from "@/lib/strapi-client";
-import styles from './AboutPage.module.css';
-import { SubscribeForm } from "@/components/email/SubscribeForm";
+import { NextPage } from 'next';
+import { notFound } from 'next/navigation';
+import styles from './AboutPage.module.scss';
+import { strapi } from '@/lib/server/services';
+import { StrapiImage } from '@/components/strapi-image/StrapiImage';
+import { md, mdi } from '@/lib/utils';
 
-async function getAboutPage() {
-    const path = 'about-page';
-    const params = {
-        populate: {
-            image: {
-                populate: "*"
-            }
-        }
-    };
-    const response = await strapiFetch(path, params);
-    return response.data;
-}
+const AboutPage: NextPage = async () => {
+    const aboutPage = await strapi.getAboutPage()
+        .catch(notFound);
 
-export default async function About() {
-    const aboutPage: AboutPage = await getAboutPage();
     return (
-        <div className="container">
-            <img className={styles.image} src={resolveImageUrl(aboutPage.attributes.image.data)} />
-            <h1>{aboutPage.attributes.header}</h1>
-            <p className={styles.content}>{aboutPage.attributes.content}</p>
-            {/* 
-            // This will require some extra thought and conferring with Archie. All working except actual storing of emails.
+        <main>
+            <section className='container'>
+                <StrapiImage
+                    className={styles.image}
+                    image={aboutPage.attributes.image.data}
+                    format='large'
+                    priority
+                    fallbackColor={false}
+                />
+                <h1 dangerouslySetInnerHTML={mdi(aboutPage.attributes.header)} />
+                <div dangerouslySetInnerHTML={md(aboutPage.attributes.content)} />
+            </section>
+
+            {/*
+            This will require some extra thought and conferring with Archie.
+
+            All working except actual storing of emails.
+
+            <section>
             <h1>Subscribe</h1>
             <p>Subscribe to our mailing list.</p>
-            <SubscribeForm /> */}
-            {aboutPage.attributes.contact ?
-                <>
-                    <h1>Contact</h1>
-                    <p className={styles.content}>{aboutPage.attributes.contact}</p>
-                </>
-                : undefined
-            }
-        </div>
-    )
-}   
+            <SubscribeForm />
+            </section>
+
+            */}
+            {aboutPage.attributes.contact && (
+                <section className='container'>
+                    <h1>
+                        Contact
+                    </h1>
+                    {/* TODO -> this should be converted to not be a RTE in strapi! */}
+                    <div dangerouslySetInnerHTML={md(aboutPage.attributes.contact)} />
+                </section>
+            )}
+        </main>
+    );
+};
+
+export default AboutPage;

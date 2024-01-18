@@ -1,7 +1,15 @@
-export default function Custom404() {
+import { NextPage } from 'next';
+
+const NotFoundPage: NextPage = () => {
     return (
-        <div className="container">
-            <h1>404 - Page Not Found</h1>
-        </div>
+        <main>
+            <section className='container'>
+                <h1>
+                    404 - Page Not Found
+                </h1>
+            </section>
+        </main>
     );
-}
+};
+
+export default NotFoundPage;

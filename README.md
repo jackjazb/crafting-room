@@ -7,21 +7,37 @@ This project uses `yarn`. On first cloning the project, run `yarn install` from 
 
 You will also need to provide some environment variables.
 
-crafting-room-cms/.env:
-```
+crafting-room-cms/.env.example:
+```python
 HOST=0.0.0.0
 PORT=1337
+
 # Can be whatever
 APP_KEYS=""
 API_TOKEN_SALT=
 ADMIN_JWT_SECRET=
 JWT_SECRET=
 ```
-crafting-room-frontend/.env
+
+crafting-room-frontend/.env.example
+```python
+# The host URL for Strapi.
+# - Required!
+STRAPI_HOST=""
+
+# The host URL for Strapi media.
+# - Optional
+# - If empty or undefined: defaults to value of `STRAPI_HOST`
+STRAPI_MEDIA_PROVIDER_HOST=""
+
+# The interval between cache revalidations (in seconds), or `false` to disable.
+# - In other words, 'after this period of time, ask the server for new
+# data on the next request'.
+# - Optional
+# - If empty or undefined: defaults to `false`
+CACHE_REVALIDATION_INTERVAL=false
 ```
-STRAPI_URL="" # The docker bridge network endpoint for Strapi
-IMAGE_URL=""  # The endpoint to fetch images from
-```
+
 ## Navigating the Frontend Project
 
 The frontend for CRR uses Next.js. The project is structued as follows:

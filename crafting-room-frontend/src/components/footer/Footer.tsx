@@ -1,15 +1,29 @@
-import { SiInstagram, SiBandcamp, SiYoutube, SiTwitter } from 'react-icons/si'
-import styles from './Footer.module.css';
+import { FC } from 'react';
+import styles from './Footer.module.scss';
+import { IconLink } from '@/components/icon-link/IconLink';
 
-const SOCIAL_ICON_SIZE = 30;
-
-export function Footer() {
+/**
+ * The page footer.
+ */
+export const Footer: FC = () => {
 	return (
-		<div className={styles.footer}>
-			<a href="https://www.instagram.com/crafting_room/?hl=en"><SiInstagram size={SOCIAL_ICON_SIZE - 5} /></a>
-			<a href="https://www.youtube.com/channel/UCY_H8aUrjvI8iHobz5mi9sQ"><SiYoutube size={SOCIAL_ICON_SIZE} /></a>
-			<a href="https://craftingroomrecordings.bandcamp.com/"><SiBandcamp size={SOCIAL_ICON_SIZE} /></a>
-			<a href="https://twitter.com/crafting_room"><SiTwitter size={SOCIAL_ICON_SIZE} /></a>
-		</div>
-	)
-}
+		<footer className={styles.footer}>
+			<IconLink
+				icon='instagram'
+				link='https://www.instagram.com/crafting_room'
+			/>
+			<IconLink
+				icon='youtube'
+				link='https://www.youtube.com/channel/UCY_H8aUrjvI8iHobz5mi9sQ'
+			/>
+			<IconLink
+				icon='bandcamp'
+				link='https://craftingroomrecordings.bandcamp.com'
+			/>
+			<IconLink
+				icon='twitter'
+				link='https://twitter.com/crafting_room'
+			/>
+		</footer>
+	);
+};

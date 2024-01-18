@@ -1,11 +1,20 @@
 import Image from 'next/image';
-import styles from './Spinner.module.css';
+import { FC } from 'react';
+import styles from './Spinner.module.scss';
 
-export function Spinner() {
-
+/**
+ * The loading spinner icon.
+ */
+export const Spinner: FC = () => {
 	return (
 		<div className={styles.loadingContainer}>
-			< img className="loading" src="/loading.svg" alt="" ></img>
-		</div >
+			<Image
+				src='/loading.svg'
+				alt=''
+				width='50'
+				height='50'
+				priority
+			/>
+		</div>
 	);
-}
+};

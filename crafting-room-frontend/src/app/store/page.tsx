@@ -1,41 +1,38 @@
+import { NextPage } from 'next';
+import { notFound } from 'next/navigation';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
-import { ReleaseGroup, StorePage, strapiFetch } from '@/lib/strapi-client';
-import styles from './Store.module.css';
+import { strapi } from '@/lib/server/services';
+import { mdi } from '@/lib/utils';
 
-async function getStorePage() {
-    const path = 'store-page';
-    const params = {
-        populate: {
-            groups: {
-                populate: {
-                    releases: {
-                        populate: "*"
-                    }
-                }
-            }
-
-        }
-    };
-    const response = await strapiFetch(path, params);
-    return response.data;
-}
-export default async function Store() {
-    const storePage: StorePage = await getStorePage();
-
-    const storeGroups = storePage.attributes.groups.map((group: ReleaseGroup) =>
-        <div className={styles.releaseGroup}>
-            <h2>{group.header}</h2>
-            <ReleaseGrid columns={4} releases={group.releases.data} />
-        </div>
-    );
+const StorePage: NextPage = async () => {
+    const storePage = await strapi.getStorePage()
+        .catch(notFound);
 
     return (
-        <div className="container">
-            <h5>
-                More available on
-                <a href="https://craftingroomrecordings.bandcamp.com/"> Bandcamp</a>
-            </h5>
-            {storeGroups}
-        </div>
+        <main>
+            <section className='container'>
+                <h5>
+                    More available on
+                    {' '}
+                    <a
+                        href='https://craftingroomrecordings.bandcamp.com/'
+                        target='_blank'
+                        rel='noreferrer'
+                    >
+                        Bandcamp
+                    </a>
+                </h5>
+
+                {storePage.attributes.groups.map(group => (
+                    <section key={group.id}>
+                        <h2 dangerouslySetInnerHTML={mdi(group.header)} />
+
+                        <ReleaseGrid releases={group.releases.data} />
+                    </section>
+                ))}
+            </section>
+        </main>
     );
-}
+};
+
+export default StorePage;

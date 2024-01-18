@@ -1,0 +1,48 @@
+@import "@scss/logic";
+
+.articleTile {
+    display: flex;
+    padding: 20px 0px;
+    border-bottom: 1px solid lightgray;
+
+    &:first-child {
+        padding-top: unset;
+    }
+
+    &:last-child {
+        border-bottom: unset;
+        padding-bottom: unset;
+    }
+}
+
+.articleLink {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+    gap: 7.5px;
+    padding: 15px;
+    background-size: cover;
+}
+
+.articleTitle {
+    font-weight: 600;
+    font-size: 1.7em;
+
+    @include media-breakpoint-down(md) {
+        font-size: 1.4em;
+    }
+}
+
+.articleAuthor {
+    font-size: 1.1em;
+    font-weight: 300;
+}
+
+.articleDate {
+    font-size: 1.1em;
+    font-weight: 300;
+    align-self: flex-end;
+    margin-top: auto;
+}

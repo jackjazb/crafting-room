@@ -1,17 +1,40 @@
-import { Artist, resolveImageUrl } from "@/lib/strapi-client";
-import styles from './ArtistTile.module.css';
-/**
- * Renders an artist portrait which reveals more detail when clicked
- * @param artist an artist 
- * @returns 
- */
-export function ArtistTile(props: { key: number, artist: Artist }) {
-	const artist = props.artist;
+import { FC } from 'react';
+import Link from 'next/link';
+import styles from './ArtistTile.module.scss';
+import { Artist } from '@/lib/types/strapi-data';
+import { createClass, mdi } from '@/lib/utils';
+import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
-	const imageUrl = resolveImageUrl(artist.attributes.images.data[0]);
-	return (
-		<a href={`/artists/${artist.attributes.name.toLowerCase()}`} className={styles.artist} style={{ backgroundImage: `url(${imageUrl})` }}>
-			<div className={styles.name}>{artist.attributes.name}</div>
-		</a>
-	)
+interface Props {
+	artist: Artist;
 }
+
+/**
+ * An artist portrait which reveals more details when clicked.
+ */
+export const ArtistTile: FC<Props> = props => {
+	return (
+		<Link
+			href={`/artists/${props.artist.attributes.slug}`}
+			className={styles.artist}
+		>
+			<StrapiImage
+				className={styles.artistImage}
+				image={props.artist.attributes.images.data[0]}
+				format='large'
+				alt={props.artist.attributes.name}
+			/>
+
+			<div className={styles.artistOverlay}>
+				<div
+					className={createClass(
+						styles.artistName,
+						'overlay-text',
+						'overlay-text--small'
+					)}
+					dangerouslySetInnerHTML={mdi(props.artist.attributes.name)}
+				/>
+			</div>
+		</Link>
+	);
+};

@@ -1,49 +1,65 @@
 'use client';
-import { Children, useCallback } from 'react';
-import styles from './Carousel.module.css';
+
+import { Children, FC, PropsWithChildren, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx';
-
-
+import styles from './Carousel.module.scss';
+import { createClass } from '@/lib/utils';
 
 /**
- * Wraps its children in an Embla carousel
+ * Wraps its children in an Embla carousel.
  */
-export function Carousel(props: React.PropsWithChildren<{}>) {
+export const Carousel: FC<PropsWithChildren> = props => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 20 });
 
     const scrollPrev = useCallback(() => {
-        if (emblaApi) emblaApi.scrollPrev()
+        if (emblaApi)
+            emblaApi.scrollPrev();
     }, [emblaApi]);
 
     const scrollNext = useCallback(() => {
-        if (emblaApi) emblaApi.scrollNext()
+        if (emblaApi)
+            emblaApi.scrollNext();
     }, [emblaApi]);
 
-    if (!props.children) {
-        return <></>;
-    }
-
-    let i = 0;
-    const slides = Children.toArray(props.children).map(child =>
-        <div key={i++} className={styles.embla__slide}>
-            {child}
-        </div>
-    );
+    const childrenList = Children.toArray(props.children);
 
     return (
         <div className={styles.embla}>
-            <div className={styles.embla__viewport} ref={emblaRef}>
+            <div ref={emblaRef}>
                 <div className={styles.embla__container}>
-                    {slides}
-                </div>
-                <div className={`${styles.arrow} ${styles.prev}`} onClick={scrollPrev}>
-                    <RxCaretLeft size={45} />
-                </div>
-                <div className={`${styles.arrow} ${styles.next}`} onClick={scrollNext}>
-                    <RxCaretRight size={45} />
+                    {childrenList.map(child => (
+                        <div
+                            key={childrenList.indexOf(child)}
+                            className={styles.embla__slide}
+                        >
+                            {child}
+                        </div>
+                    ))}
                 </div>
             </div>
+            <button
+                className={createClass(
+                    styles.arrow,
+                    styles.prev
+                )}
+                aria-label='Next slide'
+                tabIndex={0}
+                onClick={scrollPrev}
+            >
+                <RxCaretLeft size={45} />
+            </button>
+            <button
+                className={createClass(
+                    styles.arrow,
+                    styles.next
+                )}
+                aria-label='Previous slide'
+                tabIndex={0}
+                onClick={scrollNext}
+            >
+                <RxCaretRight size={45} />
+            </button>
         </div>
-    )
-}
+    );
+};

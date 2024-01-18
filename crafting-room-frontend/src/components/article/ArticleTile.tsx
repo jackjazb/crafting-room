@@ -1,25 +1,55 @@
-import { Article, resolveImageUrl } from "@/lib/strapi-client";
-import styles from './ArticleTile.module.css'
-import { nth } from "@/lib/utils";
+import { FC } from 'react';
+import Link from 'next/link';
+import styles from './ArticleTile.module.scss';
+import { Article } from '@/lib/types/strapi-data';
+import { formatDate, createClass, mdi } from '@/lib/utils';
+import { strapiMedia } from '@/lib/server/services';
 
-
-export function ArticleTile(props: { key: number, article: Article; }) {
-	const { article } = props;
-
-	const date = new Date(article.attributes.createdAt);
-	let day = date.toLocaleString('en-uk', { day: 'numeric' });
-	day = day + nth(parseInt(day));
-	const weekday = date.toLocaleString('en-uk', { weekday: 'short' });
-	const month = date.toLocaleString('en-uk', { month: 'short' });
-
-	return (
-		<a className={styles.articleTile} href={`news/${article.attributes.title}`}>
-			<div className={styles.articleThumbnail} style={{ backgroundImage: `url(${resolveImageUrl(article.attributes.images.data[0])})` }}>
-				<div className={styles.articleTitle}>{article.attributes.title}</div>
-				<div className={styles.articleAuthor}>{article.attributes.author}</div>
-				<div className={styles.articleDate}>{`${weekday}, ${day} ${month}`}</div>
-			</div>
-		</a>
-	);
+interface Props {
+	article: Article;
 }
+
+/**
+ * An article tile within the news articles list.
+ */
+export const ArticleTile: FC<Props> = props => {
+	return (
+		// TODO -> potentially convert this to StrapiImage like other tiles?
+		<div className={styles.articleTile}>
+			<Link
+				className={styles.articleLink}
+				href={`/news/${props.article.attributes.slug}`}
+				style={strapiMedia.createBackground(
+					props.article.attributes.images.data[0],
+					'large'
+				)}
+			>
+				<div
+					className={createClass(
+						styles.articleTitle,
+						'overlay-text'
+					)}
+					dangerouslySetInnerHTML={mdi(props.article.attributes.title)}
+				/>
+				<div
+					className={createClass(
+						styles.articleAuthor,
+						'overlay-text',
+						'overlay-text--small'
+					)}
+					dangerouslySetInnerHTML={mdi(props.article.attributes.author)}
+				/>
+				<div
+					className={createClass(
+						styles.articleDate,
+						'overlay-text',
+						'overlay-text--small'
+					)}
+				>
+					{formatDate(props.article.attributes.createdAt)}
+				</div>
+			</Link>
+		</div>
+	);
+};
 

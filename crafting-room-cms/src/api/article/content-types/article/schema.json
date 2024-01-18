@@ -15,13 +15,18 @@
     "title": {
       "type": "string"
     },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
     "content": {
       "type": "richtext"
     },
     "images": {
       "type": "media",
       "multiple": true,
-      "required": false,
+      "required": true,
       "allowedTypes": [
         "images",
         "files",
@@ -30,7 +35,8 @@
       ]
     },
     "author": {
-      "type": "string"
+      "type": "string",
+      "required": true
     }
   }
 }

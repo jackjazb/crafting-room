@@ -1,0 +1,110 @@
+@import "@scss/logic";
+
+.navbar {
+    z-index: 99;
+    position: sticky;
+    top: 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    width: 100%;
+    background-color: black;
+
+    box-shadow: 0px -15px 10px 10px black;
+
+    &.open {
+        transform: translateX(0);
+
+        .menuIcon {
+            transform: rotate(0deg);
+        }
+
+        .menu {
+            transform: translateX(0);
+        }
+    }
+}
+
+.menuIcon {
+    color: white;
+    $size: 45px;
+    height: $size;
+    width: $size;
+    margin: 10px 13px;
+
+    transform: rotate(-90deg);
+    transition: transform var(--transition);
+
+    @include media-breakpoint-up(md) {
+        display: none;
+    }
+}
+
+.menu {
+    margin: unset;
+    padding: unset;
+
+    display: flex;
+    background-color: black;
+    padding: 0 10px;
+
+    @include media-breakpoint-down(md) {
+        padding: unset;
+
+        position: absolute;
+        height: calc(100dvh - var(--nav-height));
+        top: 100%;
+        width: 100%;
+
+        flex-direction: column;
+        gap: 5px;
+
+        transform: translateX(-100%);
+        transition: transform var(--transition);
+    }
+
+    a {
+        display: flex;
+        align-items: center;
+        font-size: 1.4em;
+        padding: 10px 25px;
+        color: white;
+        font-weight: 600;
+
+        text-decoration: none;
+
+        @include media-breakpoint-down(md) {
+            font-size: 1.55em;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        @include hover-active-swap-focus-visible {
+            //TODO -> make scss or css vars from these colors at some point
+            color: #0fa0ce;
+        }
+    }
+
+    .crrIcon {
+        display: none;
+
+        @include media-breakpoint-up(md) {
+            display: flex;
+        }
+
+        svg {
+            @include media-breakpoint-up(md) {
+                height: 45px;
+                width: 45px;
+            }
+        }
+    }
+
+    .homeTextOption {
+        @include media-breakpoint-up(md) {
+            display: none;
+        }
+    }
+}
