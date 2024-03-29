@@ -10,19 +10,23 @@ export const Footer: FC = () => {
 		<footer className={styles.footer}>
 			<IconLink
 				icon='instagram'
-				link='https://www.instagram.com/crafting_room'
+				href='https://www.instagram.com/crafting_room'
+				aria-label='Visit our Instagram'
 			/>
 			<IconLink
 				icon='youtube'
-				link='https://www.youtube.com/channel/UCY_H8aUrjvI8iHobz5mi9sQ'
+				href='https://www.youtube.com/channel/UCY_H8aUrjvI8iHobz5mi9sQ'
+				aria-label='Visit our YouTube'
 			/>
 			<IconLink
 				icon='bandcamp'
-				link='https://craftingroomrecordings.bandcamp.com'
+				href='https://craftingroomrecordings.bandcamp.com'
+				aria-label='Visit our Bandcamp'
 			/>
 			<IconLink
 				icon='twitter'
-				link='https://twitter.com/crafting_room'
+				href='https://twitter.com/crafting_room'
+				aria-label='Visit our Twitter'
 			/>
 		</footer>
 	);

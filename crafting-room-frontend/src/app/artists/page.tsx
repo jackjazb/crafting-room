@@ -3,21 +3,26 @@ import { notFound } from 'next/navigation';
 import styles from './Artists.module.scss';
 import { cms } from '@/lib/server/services';
 import { ArtistGrid } from '@/components/artist/ArtistGrid';
+import { createClass } from '@/lib/utils';
 
 /**
  * The directory page for all artists.
  */
 export const ArtistsPage: NextPage = async () => {
-	const artistsPage = await cms.getArtistsPage().catch(notFound);
+	const artistsPage = await cms.getArtistsPage()
+		.catch(notFound);
 
 	const activeGroups = artistsPage.attributes.groups;
 	const inactive = artistsPage.attributes.inactive.artists.data;
 
 	return (
-		<main className='container'>
+		<main>
 			{activeGroups.length > 0 && activeGroups.map(group => (
 				(group.artists.data.length > 0 && (
-					<section key={group.id}>
+					<section
+						key={group.id}
+						className='container'
+					>
 						<h2>
 							{group.header}
 						</h2>
@@ -27,7 +32,12 @@ export const ArtistsPage: NextPage = async () => {
 			))}
 
 			{inactive.length > 0 && (
-				<section className={styles.inactive}>
+				<section
+					className={createClass(
+						styles.inactive,
+						'container'
+					)}
+				>
 					<h2>
 						{artistsPage.attributes.inactive.header}
 					</h2>

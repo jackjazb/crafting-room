@@ -21,13 +21,11 @@
      * Extra button controls
      */
     .arrow {
-        all: unset;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         display: flex;
         overflow: hidden;
-        // border-radius: 100%;
         cursor: pointer;
         padding: 8px;
 
@@ -47,7 +45,7 @@
             padding: 6px;
 
             svg {
-                $size: 27px;
+                $size: 30px;
                 width: $size;
                 height: $size;
             }

@@ -122,7 +122,7 @@ export class ApiService<
 			return response;
 		};
 
-		// TODO: do actual request cancellation here?
+		//TODO: do actual request cancellation here?
 		const response = await new Promise<Response>((resolve, reject) => {
 			void sendRequest()
 				.then(resolve)

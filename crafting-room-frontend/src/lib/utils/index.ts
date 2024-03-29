@@ -1,3 +1,4 @@
+export * from './capitalize';
 export * from './delay';
 export * from './format-date';
 export * from './make-class';

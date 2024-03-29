@@ -1,10 +1,6 @@
 @import "@scss/logic";
 
-.carousel {
-    margin-bottom: unset; //override section styles
-}
-
-.feature {
+.featuredArticle {
     position: relative;
     display: flex;
     height: 70vh;
@@ -18,24 +14,24 @@
     }
 }
 
-.featureImage {
+.featuredArticleImage {
     width: 100%;
     height: 100%;
 }
 
-.featureTitle {
+.featuredArticleTitle {
     position: absolute;
     bottom: 0;
     margin: 20px;
     font-weight: 600;
 
-    font-size: 1.8em;
+    font-size: 1.9rem;
 
     @include media-breakpoint-down(lg) {
-        font-size: 1.5em;
+        font-size: 1.6rem;
     }
 }
 
 .featuredReleases {
-    padding-top: 20px;
+    margin-top: 1.3rem; //NOTE: match <h1-6> margin-bottom
 }

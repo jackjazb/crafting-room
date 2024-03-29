@@ -46,7 +46,7 @@
     @media (pointer: fine) {
         &:hover,
         &:focus-visible {
-            color: var(--link);
+            color: var(--link-color);
             transition:
                 transform var(--transition),
                 color var(--transition-fast);
@@ -83,7 +83,7 @@
     a {
         display: flex;
         align-items: center;
-        font-size: 1.4em;
+        font-size: 1.4rem;
         padding: 10px 25px;
         color: white;
         font-weight: 600;
@@ -91,15 +91,12 @@
 
         @include hover-active-swap-focus-visible {
             text-decoration: none;
-        }
-
-        @include hover-active-swap-focus-visible {
-            color: var(--link);
+            color: var(--nav-color);
             transition: color var(--transition-fast);
         }
 
         @include media-breakpoint-down(md) {
-            font-size: 1.7em;
+            font-size: 1.6rem;
             padding-left: 20px;
             padding-right: 20px;
         }
@@ -109,7 +106,7 @@
 
             @include hover-active-swap-focus-visible {
                 svg g {
-                    fill: var(--link);
+                    fill: var(--nav-color);
                     transition: color var(--transition-fast);
                 }
             }

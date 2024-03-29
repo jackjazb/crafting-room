@@ -6,15 +6,11 @@
 	color: black;
 
 	&:hover {
-		color: black; //override default
 		transition: color var(--transition-fast);
 	}
 
 	@include hover-active-swap-focus-visible {
 		text-decoration: none;
-	}
-
-	@include hover-active-swap-focus-visible {
 		color: var(--icon-link-color);
 	}
 }

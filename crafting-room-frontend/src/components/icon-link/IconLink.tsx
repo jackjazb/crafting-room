@@ -1,17 +1,14 @@
 import { BsGlobe } from 'react-icons/bs';
 import { SiSpotify, SiInstagram, SiFacebook, SiTwitter, SiLinktree, SiYoutube, SiBandcamp } from 'react-icons/si';
-import type { FC, ReactNode } from 'react';
+import type { CSSProperties, FC, ReactNode } from 'react';
+import type { LinkProps } from 'next/link';
 import Link from 'next/link';
 import styles from './IconLink.module.scss';
-import type { LinkType } from '@/lib/types';
+import type { SocialLinkType } from '@/lib/types';
 
 const ICON_SIZE = 30;
 
-type IconType = LinkType
-	| 'youtube'
-	| 'bandcamp';
-
-type Icons = Record<IconType, {
+type Icons = Record<SocialLinkType, {
 	node: ReactNode;
 	color: string;
 }>;
@@ -28,9 +25,8 @@ const iconLinks: Icons = {
 };
 
 type Props = {
-	icon: IconType;
-	link: string;
-};
+	icon: SocialLinkType;
+} & LinkProps;
 
 /**
  * An icon with a link.
@@ -38,15 +34,16 @@ type Props = {
 export const IconLink: FC<Props> = props => {
 	return (
 		<Link
+			{...props}
 			className={styles.iconLink}
-			href={props.link}
+			style={{
+				'--icon-link-color': iconLinks[props.icon]?.color ?? '#0fa0ce'
+			} as CSSProperties}
+			href={props.href}
 			target='_blank'
 			rel='external'
-			style={{
-				'--icon-link-color': iconLinks[props.icon].color
-			} as React.CSSProperties}
 		>
-			{iconLinks[props.icon].node}
+			{iconLinks[props.icon]?.node ?? <BsGlobe size={ICON_SIZE} />}
 		</Link>
 	);
 };

@@ -1,11 +1,10 @@
 @import "@scss/logic";
 
-.tile {
+.eventTile {
 	display: flex;
 	gap: 15px;
 	border-bottom: 1px solid lightgray;
 	padding: 20px 0px;
-	color: black;
 
 	&:first-child {
 		padding-top: unset;
@@ -19,10 +18,6 @@
 	@include media-breakpoint-down(md) {
 		flex-direction: column;
 	}
-
-	// @include media-breakpoint-down(sm) {
-	// 	gap: 10px;
-	// }
 
 	&.noBook .thumbnail {
 		filter: grayscale(1) opacity(0.7);
@@ -53,28 +48,28 @@
 	display: flex;
 	flex-direction: column;
 	gap: 3px;
-	font-size: 1.2em;
 
 	@include media-breakpoint-down(md) {
-		font-size: 1.1em;
+		font-size: 1.1rem;
 	}
 
 	@include media-breakpoint-down(sm) {
-		font-size: 1em;
+		font-size: 1rem;
 	}
 }
 
 .title {
-	font-size: 1.6em;
 	font-weight: 600;
+	font-size: 1.7rem;
 
 	@include media-breakpoint-down(md) {
-		font-size: 1.3em;
+		font-size: 1.4rem;
 	}
 }
 
 .date {
 	font-weight: normal;
+	font-size: 1rem;
 }
 
 .options {
@@ -91,7 +86,6 @@
 	> * {
 		width: 100%;
 		padding: 0 40px;
-		margin-bottom: unset;
 
 		@include media-breakpoint-down(lg) {
 			padding: 0 15px;

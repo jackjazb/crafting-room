@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { media } from '@/lib/server/services';
 import type { Image as ImageData, ImageFormatName } from '@/lib/types';
 
-type StrapiImageProps = {
+interface Props {
 	className?: string;
 	/**
 	 * The image data.
@@ -31,12 +31,12 @@ type StrapiImageProps = {
 	 * @defaultValue false
 	 */
 	priority?: boolean;
-};
+}
 
 /**
  * A Strapi image wrapped in a Next.js `<Image>` tag.
  */
-export const StrapiImage: FC<StrapiImageProps> = props => {
+export const StrapiImage: FC<Props> = props => {
 	const format = props.format === 'source'
 		? props.image.attributes
 		: media.getImageFormat(props.image, props.format);

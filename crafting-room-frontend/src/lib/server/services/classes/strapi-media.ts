@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import type { RequiredOptions, Image, ImageFormatName, ImageFormat } from '@/lib/types';
 import { merge } from '@/lib/utils';
 
@@ -97,7 +98,7 @@ export class StrapiMediaService {
 		image: Image,
 		targetFormat: ImageFormatName | 'source',
 		fallbackColor?: string | false
-	): React.CSSProperties {
+	): CSSProperties {
 		const format = targetFormat === 'source'
 			? image.attributes
 			: this.getImageFormat(image, targetFormat);

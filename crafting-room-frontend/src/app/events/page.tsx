@@ -4,7 +4,8 @@ import { EventTile } from '@/components/event/EventTile';
 import { cms } from '@/lib/server/services';
 
 const EventsPage: NextPage = async () => {
-	const events = await cms.getEvents().catch(notFound);
+	const events = await cms.getEvents()
+		.catch(notFound);
 
 	//TODO: get current date in uk time
 	const currentDate = new Date();
@@ -17,9 +18,9 @@ const EventsPage: NextPage = async () => {
 		!pastEvents.includes(event));
 
 	return (
-		<main className='container'>
+		<main>
 			{futureEvents.length > 0 && (
-				<section>
+				<section className='container'>
 					<h1>
 						Events
 					</h1>
@@ -36,7 +37,7 @@ const EventsPage: NextPage = async () => {
 			)}
 
 			{pastEvents.length > 0 && (
-				<section>
+				<section className='container'>
 					<h1>
 						Past Events
 					</h1>

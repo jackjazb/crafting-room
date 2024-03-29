@@ -22,8 +22,7 @@ module.exports = {
     "eslint-plugin-react"
   ],
   "parserOptions": {
-    "tsconfigRootDir": __dirname,
-    "project": "tsconfig.json",
+    "project": join(__dirname, "tsconfig.json"),
     "ecmaFeatures": {
       "jsx": true
     }
@@ -33,13 +32,16 @@ module.exports = {
       "typescript": {
         "project": join(__dirname, "tsconfig.json")
       }
+    },
+    "react": {
+      "version": "detect"
     }
   },
   "rules": {
-    "react/react-in-jsx-scope": ["off"],
+    "react/react-in-jsx-scope": "off",
     "react/jsx-first-prop-new-line": ["error", "multiline"],
     "react/jsx-max-props-per-line": ["error", { "maximum": 1 }],
-    "react/jsx-closing-tag-location": ["error"],
+    "react/jsx-closing-tag-location": "error",
     "react/jsx-tag-spacing": ["error", {
       "closingSlash": "never",
       "beforeSelfClosing": "always",
@@ -67,14 +69,15 @@ module.exports = {
       "logical": "parens-new-line",
       "prop": "parens-new-line"
     }],
-    "react/style-prop-object": ["error"],
-    "react/jsx-no-useless-fragment": ["error"],
-    "react/jsx-pascal-case": ["error"],
+    "react/style-prop-object": "error",
+    "react/jsx-no-useless-fragment": "error",
+    "react/jsx-pascal-case": "error",
     "react/jsx-closing-bracket-location": ["error", {
       "selfClosing": "tag-aligned",
       "nonEmpty": "tag-aligned"
     }],
     "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }],
-    "react/jsx-equals-spacing": ["error"]
+    "react/jsx-equals-spacing": "error",
+    "react/prop-types": "off" //`NextPage` type has a meltdown without this
   }
 };

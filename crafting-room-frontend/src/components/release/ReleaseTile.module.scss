@@ -32,26 +32,26 @@
     gap: 5px;
     padding: 10px;
 
-    @include media-breakpoint-down(md) {
+    @media (pointer: coarse) {
         opacity: 1;
     }
 }
 
 .title {
     font-weight: 600;
-    font-size: 1.8em;
+    font-size: 1.7rem;
 
     @include media-breakpoint-down(lg) {
-        font-size: 1.5em;
+        font-size: 1.5rem;
     }
 }
 
 .artist {
     font-weight: 300;
-    font-size: 1.3em;
+    font-size: 1.3rem;
 
     @include media-breakpoint-down(lg) {
-        font-size: 1.1em;
+        font-size: 1.1rem;
     }
 }
 
@@ -60,5 +60,5 @@
     margin-left: auto;
     margin-right: auto;
 
-    font-size: 1.1em;
+    font-size: 1.1rem;
 }

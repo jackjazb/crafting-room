@@ -6,10 +6,11 @@ import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 import { md, mdi } from '@/lib/utils';
 
 const AboutPage: NextPage = async () => {
-    const aboutPage = await cms.getAboutPage().catch(notFound);
+    const aboutPage = await cms.getAboutPage()
+        .catch(notFound);
 
     return (
-        <main className='container'>
+        <main>
             <section>
                 <StrapiImage
                     className={styles.image}
@@ -18,6 +19,9 @@ const AboutPage: NextPage = async () => {
                     priority
                     fallbackColor={false}
                 />
+            </section>
+
+            <section className='container'>
                 <h1 dangerouslySetInnerHTML={mdi(aboutPage.attributes.header)} />
                 <div dangerouslySetInnerHTML={md(aboutPage.attributes.content)} />
             </section>
@@ -34,8 +38,9 @@ const AboutPage: NextPage = async () => {
             </section>
 
             */}
+
             {aboutPage.attributes.contact && (
-                <section>
+                <section className='container'>
                     <h1>
                         Contact
                     </h1>

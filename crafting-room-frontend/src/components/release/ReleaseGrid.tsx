@@ -3,11 +3,11 @@ import styles from './ReleaseGrid.module.scss';
 import { ReleaseTile } from './ReleaseTile';
 import type { Release } from '@/lib/types';
 
-type Props = {
+interface Props {
 	className?: string;
 	releases: Release[];
 	order?: 'date';
-};
+}
 
 export const ReleaseGrid: FC<Props> = props => {
 	if (props.order === 'date')
@@ -24,7 +24,7 @@ export const ReleaseGrid: FC<Props> = props => {
 		});
 
 	return (
-		<div className={styles.grid}>
+		<div className={styles.releaseGrid}>
 			{props.releases.map(release => (
 				<ReleaseTile
 					key={release.id}

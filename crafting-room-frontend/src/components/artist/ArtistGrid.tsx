@@ -3,13 +3,13 @@ import styles from './ArtistGrid.module.scss';
 import type { Artist } from '@/lib/types';
 import { ArtistTile } from '@/components/artist/ArtistTile';
 
-type Props = {
+interface Props {
 	artists: Artist[];
-};
+}
 
 export const ArtistGrid: FC<Props> = props => {
 	return (
-		<div className={styles.grid}>
+		<div className={styles.artistGrid}>
 			{props.artists.map(artist => (
 				<ArtistTile
 					key={artist.id}

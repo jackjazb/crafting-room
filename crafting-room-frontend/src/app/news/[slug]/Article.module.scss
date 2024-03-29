@@ -1,6 +1,6 @@
 @import "@scss/logic";
 
-.articleTopImage {
+.image {
 	width: 100%;
 	height: 60vh;
 
@@ -10,7 +10,7 @@
 }
 
 .subtitle {
-	font-size: 1.1em;
+	font-size: 1.1rem;
 }
 
 .date {
@@ -18,6 +18,5 @@
 }
 
 .author {
-	// font-style: italic;
 	font-weight: 500;
 }

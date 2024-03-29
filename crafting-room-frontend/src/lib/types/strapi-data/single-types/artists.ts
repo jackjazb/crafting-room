@@ -1,6 +1,6 @@
-import type { ArtistGroup, PublishableItem } from '@/lib/types';
+import type { ArtistGroup, PublishableItem, RepeatedComponent, SingleComponent } from '@/lib/types';
 
 export interface ArtistsPage extends PublishableItem<{
-	groups: ArtistGroup[];
-	inactive: ArtistGroup;
+	groups: RepeatedComponent<ArtistGroup>;
+	inactive: SingleComponent<ArtistGroup>;
 }> { }

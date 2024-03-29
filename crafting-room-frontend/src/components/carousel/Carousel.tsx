@@ -3,9 +3,9 @@
 import type { FC, PropsWithChildren } from 'react';
 import { Children, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
+import { RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri';
 import styles from './Carousel.module.scss';
-import { makeClass } from '@/lib/utils';
+import { createClass } from '@/lib/utils';
 
 /**
  * Wraps its children in an Embla carousel.
@@ -40,7 +40,7 @@ export const Carousel: FC<PropsWithChildren> = props => {
                 </div>
             </div>
             <button
-                className={makeClass(
+                className={createClass(
                     styles.arrow,
                     styles.prev
                 )}
@@ -48,10 +48,10 @@ export const Carousel: FC<PropsWithChildren> = props => {
                 tabIndex={0}
                 onClick={scrollPrev}
             >
-                <FaArrowLeft size={32} />
+                <RiArrowLeftLine size={32} />
             </button>
             <button
-                className={makeClass(
+                className={createClass(
                     styles.arrow,
                     styles.next
                 )}
@@ -59,7 +59,7 @@ export const Carousel: FC<PropsWithChildren> = props => {
                 tabIndex={0}
                 onClick={scrollNext}
             >
-                <FaArrowRight size={32} />
+                <RiArrowRightLine size={32} />
             </button>
         </div>
     );

@@ -1,12 +1,12 @@
 @import "@scss/logic";
 
 .subtitle.subtitle {
-	font-size: 1.35em;
+	font-size: 1.4rem;
 }
 
 .date {
 	font-style: italic;
-	margin-bottom: 1em;
+	margin-bottom: 1rem;
 }
 
 .venue {
@@ -16,7 +16,6 @@
 .book {
 	align-self: flex-end;
 	margin-top: 2rem;
-	margin-bottom: unset;
 
 	@include media-breakpoint-down(md) {
 		align-self: unset;

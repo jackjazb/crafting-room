@@ -3,7 +3,7 @@
  * @param classNames - Individual class names
  * @returns Complete `className`
  */
-export const makeClass = (...classNames: (string | null | undefined)[]): string =>
+export const createClass = (...classNames: (string | null | undefined)[]): string =>
 	classNames
 		.filter(cls => typeof cls === 'string')
 		.join(' ');

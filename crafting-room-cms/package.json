@@ -10,21 +10,21 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-i18n": "4.16.2",
-    "@strapi/plugin-users-permissions": "4.16.2",
-    "@strapi/strapi": "4.16.2",
-    "@strapi/typescript-utils": "4.16.2",
-    "better-sqlite3": "^9.2.2",
-    "koa": "^2.14.2",
+    "@strapi/plugin-i18n": "4.21.1",
+    "@strapi/plugin-users-permissions": "4.21.1",
+    "@strapi/strapi": "4.21.1",
+    "@strapi/typescript-utils": "4.21.1",
+    "better-sqlite3": "^9.4.3",
+    "koa": "^2.15.2",
     "lodash": "4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-intl": "6.5.5",
+    "react-intl": "6.6.4",
     "react-is": "^18.2.0",
     "react-router-dom": "^5.3.4",
     "strapi-plugin-populate-deep": "^3.0.1",
-    "styled-components": "^5.3.11",
-    "webpack": "^5.89.0"
+    "styled-components": "^6.1.8",
+    "webpack": "^5.91.0"
   },
   "strapi": {
     "uuid": "b323f6ff-836a-4043-bb92-46a47e98de7b"

@@ -1,3 +1,3 @@
-export * from './artist-group';
-export * from './release-group';
-export * from './social-link';
+export * from './artist/artist-group';
+export * from './artist/social-link';
+export * from './release/release-group';

@@ -5,24 +5,25 @@ import { cms } from '@/lib/server/services';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 import { mdi, md, formatDate } from '@/lib/utils';
 
-type ServerProps = {
+interface ServerProps {
     params: { slug: string; };
-};
+}
 
 const ArticlePage: NextPage<ServerProps> = async props => {
     const { slug } = props.params;
-    const article = await cms.getArticle({ slug }).catch(notFound);
+    const article = await cms.getArticle({ slug })
+        .catch(notFound);
 
     return (
         <main>
             <StrapiImage
-                className={styles.articleTopImage}
+                className={styles.image}
                 image={article.attributes.images.data[0]}
                 format='source'
                 priority
             />
 
-            <article className='container'>
+            <section className='container'>
                 <hgroup>
                     <h1 dangerouslySetInnerHTML={mdi(article.attributes.title)} />
                     <p className={styles.subtitle}>
@@ -39,7 +40,7 @@ const ArticlePage: NextPage<ServerProps> = async props => {
                     </p>
                 </hgroup>
                 <div dangerouslySetInnerHTML={md(article.attributes.content)} />
-            </article>
+            </section>
         </main>
     );
 };

@@ -27,7 +27,7 @@
           "rendererOptions": {
             "sass": {
               "includePaths": [
-                "./src/scss/**/*.scss"
+                "./src/lib/scss/**/*.scss"
               ]
             }
           }

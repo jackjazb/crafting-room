@@ -1,6 +1,6 @@
 @import "@scss/logic";
 
-.tile {
+.wrapper {
     display: flex;
     padding: 20px 0px;
     border-bottom: 1px solid lightgray;
@@ -32,21 +32,34 @@
 
 .title {
     font-weight: 600;
-    font-size: 1.7em;
+    font-size: 1.7rem;
 
     @include media-breakpoint-down(md) {
-        font-size: 1.4em;
+        font-size: 1.4rem;
     }
 }
 
 .author {
-    font-size: 1.1em;
+    font-size: 1.1rem;
     font-weight: 300;
+    letter-spacing: 0.45px;
 }
 
 .date {
-    font-size: 1.1em;
-    font-weight: 300;
+    font-size: 1.1rem;
+    font-weight: 500;
     align-self: flex-end;
     margin-top: auto;
+}
+
+.dateFull {
+    @include media-breakpoint-down(md) {
+        display: none;
+    }
+}
+
+.dateAbbr {
+    @include media-breakpoint-up(md) {
+        display: none;
+    }
 }

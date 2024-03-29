@@ -4,11 +4,12 @@ import { ArticleTile } from '@/components/article/ArticleTile';
 import { cms } from '@/lib/server/services';
 
 const NewsPage: NextPage = async () => {
-	const articles = await cms.getArticles().catch(notFound);
+	const articles = await cms.getArticles()
+		.catch(notFound);
 
 	return (
-		<main className='container'>
-			<section>
+		<main>
+			<section className='container'>
 				{articles.map(article => (
 					<ArticleTile
 						key={article.id}

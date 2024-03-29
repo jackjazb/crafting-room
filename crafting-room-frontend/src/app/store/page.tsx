@@ -1,26 +1,29 @@
 import type { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import styles from './Store.module.scss';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { cms } from '@/lib/server/services';
 import { mdi } from '@/lib/utils';
 
 const StorePage: NextPage = async () => {
-    const storePage = await cms.getStorePage().catch(notFound);
+    const storePage = await cms.getStorePage()
+        .catch(notFound);
 
     return (
         <main className='container'>
-            <h5>
+            <p className={styles.bandcampMessage}>
                 More available on
                 {' '}
                 <Link
                     href='https://craftingroomrecordings.bandcamp.com/'
                     target='_blank'
                     rel='external'
+                    aria-label='Visit our Bandcamp'
                 >
                     Bandcamp
                 </Link>
-            </h5>
+            </p>
 
             {storePage.attributes.groups.map(group => (
                 <section key={group.id}>

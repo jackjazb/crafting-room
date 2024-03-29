@@ -2,12 +2,12 @@ import type { FC } from 'react';
 import Link from 'next/link';
 import styles from './ArtistTile.module.scss';
 import type { Artist } from '@/lib/types';
-import { makeClass, mdi } from '@/lib/utils';
+import { createClass, mdi } from '@/lib/utils';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
-type Props = {
+interface Props {
 	artist: Artist;
-};
+}
 
 /**
  * An artist portrait which reveals more details when clicked.
@@ -17,6 +17,7 @@ export const ArtistTile: FC<Props> = props => {
 		<Link
 			className={styles.link}
 			href={`/artists/${props.artist.attributes.slug}`}
+			aria-label={`View the artist '${props.artist.attributes.name}'`}
 		>
 			<StrapiImage
 				className={styles.image}
@@ -27,10 +28,9 @@ export const ArtistTile: FC<Props> = props => {
 
 			<div className={styles.overlay}>
 				<div
-					className={makeClass(
+					className={createClass(
 						styles.name,
-						'overlay-text',
-						'overlay-text--small'
+						'overlay-text'
 					)}
 					dangerouslySetInnerHTML={mdi(props.artist.attributes.name)}
 				/>

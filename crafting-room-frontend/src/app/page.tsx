@@ -5,39 +5,41 @@ import styles from './Home.module.scss';
 import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { Carousel } from '@/components/carousel/Carousel';
 import { cms } from '@/lib/server/services';
-import { makeClass, mdi } from '@/lib/utils';
+import { createClass, mdi } from '@/lib/utils';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
 const HomePage: NextPage = async () => {
     //TODO: doing `notFound` on page requests like this is misleading as
     //no matter the api failure response, `notFound` is called
-    const homePage = await cms.getHomePage().catch(notFound);
+    const homePage = await cms.getHomePage()
+        .catch(notFound);
 
     const features = homePage.attributes.features.data;
 
     return (
         <main>
             {features.length > 0 && (
-                <section className={styles.carousel}>
+                <section className='standalone-section'>
                     <Carousel>
-                        {features.map(feature => (
+                        {features.map(article => (
                             <Link
-                                key={feature.id}
-                                className={styles.feature}
-                                href={`/news/${feature.attributes.slug}`}
+                                key={article.id}
+                                className={styles.featuredArticle}
+                                href={`/news/${article.attributes.slug}`}
+                                aria-label={`View the article '${article.attributes.title}'`}
                             >
                                 <StrapiImage
-                                    className={styles.featureImage}
-                                    image={feature.attributes.images.data[0]}
+                                    className={styles.featuredArticleImage}
+                                    image={article.attributes.images.data[0]}
                                     format='source'
-                                    priority={features.indexOf(feature) === 0}
+                                    priority={features.indexOf(article) === 0}
                                 />
                                 <div
-                                    className={makeClass(
-                                        styles.featureTitle,
+                                    className={createClass(
+                                        styles.featuredArticleTitle,
                                         'overlay-text'
                                     )}
-                                    dangerouslySetInnerHTML={mdi(feature.attributes.title)}
+                                    dangerouslySetInnerHTML={mdi(article.attributes.title)}
                                 />
                             </Link>
                         ))}
@@ -46,7 +48,7 @@ const HomePage: NextPage = async () => {
             )}
 
             <section
-                className={makeClass(
+                className={createClass(
                     styles.featuredReleases,
                     'container-fluid'
                 )}
