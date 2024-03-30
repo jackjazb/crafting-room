@@ -10,7 +10,7 @@
         "start": "yarn workspace crafting-room-frontend start",
         "cms": "yarn workspace crafting-room-cms strapi develop"
     },
-    "packageManager": "yarn@3.5.1",
+    "packageManager": "yarn@4.1.1",
     "devDependencies": {
         "@types/node": "^20.10.5"
     }

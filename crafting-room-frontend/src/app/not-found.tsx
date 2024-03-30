@@ -7,9 +7,9 @@ const NotFoundPage: NextPage = () => {
                 <h1>
                     404
                 </h1>
-                <span>
+                <p>
                     Sorry, the requested content could not be found.
-                </span>
+                </p>
             </section>
         </main>
     );

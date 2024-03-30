@@ -4,7 +4,7 @@ import { media } from '@/lib/server/services';
 import type { Image as ImageData, ImageFormatName } from '@/lib/types';
 
 interface Props {
-	className?: string;
+	className?: string | undefined;
 	/**
 	 * The image data.
 	 */

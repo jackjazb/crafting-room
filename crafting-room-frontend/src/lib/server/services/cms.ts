@@ -18,7 +18,7 @@ if (
 	if (isNaN(interval))
 		throw new Error('Environment variable CACHE_REVALIDATION_INTERVAL is not a valid number');
 
-	options.baseParams!.next = { revalidate: interval };
+	options.revalidationInterval = interval;
 }
 
 /**

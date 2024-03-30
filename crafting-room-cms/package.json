@@ -23,7 +23,7 @@
     "react-is": "^18.2.0",
     "react-router-dom": "^5.3.4",
     "strapi-plugin-populate-deep": "^3.0.1",
-    "styled-components": "^6.1.8",
+    "styled-components": "^5.2.1",
     "webpack": "^5.91.0"
   },
   "strapi": {

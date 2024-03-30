@@ -8,7 +8,7 @@ import { createClass } from '@/lib/utils';
 /**
  * The directory page for all artists.
  */
-export const ArtistsPage: NextPage = async () => {
+const ArtistsPage: NextPage = async () => {
 	const artistsPage = await cms.getArtistsPage()
 		.catch(notFound);
 

@@ -4,7 +4,7 @@ import { ReleaseTile } from './ReleaseTile';
 import type { Release } from '@/lib/types';
 
 interface Props {
-	className?: string;
+	className?: string | undefined;
 	releases: Release[];
 	order?: 'date';
 }

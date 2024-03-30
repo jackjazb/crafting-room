@@ -41,6 +41,14 @@ export interface ApiServiceOptions {
 	 * ```
 	 */
 	timeout?: number;
+	/**
+	 * Interval between NextJS cache revalidations.
+	 * @defaultValue
+	 * ```
+	 *	30 //seconds
+	 * ```
+	 */
+	revalidationInterval?: number | null;
 }
 
 /**
@@ -59,7 +67,8 @@ export class ApiService<
 			...merge(
 				{
 					basePath: null,
-					timeout: 30
+					timeout: 30,
+					revalidationInterval: 30
 				},
 				options
 			),
@@ -105,17 +114,19 @@ export class ApiService<
 
 		const encodedParams = stringify(_params);
 
-		const url = this.options.hostname
-			+ (this.options.basePath
-				?? '')
-			+ '/'
-			+ endpoint
-			+ (encodedParams
-				? '?' + encodedParams
-				: '');
+		const url = `${this.options.hostname}${this.options.basePath ?? ''}/${endpoint}${encodedParams ? `?${encodedParams}` : ''}`;
+
+		const _options = mergeDeepRight(
+			{
+				next: {
+					revalidate: this.options.revalidationInterval ?? false
+				}
+			},
+			options ?? {}
+		) as RequestInit;
 
 		const sendRequest = async () => {
-			const response = await fetch(url, options);
+			const response = await fetch(url, _options);
 			if (!response.ok)
 				throw new Error('Response was not OK');
 
