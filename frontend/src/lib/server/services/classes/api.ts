@@ -1,7 +1,7 @@
 import { stringify } from 'qs';
-import { mergeDeepRight } from 'ramda';
+import merge from 'deepmerge';
 import type { RequiredOptions } from '@/lib/types';
-import { delay, merge } from '@/lib/utils';
+import { delay } from '@/lib/utils';
 
 /**
  * Options for an API service.
@@ -28,27 +28,27 @@ export interface ApiServiceOptions {
 	 * Any subsequently passed parameters will be deeply merged with these.
 	 * @defaultValue
 	 * ```typescript
-	 *	{}
+	 *	null
 	 * ```
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	baseParams?: Record<string, any>;
+	baseParams?: Record<string, any> | null;
 	/**
-	 * Time to wait for a response (in seconds) before giving up.
+	 * Time to wait for a response before giving up (in seconds).
 	 * @defaultValue
 	 * ```typescript
-	 *	30 //seconds
+	 *	null
 	 * ```
 	 */
-	timeout?: number;
+	timeout?: number | null;
 	/**
-	 * Interval between NextJS cache revalidations.
+	 * Interval between NextJS SSG cache revalidations (in seconds).
 	 * @defaultValue
 	 * ```
-	 *	30 //seconds
+	 *	60 //seconds
 	 * ```
 	 */
-	revalidationInterval?: number | null;
+	ssgRevalidationInterval?: number | null;
 }
 
 /**
@@ -63,20 +63,15 @@ export class ApiService<
 	TBaseParams extends Record<string, any> = Record<string, any>
 > {
 	static createOptions(options: ApiServiceOptions): RequiredOptions<ApiServiceOptions> {
-		return {
-			...merge(
-				{
-					basePath: null,
-					timeout: 30,
-					revalidationInterval: 30
-				},
-				options
-			),
-			baseParams: mergeDeepRight(
-				{},
-				options.baseParams ?? {}
-			)
-		};
+		return merge(
+			{
+				basePath: null,
+				timeout: null,
+				ssgRevalidationInterval: 60,
+				baseParams: null
+			},
+			options
+		);
 	}
 
 	protected readonly options: RequiredOptions<ApiServiceOptions>;
@@ -107,8 +102,8 @@ export class ApiService<
 		params?: TParams,
 		options?: RequestInit
 	): Promise<TResponse> {
-		const _params = mergeDeepRight(
-			this.options.baseParams,
+		const _params = merge(
+			this.options.baseParams ?? {},
 			params ?? {}
 		);
 
@@ -116,12 +111,8 @@ export class ApiService<
 
 		const url = `${this.options.hostname}${this.options.basePath ?? ''}/${endpoint}${encodedParams ? `?${encodedParams}` : ''}`;
 
-		const _options = mergeDeepRight(
-			{
-				next: {
-					revalidate: this.options.revalidationInterval ?? false
-				}
-			},
+		const _options = merge(
+			{ next: { revalidate: this.options.ssgRevalidationInterval ?? false } },
 			options ?? {}
 		) as RequestInit;
 
@@ -139,9 +130,9 @@ export class ApiService<
 				.then(resolve)
 				.catch(reject);
 
-			void delay(this.options.timeout * 1000)
-				.then(() =>
-					reject(`Request timed out after ${this.options.timeout * 1000} seconds`));
+			if (this.options.timeout)
+				void delay(this.options.timeout * 1000)
+					.then(() => reject(`Request timed out after ${this.options.timeout! * 1000} seconds`));
 		});
 
 		return await response.json() as TResponse;

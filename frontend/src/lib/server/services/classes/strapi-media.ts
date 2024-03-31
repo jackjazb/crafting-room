@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
+import merge from 'deepmerge';
 import type { RequiredOptions, Image, ImageFormatName, ImageFormat } from '@/lib/types';
-import { merge } from '@/lib/utils';
 
 /**
  * Options for a Strapi media service.

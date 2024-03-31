@@ -1,0 +1,43 @@
+services:
+  cms:
+    container_name: crr-cms
+    build:
+      context: .
+      dockerfile: ./cms/Dockerfile
+    environment:
+      - PORT=1337
+      # this must be under the data volume directory specified below to persist.
+      # otherwise remove altogether to run a temporary database in memory.
+      - DATABASE_FILENAME=/data/data.db
+      - APP_KEYS="ddgasffadsfdsa,fsdafdsafads"
+      - API_TOKEN_SALT=fsadfasdafds
+      - ADMIN_JWT_SECRET=asdfafsd
+      - JWT_SECRET=fsdafadafds
+    ports:
+      - 1337:1337
+    volumes:
+      # mount the 'data' volume specified below to /data.
+      - data:/data
+
+  frontend:
+    container_name: crr-frontend
+    depends_on:
+      - cms
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    environment:
+      - PORT=3000
+      - STRAPI_HOST=http://cms:1337
+      - SSG_REVALIDATION_INTERVAL=1
+    ports:
+      - 3000:3000
+
+volumes:
+  # make a volume for data that persists across container restarts
+  data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./cms/data # use this db file as the basis for this volume

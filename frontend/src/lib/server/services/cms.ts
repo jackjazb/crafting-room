@@ -5,20 +5,20 @@ import { throwExp } from '@/lib/utils';
 const options: CMSServiceOptions = {
 	hostname: process.env.STRAPI_HOST
 		? process.env.STRAPI_HOST
-		: throwExp('Missing `STRAPI_HOST` environment variable'),
+		: throwExp('Environment variable \'STRAPI_HOST\' is missing'),
 	basePath: '/api',
 	baseParams: { populate: 'deep' }
 };
 
 if (
-	process.env.CACHE_REVALIDATION_INTERVAL
-	&& process.env.CACHE_REVALIDATION_INTERVAL !== 'false'
+	process.env.SSG_REVALIDATION_INTERVAL
+	&& process.env.SSG_REVALIDATION_INTERVAL !== 'false'
 ) {
-	const interval = parseFloat(process.env.CACHE_REVALIDATION_INTERVAL);
+	const interval = parseFloat(process.env.SSG_REVALIDATION_INTERVAL);
 	if (isNaN(interval))
-		throw new Error('Environment variable CACHE_REVALIDATION_INTERVAL is not a valid number');
+		throw new Error('Environment variable \'SSG_REVALIDATION_INTERVAL\' is not a valid number');
 
-	options.revalidationInterval = interval;
+	options.ssgRevalidationInterval = interval;
 }
 
 /**

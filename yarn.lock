@@ -3656,15 +3656,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ramda@npm:^0.29.11":
-  version: 0.29.11
-  resolution: "@types/ramda@npm:0.29.11"
-  dependencies:
-    types-ramda: "npm:^0.29.9"
-  checksum: 10/62a9a6d45884854711987a5a760ec8f58ad4584cfe2935abf4b19f59a7572bb222c1453ff8c5d447f44c1dec9fadb528bd9c4a61de9c36d1c45206dc971d954e
-  languageName: node
-  linkType: hard
-
 "@types/react-dom@npm:18.2.23":
   version: 18.2.23
   resolution: "@types/react-dom@npm:18.2.23"
@@ -5812,61 +5803,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crafting-room-cms@workspace:crafting-room-cms":
-  version: 0.0.0-use.local
-  resolution: "crafting-room-cms@workspace:crafting-room-cms"
-  dependencies:
-    "@strapi/plugin-i18n": "npm:4.21.1"
-    "@strapi/plugin-users-permissions": "npm:4.21.1"
-    "@strapi/strapi": "npm:4.21.1"
-    "@strapi/typescript-utils": "npm:4.21.1"
-    better-sqlite3: "npm:^9.4.3"
-    koa: "npm:^2.15.2"
-    lodash: "npm:4.17.21"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    react-intl: "npm:6.6.4"
-    react-is: "npm:^18.2.0"
-    react-router-dom: "npm:^5.3.4"
-    strapi-plugin-populate-deep: "npm:^3.0.1"
-    styled-components: "npm:^5.2.1"
-    webpack: "npm:^5.91.0"
-  languageName: unknown
-  linkType: soft
-
-"crafting-room-frontend@workspace:crafting-room-frontend":
-  version: 0.0.0-use.local
-  resolution: "crafting-room-frontend@workspace:crafting-room-frontend"
-  dependencies:
-    "@next/eslint-plugin-next": "npm:^14.1.4"
-    "@types/markdown-it": "npm:^13.0.7"
-    "@types/node": "npm:20.11.30"
-    "@types/qs": "npm:^6.9.14"
-    "@types/ramda": "npm:^0.29.11"
-    "@types/react": "npm:18.2.73"
-    "@types/react-dom": "npm:18.2.23"
-    "@typescript-eslint/eslint-plugin": "npm:^7.4.0"
-    "@typescript-eslint/parser": "npm:^7.4.0"
-    embla-carousel-react: "npm:^8.0.0"
-    eslint: "npm:^8.57.0"
-    eslint-import-resolver-typescript: "npm:^3.6.1"
-    eslint-plugin-import: "npm:^2.29.1"
-    eslint-plugin-react: "npm:^7.34.1"
-    eslint-plugin-sort-exports: "npm:^0.9.1"
-    eslint-plugin-tsdoc: "npm:^0.2.17"
-    markdown-it: "npm:^14.1.0"
-    next: "npm:14.1.4"
-    qs: "npm:^6.12.0"
-    ramda: "npm:^0.29.1"
-    react: "npm:18.2.0"
-    react-dom: "npm:18.2.0"
-    react-icons: "npm:^5.0.1"
-    ts-essentials: "npm:^9.4.1"
-    typescript: "npm:^5.4.3"
-    typescript-plugin-css-modules: "npm:^5.1.0"
-  languageName: unknown
-  linkType: soft
-
 "crc@npm:^3.8.0":
   version: 3.8.0
   resolution: "crc@npm:3.8.0"
@@ -5922,6 +5858,60 @@ __metadata:
   checksum: 10/e1a13869d2f57d974de0d9ef7acbf69dc6937db20b918525a01dacb5032129bd552d290d886d981e99f1b624cb03657084cc87bd40f115c07ecf376821c729ce
   languageName: node
   linkType: hard
+
+"crr-cms@workspace:cms":
+  version: 0.0.0-use.local
+  resolution: "crr-cms@workspace:cms"
+  dependencies:
+    "@strapi/plugin-i18n": "npm:4.21.1"
+    "@strapi/plugin-users-permissions": "npm:4.21.1"
+    "@strapi/strapi": "npm:4.21.1"
+    "@strapi/typescript-utils": "npm:4.21.1"
+    better-sqlite3: "npm:^9.4.3"
+    koa: "npm:^2.15.2"
+    lodash: "npm:4.17.21"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+    react-intl: "npm:6.6.4"
+    react-is: "npm:^18.2.0"
+    react-router-dom: "npm:^5.3.4"
+    strapi-plugin-populate-deep: "npm:^3.0.1"
+    styled-components: "npm:^5.2.1"
+    webpack: "npm:^5.91.0"
+  languageName: unknown
+  linkType: soft
+
+"crr-frontend@workspace:frontend":
+  version: 0.0.0-use.local
+  resolution: "crr-frontend@workspace:frontend"
+  dependencies:
+    "@next/eslint-plugin-next": "npm:^14.1.4"
+    "@types/markdown-it": "npm:^13.0.7"
+    "@types/node": "npm:20.11.30"
+    "@types/qs": "npm:^6.9.14"
+    "@types/react": "npm:18.2.73"
+    "@types/react-dom": "npm:18.2.23"
+    "@typescript-eslint/eslint-plugin": "npm:^7.4.0"
+    "@typescript-eslint/parser": "npm:^7.4.0"
+    deepmerge: "npm:^4.3.1"
+    embla-carousel-react: "npm:^8.0.0"
+    eslint: "npm:^8.57.0"
+    eslint-import-resolver-typescript: "npm:^3.6.1"
+    eslint-plugin-import: "npm:^2.29.1"
+    eslint-plugin-react: "npm:^7.34.1"
+    eslint-plugin-sort-exports: "npm:^0.9.1"
+    eslint-plugin-tsdoc: "npm:^0.2.17"
+    markdown-it: "npm:^14.1.0"
+    next: "npm:14.1.4"
+    qs: "npm:^6.12.0"
+    react: "npm:18.2.0"
+    react-dom: "npm:18.2.0"
+    react-icons: "npm:^5.0.1"
+    ts-essentials: "npm:^9.4.1"
+    typescript: "npm:^5.4.3"
+    typescript-plugin-css-modules: "npm:^5.1.0"
+  languageName: unknown
+  linkType: soft
 
 "crypto-random-string@npm:^2.0.0":
   version: 2.0.0
@@ -6149,7 +6139,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deepmerge@npm:^4.2.2":
+"deepmerge@npm:^4.2.2, deepmerge@npm:^4.3.1":
   version: 4.3.1
   resolution: "deepmerge@npm:4.3.1"
   checksum: 10/058d9e1b0ff1a154468bf3837aea436abcfea1ba1d165ddaaf48ca93765fdd01a30d33c36173da8fbbed951dd0a267602bc782fe288b0fc4b7e1e7091afc4529
@@ -12810,13 +12800,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ramda@npm:^0.29.1":
-  version: 0.29.1
-  resolution: "ramda@npm:0.29.1"
-  checksum: 10/5824249efa18f3c013ea0bae6cdcc167ef357fff5441586b7ad98759e902b1397297d92b50bdc317f49fe73fa6b0e17f806f4d0f7a95270f05c25afa733a8fc5
-  languageName: node
-  linkType: hard
-
 "randombytes@npm:^2.1.0":
   version: 2.1.0
   resolution: "randombytes@npm:2.1.0"
@@ -15313,13 +15296,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-toolbelt@npm:^9.6.0":
-  version: 9.6.0
-  resolution: "ts-toolbelt@npm:9.6.0"
-  checksum: 10/2c2dea2631dbd7372a79cccc6d09a377a6ca2f319f767fd239d2e312cd1d9165a90f8c1777a047227bfdcda6aeba3addbadce88fdfc7f43caf4534d385a43c82
-  languageName: node
-  linkType: hard
-
 "tsconfig-paths@npm:^3.15.0":
   version: 3.15.0
   resolution: "tsconfig-paths@npm:3.15.0"
@@ -15485,15 +15461,6 @@ __metadata:
   dependencies:
     is-typedarray: "npm:^1.0.0"
   checksum: 10/7c850c3433fbdf4d04f04edfc751743b8f577828b8e1eb93b95a3bce782d156e267d83e20fb32b3b47813e69a69ab5e9b5342653332f7d21c7d1210661a7a72c
-  languageName: node
-  linkType: hard
-
-"types-ramda@npm:^0.29.9":
-  version: 0.29.9
-  resolution: "types-ramda@npm:0.29.9"
-  dependencies:
-    ts-toolbelt: "npm:^9.6.0"
-  checksum: 10/072928f81a9b5cdb2f22f5513a4e3d7cc6cc8d5274ba62c50d77c6ec27a120dc30debb4e95e8b19637794364cbd68d4548216ede79d49288512e76a8108b8b02
   languageName: node
   linkType: hard
 

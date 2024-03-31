@@ -8,7 +8,7 @@ This project uses `yarn`. On first cloning the project, run `yarn install` from 
 
 You will also need to provide some environment variables.
 
-crafting-room-cms/.env.example:
+cms/.env.example:
 
 ```python
 HOST=0.0.0.0
@@ -21,7 +21,7 @@ ADMIN_JWT_SECRET=
 JWT_SECRET=
 ```
 
-crafting-room-frontend/.env.example
+frontend/.env.example
 
 ```python
 # The host URL for Strapi.
@@ -38,7 +38,7 @@ STRAPI_MEDIA_PROVIDER_HOST=""
 # data on the next request'.
 # - Optional
 # - If empty or undefined: defaults to `false`
-CACHE_REVALIDATION_INTERVAL=false
+SSG_REVALIDATION_INTERVAL=false
 ```
 
 ## Navigating the Frontend Project
@@ -64,6 +64,6 @@ The deployed site consists of two containers, `cms` and `frontend`. Nginx is use
 4. Build and run the site:
     - Run `DOCKER_BUILDKIT=0 docker compose up -d --build`. Using Docker Buildkit causes the images to build in parallel, which can cause errors when the frontend tries to fetch static site data from the CMS during build.
 5. Add the following cron jobs:
-    - Out of repo DB backup: `0 0 * * * cp ~/crafting-room/crafting-room-cms/data/data.db ~/backup/$(date +\%Y-\%m-\%d).db`
+    - Out of repo DB backup: `0 0 * * * cp ~/crafting-room/cms/data/data.db ~/backup/$(date +\%Y-\%m-\%d).db`
     - Old backup clearing: `0 0 * * * find ~/backups/ -mtime +30 -delete`
     - Auto-renew certificates: `0 12 * * * /usr/bin/certbot renew --quiet`
