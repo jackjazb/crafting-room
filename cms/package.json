@@ -1,13 +1,12 @@
 {
-  "name": "crr-cms",
+  "name": "cms",
   "private": true,
   "version": "0.1.0",
   "description": "An instance of the Strapi headless CMS",
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
-    "build": "strapi build",
-    "strapi": "strapi"
+    "build": "NODE_ENV=production strapi build"
   },
   "dependencies": {
     "@strapi/plugin-i18n": "4.21.1",

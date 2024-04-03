@@ -5,10 +5,12 @@
         "frontend"
     ],
     "scripts": {
-        "dev": "yarn workspace frontend dev",
-        "build": "yarn workspace frontend build",
-        "start:frontend": "yarn workspace frontend start",
-        "start:cms": "yarn workspace cms strapi develop"
+        "frontend": "yarn workspace frontend start",
+        "frontend-dev": "yarn workspace frontend dev",
+        "frontend-build": "yarn workspace frontend build",
+        "cms": "yarn workspace cms run start",
+        "cms-dev": "yarn workspace cms strapi develop",
+        "cms-build": "yarn workspace cms run build"
     },
     "packageManager": "yarn@4.1.1",
     "devDependencies": {

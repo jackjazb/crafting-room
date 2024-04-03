@@ -1,10 +1,10 @@
 {
-  "name": "crr-frontend",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "NODE_ENV=production next build",
     "start": "next start",
     "lint": "eslint -c .eslintrc.js ./src --fix",
     "css-d-ts": "tcm --watch ./src"
