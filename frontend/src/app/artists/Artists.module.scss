@@ -4,8 +4,7 @@
     filter: opacity(0.6);
     transition: filter var(--transition);
 
-    &:hover,
-    &:focus-within {
+    @include hover-active-swap-focus-visible {
         filter: opacity(1);
     }
 }

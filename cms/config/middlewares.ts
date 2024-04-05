@@ -1,4 +1,6 @@
-export default [
+import type { Config } from './lib/types';
+
+const middlewares: Config = [
   'strapi::errors',
   'strapi::security',
   'strapi::cors',
@@ -8,5 +10,7 @@ export default [
   'strapi::body',
   'strapi::session',
   'strapi::favicon',
-  'strapi::public',
+  'strapi::public'
 ];
+
+export default middlewares;

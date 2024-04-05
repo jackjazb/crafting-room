@@ -28,7 +28,10 @@ interface Props {
 	 * Whether the image needs to be prioritized.
 	 *
 	 * This automatically disables lazy loading.
-	 * @defaultValue false
+	 * @defaultValue
+	 * ```typescript
+	 *	false
+	 * ```
 	 */
 	priority?: boolean;
 }
@@ -43,14 +46,14 @@ export const StrapiImage: FC<Props> = props => {
 
 	const url = media.url(format.url);
 
-	const backgroundColor = props.fallbackColor !== false
-		? props.fallbackColor ?? media.fallbackColor ?? undefined
-		: undefined;
-
 	return (
 		<Image
 			className={props.className}
-			style={{ backgroundColor }}
+			style={{
+				backgroundColor: props.fallbackColor !== false
+					? props.fallbackColor ?? media.fallbackColor ?? undefined
+					: undefined
+			}}
 			src={url}
 			width={format.width}
 			height={format.height}

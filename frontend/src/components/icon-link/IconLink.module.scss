@@ -5,12 +5,9 @@
 	padding: 5px;
 	color: black;
 
-	&:hover {
-		transition: color var(--transition-fast);
-	}
-
 	@include hover-active-swap-focus-visible {
 		text-decoration: none;
 		color: var(--icon-link-color);
+		transition: color var(--transition-fast);
 	}
 }

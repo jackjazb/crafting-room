@@ -1,19 +1,23 @@
 {
-    "private": true,
-    "workspaces": [
-        "cms",
-        "frontend"
-    ],
-    "scripts": {
-        "frontend": "yarn workspace frontend start",
-        "frontend-dev": "yarn workspace frontend dev",
-        "frontend-build": "yarn workspace frontend build",
-        "cms": "yarn workspace cms run start",
-        "cms-dev": "yarn workspace cms strapi develop",
-        "cms-build": "yarn workspace cms run build"
-    },
-    "packageManager": "yarn@4.1.1",
-    "devDependencies": {
-        "@types/node": "^20.10.5"
-    }
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "workspaces": [
+    "cms",
+    "frontend"
+  ],
+  "scripts": {
+    "frontend": "yarn workspace frontend start",
+    "frontend-dev": "yarn workspace frontend dev",
+    "frontend-build": "yarn workspace frontend build",
+    "cms": "yarn workspace cms run start",
+    "cms-dev": "yarn workspace cms strapi develop",
+    "cms-build": "yarn workspace cms run build"
+  },
+  "packageManager": "yarn@4.1.1",
+  "devDependencies": {
+    "@types/node": "^20.10.5"
+  }
 }

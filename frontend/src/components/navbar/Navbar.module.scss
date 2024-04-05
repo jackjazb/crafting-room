@@ -19,7 +19,7 @@
         padding: unset;
     }
 
-    &.open {
+    &[data-open="true"] {
         transform: translateX(0);
 
         .menuIcon {
@@ -43,14 +43,11 @@
     transform: rotate(-90deg);
     transition: transform var(--transition);
 
-    @media (pointer: fine) {
-        &:hover,
-        &:focus-visible {
-            color: var(--link-color);
-            transition:
-                transform var(--transition),
-                color var(--transition-fast);
-        }
+    @include hover-active-swap-focus-visible {
+        color: var(--link-color);
+        transition:
+            transform var(--transition),
+            color var(--transition-fast);
     }
 
     display: none;

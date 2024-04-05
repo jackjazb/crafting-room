@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import styles from './Artists.module.scss';
 import { cms } from '@/lib/server/services';
 import { ArtistGrid } from '@/components/artist/ArtistGrid';
-import { createClass } from '@/lib/utils';
+import { createClass, mdi } from '@/lib/utils';
 
 /**
  * The directory page for all artists.
@@ -23,9 +23,7 @@ const ArtistsPage: NextPage = async () => {
 						key={group.id}
 						className='container'
 					>
-						<h2>
-							{group.header}
-						</h2>
+						<h2 dangerouslySetInnerHTML={mdi(group.header)} />
 						<ArtistGrid artists={group.artists.data} />
 					</section>
 				))
@@ -38,9 +36,7 @@ const ArtistsPage: NextPage = async () => {
 						'container'
 					)}
 				>
-					<h2>
-						{artistsPage.attributes.inactive.header}
-					</h2>
+					<h2 dangerouslySetInnerHTML={mdi(artistsPage.attributes.inactive.header)} />
 					<ArtistGrid artists={inactive} />
 				</section>
 			)}

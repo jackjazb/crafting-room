@@ -4,6 +4,7 @@ import styles from './AboutPage.module.scss';
 import { cms } from '@/lib/server/services';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 import { md, mdi } from '@/lib/utils';
+import { Secret } from '@/components/secret/Secret';
 
 const AboutPage: NextPage = async () => {
     const aboutPage = await cms.getAboutPage()
@@ -11,6 +12,7 @@ const AboutPage: NextPage = async () => {
 
     return (
         <main>
+            <Secret />
             <section>
                 <StrapiImage
                     className={styles.image}

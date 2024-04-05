@@ -1,13 +1,12 @@
 'use client';
 
-import type { FC } from 'react';
+import type { CSSProperties, FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { IoMdMore } from 'react-icons/io';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { CRRLogo } from '../logo/CRRLogo';
 import styles from './Navbar.module.scss';
-import { createClass } from '@/lib/utils';
 
 /**
  * The navbar.
@@ -16,11 +15,12 @@ export const Navbar: FC = () => {
 	const pathname = usePathname();
 
 	const nav = useRef<HTMLElement>(null);
+	const [navHeight, setNavHeight] = useState<number | null>(null);
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	const openMenu = () => {
-		setHeight();
 		document.body.style.overflow = 'hidden';
+		setNavHeight(nav.current!.clientHeight);
 		setMenuOpen(true);
 	};
 
@@ -29,33 +29,31 @@ export const Navbar: FC = () => {
 		setMenuOpen(false);
 	};
 
-	useEffect(closeMenu, [pathname]); //close when navigating using the forward/back buttons
-
-	const setHeight = () => {
-		nav.current!.style.setProperty(
-			'--nav-height',
-			`${nav.current!.clientHeight}px`
-		);
+	const toggleMenu = () => {
+		menuOpen
+			? closeMenu()
+			: openMenu();
 	};
 
-	useEffect(() => {
-		return () => {
-			document.body.style.overflow = '';
-		};
-	}, []);
+	useEffect(closeMenu, [pathname]); //close when navigating using the forward/back buttons
+
+	useEffect(() => closeMenu, []); //close when component is destroyed
 
 	return (
 		<nav
 			ref={nav}
-			className={createClass(
-				styles.navbar,
-				menuOpen ? styles.open : null
-			)}
+			className={styles.navbar}
+			data-open={menuOpen}
+			style={{
+				'--nav-height': navHeight !== null
+					? `${navHeight}px`
+					: undefined
+			} as CSSProperties}
 		>
 			<IoMdMore
 				className={styles.menuIcon}
 				aria-label='Toggle the navigation menu'
-				onClick={() => menuOpen ? closeMenu() : openMenu()}
+				onClick={toggleMenu}
 			/>
 			<menu className={styles.menu}>
 				<Link

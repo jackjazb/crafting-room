@@ -1,4 +1,4 @@
-export NODE_ENV='production'
+$env:NODE_ENV = 'production'
 
 npm i -g yarn pm2
 
@@ -17,4 +17,4 @@ pm2 start ecosystem.config.cjs --only frontend
 
 pm2 save
 
-export NODE_ENV=''
+$env:NODE_ENV = ''

@@ -1,11 +1,21 @@
-import path from 'path';
+import { resolve } from 'path';
+import findRoot from 'find-root';
+import type { Config } from './lib/types';
 
-export default ({ env }) => ({
-  connection: {
-    client: 'sqlite',
+const cmsRootDir = findRoot(__dirname);
+
+const database: Config = ({ env }) => {
+  return {
     connection: {
-      filename: path.resolve(env('DATABASE_FILENAME', '../data/data.db')),
-    },
-    useNullAsDefault: true,
-  },
-});
+      client: 'sqlite',
+      connection: {
+        filename: env('DATABASE_PATH')
+          ? resolve(env('DATABASE_PATH'))
+          : resolve(cmsRootDir, '.tmp/data.db')
+      },
+      useNullAsDefault: true
+    }
+  };
+};
+
+export default database;

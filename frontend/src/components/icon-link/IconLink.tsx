@@ -37,7 +37,8 @@ export const IconLink: FC<Props> = props => {
 			{...props}
 			className={styles.iconLink}
 			style={{
-				'--icon-link-color': iconLinks[props.icon]?.color ?? '#0fa0ce'
+				'--icon-link-color': iconLinks[props.icon]?.color
+					?? '#0fa0ce'
 			} as CSSProperties}
 			href={props.href}
 			target='_blank'
