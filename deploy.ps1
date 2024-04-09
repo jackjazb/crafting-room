@@ -1,6 +1,6 @@
 $env:NODE_ENV = 'production'
 
-npm i -g yarn pm2
+npm i -g pm2
 
 pm2 stop all
 
