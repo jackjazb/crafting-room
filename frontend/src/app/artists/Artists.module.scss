@@ -1,0 +1,10 @@
+@import "@scss/logic";
+
+.inactive a {
+    filter: opacity(0.6);
+    transition: filter var(--transition);
+
+    @include hover-active-swap-focus-visible {
+        filter: opacity(1);
+    }
+}

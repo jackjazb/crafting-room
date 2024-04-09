@@ -1,0 +1,65 @@
+@import "@scss/logic";
+
+.wrapper {
+    display: flex;
+    padding: 20px 0px;
+    border-bottom: 1px solid lightgray;
+
+    &:first-child {
+        padding-top: unset;
+    }
+
+    &:last-child {
+        border-bottom: unset;
+        padding-bottom: unset;
+    }
+}
+
+.link {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+    gap: 7.5px;
+    padding: 15px;
+    background-size: cover;
+
+    @include hover-active-swap-focus-visible {
+        text-decoration: none;
+    }
+}
+
+.title {
+    font-weight: 600;
+    font-size: 1.7rem;
+
+    @include media-breakpoint-down(md) {
+        font-size: 1.4rem;
+    }
+}
+
+.author {
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.45px;
+}
+
+.date {
+    font-size: 1.1rem;
+    font-weight: 500;
+    align-self: flex-end;
+    margin-top: auto;
+}
+
+.dateFull {
+    @include media-breakpoint-down(md) {
+        display: none;
+    }
+}
+
+.dateAbbr {
+    @include media-breakpoint-up(md) {
+        display: none;
+    }
+}

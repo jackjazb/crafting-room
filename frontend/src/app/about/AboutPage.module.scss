@@ -1,0 +1,8 @@
+@import "@scss/logic";
+
+.image {
+    margin: 0 auto;
+    margin-bottom: 1.25rem;
+    height: 30vh;
+    object-fit: contain; //NOTE: only for the logo, it is always has transparent background
+}

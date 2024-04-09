@@ -1,0 +1,32 @@
+@mixin hover-active-swap {
+	@media (pointer: fine) {
+		&:hover {
+			@content;
+		}
+	}
+	@media (pointer: coarse) {
+		&:active {
+			@content;
+		}
+	}
+}
+
+@mixin hover-active-swap-focus-visible {
+	@include hover-active-swap {
+		@content;
+	}
+
+	&:focus-visible {
+		@content;
+	}
+}
+
+@mixin hover-active-swap-focus-within {
+	@include hover-active-swap {
+		@content;
+	}
+
+	&:focus-within {
+		@content;
+	}
+}

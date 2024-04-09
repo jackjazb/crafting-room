@@ -1,65 +1,51 @@
-# Crafting Room Recordings
+# Crafting Room Recordings website
 
-This repository contains Crafting Room Recordings' updated website and event booking system. The app consists of a CMS, which is an instance of Strapi, and a Next.js frontend.
+This is Crafting Room Recordings' updated website. It uses a Strapi CMS and a Next.js frontend.
 
 ## Project Setup
-This project uses `yarn`. On first cloning the project, run `yarn install` from the workspace root. The two packages in the repository can be run with `yarn cms` and `yarn dev`.
 
-You will also need to provide some environment variables.
+1. Clone the repository
+2. This project uses `yarn` - install it using `npm i -g yarn`
+3. Run `yarn install` at the project root
 
-crafting-room-cms/.env:
-```
-HOST=0.0.0.0
-PORT=1337
-# Can be whatever
-APP_KEYS=""
-API_TOKEN_SALT=
-ADMIN_JWT_SECRET=
-JWT_SECRET=
-```
-crafting-room-frontend/.env
-```
-STRAPI_URL="" # The docker bridge network endpoint for Strapi
-IMAGE_URL=""  # The endpoint to fetch images from
-```
+For both the `cms` and `frontend` directories, you'll need to create a `.env` file directly within them using the provided `.env.example` templates. For development purposes you don't need to set the variables marked as required.
+
+Run `yarn cms` to launch the CMS, **wait for the CMS to fully start**, and then run `yarn frontend` to launch the frontend app in a separate command line.
+
 ## Navigating the Frontend Project
 
-The frontend for CRR uses Next.js. The project is structued as follows:
+The frontend uses Next.js with the app directory. It's structured as follows:
+
 - Routes are in `src/app`
 - Components are in `src/components`
 - Library and utility code is in `src/lib`
 
-## Deployment 
-The deployed site consists of three containers, `cms`, `frontend` and `nginx`. 
+## Creating and Running Production Builds
 
-To deploy a fresh instance, 
-1. Clone the site repo to the deployment machine's home directory
-2. Install SSL certificates
-Use `certbot` to install certificates for these subdomains.
-  - `craftingroomrecordings.co.uk`
-  - `www.craftingroomrecordings.co.uk`
-  - `api.craftingroomrecordings.co.uk`
- 
-These also need to be set up in the hosting provider's DNS config.
+If you want to generate and run a production build locally on your machine:
 
-3. Spin up the site's docker container
-```
-$ DOCKER_BUILDKIT=0 docker compose up -d --build
-```
+1. Ensure that you have all the correct environment variables set with the correct paths
+2. Run `deploy.sh` (Linux, MacOS) or `deploy.ps1` (Windows) from the command line
 
-Using Docker Buildkit causes the images to build in parallel, which can cause errors when the frontend tries to fetch static site data from the CMS during build. It might be worth setting this value permanently on the server machine.
+Please note that [pm2](https://pm2.keymetrics.io/) is installed and used when running this script, so you should understand what it does and how to use it beforehand.
 
-4. Add a database backup job to the crontab
-```
-# Make a copy of the database outside the active repo
-0 0 * * * cp ~/crafting-room/crafting-room-cms/data/data.db ~/backup/$(date +\%d-\%m-\%Y).db
+## Deployment
 
-# Delete backups older than 30 days
-0 0 * * * find ~/backups/ -mtime +30 -delete
-```
+The following assumes you are using a Linux server.
 
-## Creating a New Release
-This repository has a GitHub action set up to automatically deploy new releases to the server. The steps are roughly:
-- Login to the server over SSH
-- Pull the latest changes
-- Rebuild the site with `DOCKER_BUILDKIT=0 docker compose up -d --build
+Nginx is used as a reverse proxy and to provide TLS.
+
+1. Clone the repository to the deployment machine's home directory
+2. Install `certbot` and generate certificates for the desired domains:
+    - Run `sudo snap install --classic certbot`
+    - Run `sudo ln -s /snap/bin/certbot /usr/bin/certbot`
+    - Run `sudo certbot certonly --nginx`
+3. Install Nginx:
+    - Add `include /root/crafting-room/nginx/default.conf;` to `/etc/nginx/nginx.conf`
+    - Run Nginx with `nginx`
+4. Deploy the site:
+    - Run `deploy.sh`
+5. Add the following cron jobs:
+    - Out of repo DB backup: `0 0 * * * cp ~/crafting-room/cms/data/data.db ~/backup/$(date +\%Y-\%m-\%d).db`
+    - Old backup clearing: `0 0 * * * find ~/backups/ -mtime +30 -delete`
+    - Auto-renew certificates: `0 12 * * * /usr/bin/certbot renew --quiet`
