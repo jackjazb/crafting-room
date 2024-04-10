@@ -23,10 +23,32 @@ export interface ArtistSocialLink extends Schema.Component {
     description: '';
   };
   attributes: {
-    link: Attribute.String;
-    linktype: Attribute.Enumeration<
-      ['spotify', 'instagram', 'facebook', 'twitter', 'website', 'linktree']
-    >;
+    link: Attribute.String & Attribute.Required;
+    type: Attribute.Enumeration<
+      [
+        'Spotify',
+        'Instagram',
+        'Facebook',
+        'Twitter',
+        'Website',
+        'Linktree',
+        'YouTube',
+        'Bandcamp'
+      ]
+    > &
+      Attribute.Required;
+  };
+}
+
+export interface GeneralMeta extends Schema.Component {
+  collectionName: 'components_general_metas';
+  info: {
+    displayName: 'Meta';
+    icon: 'information';
+    description: '';
+  };
+  attributes: {
+    description: Attribute.Text & Attribute.Required;
   };
 }
 
@@ -51,6 +73,7 @@ declare module '@strapi/types' {
     export interface Components {
       'artist.artist-group': ArtistArtistGroup;
       'artist.social-link': ArtistSocialLink;
+      'general.meta': GeneralMeta;
       'release.release-group': ReleaseReleaseGroup;
     }
   }

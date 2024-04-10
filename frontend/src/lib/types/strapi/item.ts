@@ -1,10 +1,10 @@
 /**
- * A set of Strapi item data
+ * Strapi item data.
  */
 export type Item = Component | UnpublishableItem | PublishableItem;
 
 /**
- * A set of base Strapi item data.
+ * Base Strapi item data.
  * @internal
  */
 interface BaseItem {
@@ -13,12 +13,12 @@ interface BaseItem {
 }
 
 /**
- * A set of Strapi component item data.
+ * Strapi component item data.
  */
 export interface Component extends BaseItem { }
 
 /**
- * A set of unpublishable Strapi item data.
+ * Unpublishable Strapi item data.
  *
  * **Used almost exclusively for media and internal use**. For most cases you'll want `PublishableItem`.
  */
@@ -33,7 +33,7 @@ export interface UnpublishableItem<
 }
 
 /**
- * A set of publishable Strapi item data.
+ * Publishable Strapi item data.
  */
 export interface PublishableItem<
 	TAttributes extends Record<string, unknown> = Record<string, unknown>

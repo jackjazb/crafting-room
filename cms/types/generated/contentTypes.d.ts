@@ -800,6 +800,7 @@ export interface ApiAboutPageAboutPage extends Schema.SingleType {
     draftAndPublish: true;
   };
   attributes: {
+    meta: Attribute.Component<'general.meta'> & Attribute.Required;
     header: Attribute.String & Attribute.Required;
     content: Attribute.RichText & Attribute.Required;
     image: Attribute.Media & Attribute.Required;
@@ -834,9 +835,9 @@ export interface ApiArticleArticle extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
+    title: Attribute.String & Attribute.Required;
     slug: Attribute.UID<'api::article.article', 'title'> & Attribute.Required;
-    content: Attribute.RichText;
+    content: Attribute.RichText & Attribute.Required;
     images: Attribute.Media & Attribute.Required;
     author: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
@@ -914,6 +915,7 @@ export interface ApiArtistsPageArtistsPage extends Schema.SingleType {
     draftAndPublish: true;
   };
   attributes: {
+    meta: Attribute.Component<'general.meta'> & Attribute.Required;
     groups: Attribute.Component<'artist.artist-group', true>;
     inactive: Attribute.Component<'artist.artist-group'>;
     createdAt: Attribute.DateTime;
@@ -948,7 +950,7 @@ export interface ApiEventEvent extends Schema.CollectionType {
   attributes: {
     title: Attribute.String & Attribute.Required;
     slug: Attribute.UID<'api::event.event', 'title'> & Attribute.Required;
-    description: Attribute.RichText;
+    description: Attribute.RichText & Attribute.Required;
     date: Attribute.Date & Attribute.Required;
     image: Attribute.Media & Attribute.Required;
     artists: Attribute.Relation<
@@ -976,18 +978,49 @@ export interface ApiEventEvent extends Schema.CollectionType {
   };
 }
 
+export interface ApiEventsPageEventsPage extends Schema.SingleType {
+  collectionName: 'events_pages';
+  info: {
+    singularName: 'events-page';
+    pluralName: 'events-pages';
+    displayName: 'Events Page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    meta: Attribute.Component<'general.meta'> & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::events-page.events-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::events-page.events-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiHomepageHomepage extends Schema.SingleType {
   collectionName: 'homepages';
   info: {
     singularName: 'homepage';
     pluralName: 'homepages';
-    displayName: 'Homepage';
+    displayName: 'Home Page';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
+    meta: Attribute.Component<'general.meta'> & Attribute.Required;
     features: Attribute.Relation<
       'api::homepage.homepage',
       'oneToMany',
@@ -1016,6 +1049,36 @@ export interface ApiHomepageHomepage extends Schema.SingleType {
   };
 }
 
+export interface ApiNewsPageNewsPage extends Schema.SingleType {
+  collectionName: 'news_pages';
+  info: {
+    singularName: 'news-page';
+    pluralName: 'news-pages';
+    displayName: 'News Page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    meta: Attribute.Component<'general.meta'> & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::news-page.news-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::news-page.news-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiReleaseRelease extends Schema.CollectionType {
   collectionName: 'releases';
   info: {
@@ -1028,15 +1091,16 @@ export interface ApiReleaseRelease extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
+    title: Attribute.String & Attribute.Required;
     slug: Attribute.UID<'api::release.release', 'title'> & Attribute.Required;
-    date: Attribute.Date;
+    date: Attribute.Date & Attribute.Required;
     link: Attribute.String;
     artist: Attribute.Relation<
       'api::release.release',
       'manyToOne',
       'api::artist.artist'
-    >;
+    > &
+      Attribute.Required;
     artwork: Attribute.Media & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1067,6 +1131,7 @@ export interface ApiStorePageStorePage extends Schema.SingleType {
     draftAndPublish: true;
   };
   attributes: {
+    meta: Attribute.Component<'general.meta'> & Attribute.Required;
     groups: Attribute.Component<'release.release-group', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1109,7 +1174,9 @@ declare module '@strapi/types' {
       'api::artist.artist': ApiArtistArtist;
       'api::artists-page.artists-page': ApiArtistsPageArtistsPage;
       'api::event.event': ApiEventEvent;
+      'api::events-page.events-page': ApiEventsPageEventsPage;
       'api::homepage.homepage': ApiHomepageHomepage;
+      'api::news-page.news-page': ApiNewsPageNewsPage;
       'api::release.release': ApiReleaseRelease;
       'api::store-page.store-page': ApiStorePageStorePage;
     }

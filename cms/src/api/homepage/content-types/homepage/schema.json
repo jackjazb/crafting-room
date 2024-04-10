@@ -4,7 +4,7 @@
   "info": {
     "singularName": "homepage",
     "pluralName": "homepages",
-    "displayName": "Homepage",
+    "displayName": "Home Page",
     "description": ""
   },
   "options": {
@@ -12,6 +12,12 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "meta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "general.meta",
+      "required": true
+    },
     "features": {
       "type": "relation",
       "relation": "oneToMany",

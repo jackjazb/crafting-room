@@ -15,7 +15,7 @@ interface Props {
  */
 export const ReleaseTile: FC<Props> = props => {
 	return (
-		<div className={styles.wrapper}>
+		<div className={styles.releaseTile}>
 			<StrapiImage
 				className={styles.image}
 				image={props.release.attributes.artwork.data}

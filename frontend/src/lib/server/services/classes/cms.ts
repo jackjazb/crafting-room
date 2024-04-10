@@ -1,6 +1,6 @@
 import type { StrapiServiceOptions } from '@/lib/server/services/classes/strapi';
 import { StrapiService } from '@/lib/server/services/classes/strapi';
-import type { AboutPage, Article, Artist, ArtistsPage, Event, HomePage, StorePage, RequiredOptions } from '@/lib/types';
+import type { AboutPage, Article, Artist, ArtistsPage, Event, HomePage, StorePage, RequiredOptions, EventsPage, NewsPage } from '@/lib/types';
 
 /**
  * Options for a CMS service.
@@ -28,16 +28,24 @@ export class CMSService extends StrapiService {
 		this.options = _options;
 	}
 
-	async getHomePage() {
-		return this.getSingle<HomePage>('homepage');
-	}
-
 	async getAboutPage() {
 		return this.getSingle<AboutPage>('about-page');
 	}
 
 	async getArtistsPage() {
 		return this.getSingle<ArtistsPage>('artists-page');
+	}
+
+	async getEventsPage() {
+		return this.getSingle<EventsPage>('events-page');
+	}
+
+	async getHomePage() {
+		return this.getSingle<HomePage>('homepage');
+	}
+
+	async getNewsPage() {
+		return this.getSingle<NewsPage>('news-page');
 	}
 
 	async getStorePage() {

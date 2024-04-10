@@ -44,7 +44,7 @@ export const StrapiImage: FC<Props> = props => {
 		? props.image.attributes
 		: media.getImageFormat(props.image, props.format);
 
-	const url = media.url(format.url);
+	const url = media.resolveUrl(format.url);
 
 	return (
 		<Image

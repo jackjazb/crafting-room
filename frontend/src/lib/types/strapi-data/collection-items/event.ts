@@ -5,8 +5,8 @@ export interface Event extends PublishableItem<{
 	slug: string;
 	date: string;
 	venue: string;
-	description?: string;
-	link?: string;
+	description: string;
+	link: string | null;
 	image: Single<Image>;
-	artists?: Collection<Artist>;
+	artists: Collection<Artist> | null;
 }> { }

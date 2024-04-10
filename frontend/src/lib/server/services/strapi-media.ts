@@ -5,7 +5,7 @@ import { throwExp } from '@/lib/utils';
 const options: StrapiMediaServiceOptions = {
 	mediaProviderHostname: process.env.STRAPI_MEDIA_PROVIDER_HOST
 		?? process.env.STRAPI_HOST
-		?? throwExp('Environment variable STRAPI_MEDIA_PROVIDER_HOST was missing. This is fine, but the fallback STRAPI_HOST variable was also missing'),
+		?? throwExp('\'STRAPI_MEDIA_PROVIDER_HOST\' environment variable is missing. This is fine, but the fallback \'STRAPI_HOST\' environment variable is also missing'),
 	defaultFallbackColor: 'var(--fallback-image-color)'
 };
 

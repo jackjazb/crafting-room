@@ -11,6 +11,12 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "meta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "general.meta",
+      "required": true
+    },
     "groups": {
       "displayName": "Release Group",
       "type": "component",

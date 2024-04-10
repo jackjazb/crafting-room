@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { Metadata, NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import styles from './Store.module.scss';
@@ -6,8 +6,18 @@ import { ReleaseGrid } from '@/components/release/ReleaseGrid';
 import { cms } from '@/lib/server/services';
 import { mdi } from '@/lib/utils';
 
+export const generateMetadata = async (): Promise<Metadata> => {
+    const data = await cms.getStorePage()
+        .catch(notFound);
+
+    return {
+        title: 'Crafting Room Recordings • Store',
+        description: data.attributes.meta.description
+    };
+};
+
 const StorePage: NextPage = async () => {
-    const storePage = await cms.getStorePage()
+    const data = await cms.getStorePage()
         .catch(notFound);
 
     return (
@@ -25,7 +35,7 @@ const StorePage: NextPage = async () => {
                 </Link>
             </p>
 
-            {storePage.attributes.groups.map(group => (
+            {data.attributes.groups.map(group => (
                 <section key={group.id}>
                     <h2 dangerouslySetInnerHTML={mdi(group.header)} />
                     <ReleaseGrid releases={group.releases.data} />

@@ -7,18 +7,22 @@
   "options": {},
   "attributes": {
     "link": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
-    "linktype": {
+    "type": {
       "type": "enumeration",
       "enum": [
-        "spotify",
-        "instagram",
-        "facebook",
-        "twitter",
-        "website",
-        "linktree"
-      ]
+        "Spotify",
+        "Instagram",
+        "Facebook",
+        "Twitter",
+        "Website",
+        "Linktree",
+        "YouTube",
+        "Bandcamp"
+      ],
+      "required": true
     }
   }
 }

@@ -4,7 +4,7 @@ export interface Release extends PublishableItem<{
 	title: string;
 	slug: string;
 	date: string;
-	link: string;
+	link: string | null;
 	artist: Single<Artist>;
 	artwork: Single<Image>;
 }> { }

@@ -58,7 +58,7 @@ export interface ApiServiceOptions {
  */
 export class ApiService<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	TBaseResponse extends Record<string, any> = Record<string, any>,
+	TBaseResponseData extends Record<string, any> = Record<string, any>,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	TBaseParams extends Record<string, any> = Record<string, any>
 > {
@@ -95,13 +95,13 @@ export class ApiService<
 	 * @throws Error if request failed, took too long, or reached max attempts
 	 */
 	async get<
-		TResponse extends TBaseResponse = TBaseResponse,
-		TParams extends TBaseParams = TBaseParams
+		TParams extends TBaseParams = TBaseParams,
+		TResponseData extends TBaseResponseData = TBaseResponseData
 	>(
 		endpoint: string,
 		params?: TParams,
 		options?: RequestInit
-	): Promise<TResponse> {
+	): Promise<TResponseData> {
 		const _params = merge(
 			this.options.baseParams ?? {},
 			params ?? {}
@@ -135,6 +135,6 @@ export class ApiService<
 					.then(() => reject(`Request timed out after ${this.options.timeout! * 1000} seconds`));
 		});
 
-		return await response.json() as TResponse;
+		return await response.json() as TResponseData;
 	}
 }

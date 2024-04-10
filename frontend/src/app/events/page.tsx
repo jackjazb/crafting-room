@@ -1,20 +1,30 @@
-import type { NextPage } from 'next';
+import type { Metadata, NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import { EventTile } from '@/components/event/EventTile';
 import { cms } from '@/lib/server/services';
 
+export const generateMetadata = async (): Promise<Metadata> => {
+	const data = await cms.getEventsPage()
+		.catch(notFound);
+
+	return {
+		title: 'Crafting Room Recordings • Events',
+		description: data.attributes.meta.description
+	};
+};
+
 const EventsPage: NextPage = async () => {
-	const events = await cms.getEvents()
+	const data = await cms.getEvents()
 		.catch(notFound);
 
 	//TODO: get current date in uk time
 	const currentDate = new Date();
 
 	// Split the list of events into past and future
-	const pastEvents = events.filter(event =>
+	const pastEvents = data.filter(event =>
 		new Date(event.attributes.date) < currentDate);
 
-	const futureEvents = events.filter(event =>
+	const futureEvents = data.filter(event =>
 		!pastEvents.includes(event));
 
 	return (

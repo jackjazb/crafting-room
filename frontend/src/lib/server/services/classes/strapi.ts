@@ -1,6 +1,6 @@
 import type { ApiServiceOptions } from '@/lib/server/services/classes/api';
 import { ApiService } from '@/lib/server/services/classes/api';
-import type { StrapiResponse, SingleResponse, CollectionResponse, StrapiRequestParams, Item, SingleRequestParams, CollectionRequestParams, RequiredOptions } from '@/lib/types';
+import type { ResponseData, SingleResponseData, CollectionResponseData, RequestParams, SingleRequestParams, CollectionRequestParams, Item, RequiredOptions } from '@/lib/types';
 import { throwExp } from '@/lib/utils';
 
 /**
@@ -11,7 +11,7 @@ export interface StrapiServiceOptions extends ApiServiceOptions { }
 /**
  * Service for handling and performing requests to a Strapi API.
  */
-export class StrapiService extends ApiService<StrapiResponse, StrapiRequestParams> {
+export class StrapiService extends ApiService<ResponseData, RequestParams> {
 	static override createOptions(options: StrapiServiceOptions): RequiredOptions<StrapiServiceOptions> {
 		return ApiService.createOptions(options);
 	}
@@ -38,11 +38,11 @@ export class StrapiService extends ApiService<StrapiResponse, StrapiRequestParam
 	 */
 	protected async getSingle<
 		TItem extends Item = Item,
-		TResponse extends SingleResponse<TItem> = SingleResponse<TItem>,
-		TParams extends SingleRequestParams = SingleRequestParams
+		TParams extends SingleRequestParams = SingleRequestParams,
+		TResponseData extends SingleResponseData<TItem> = SingleResponseData<TItem>
 	>(endpoint: string, params?: TParams, options?: RequestInit) {
 		return (
-			await this.get<TResponse, TParams>(endpoint, params, options)
+			await this.get<TParams, TResponseData>(endpoint, params, options)
 		).data;
 	}
 
@@ -56,11 +56,11 @@ export class StrapiService extends ApiService<StrapiResponse, StrapiRequestParam
 	 */
 	protected async getCollection<
 		TItem extends Item = Item,
-		TResponse extends CollectionResponse<TItem> = CollectionResponse<TItem>,
-		TParams extends CollectionRequestParams = CollectionRequestParams
+		TParams extends CollectionRequestParams = CollectionRequestParams,
+		TResponseData extends CollectionResponseData<TItem> = CollectionResponseData<TItem>
 	>(endpoint: string, params?: TParams, options?: RequestInit) {
 		return (
-			await this.get<TResponse, TParams>(endpoint, params, options)
+			await this.get<TParams, TResponseData>(endpoint, params, options)
 		).data;
 	}
 
@@ -74,11 +74,11 @@ export class StrapiService extends ApiService<StrapiResponse, StrapiRequestParam
 	 */
 	protected async getCollectionFirstItem<
 		TItem extends Item = Item,
-		TResponse extends CollectionResponse<TItem> = CollectionResponse<TItem>,
-		TParams extends CollectionRequestParams = CollectionRequestParams
+		TParams extends CollectionRequestParams = CollectionRequestParams,
+		TResponseData extends CollectionResponseData<TItem> = CollectionResponseData<TItem>
 	>(endpoint: string, params?: TParams, options?: RequestInit) {
 		return (
-			await this.get<TResponse, TParams>(endpoint, params, options)
+			await this.get<TParams, TResponseData>(endpoint, params, options)
 		).data[0]
 			?? throwExp('No result found');
 	}

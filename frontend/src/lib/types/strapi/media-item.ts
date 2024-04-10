@@ -1,9 +1,9 @@
 import type { UnpublishableItem } from './item';
 
 /**
- * A set of Strapi media item data.
+ * Strapi asset data.
  */
-export interface MediaItem<
+export interface Asset<
 	TAttributes extends Record<string, unknown> = Record<string, unknown>
 > extends UnpublishableItem<TAttributes & {
 	name: string;
@@ -27,32 +27,32 @@ export interface MediaItem<
  */
 export type ImageFormatName =
 	'thumbnail' |
-	'small' |
-	'medium' |
-	'large' |
-	'xlarge';
+	'small' | //500
+	'medium' | //750
+	'large' | //1000
+	'xlarge'; //1500 -> not builtin, defined in cms/config/plugins.ts
 
 /**
- * A set of Strapi image item data.
+ * A set of Strapi image data.
  *
  * Contains several properties about an image, including it's formats.
  *
  * An image may or may not have larger formats available: it depends on its original size.
  */
-export interface Image extends MediaItem<{
+export interface Image extends Asset<{
 	formats: Partial<Record<ImageFormatName, ImageFormat>>;
 }> { }
 
 /**
  * A Strapi image size format.
  */
-export interface ImageFormat<TWidth extends number = number> {
+export interface ImageFormat {
 	name: string;
 	hash: string;
 	ext: string;
 	mime: string;
 	path: string | null;
-	width: TWidth;
+	width: number;
 	height: number;
 	size: number;
 	url: string;

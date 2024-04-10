@@ -15,7 +15,7 @@ interface Props {
 export const ArtistTile: FC<Props> = props => {
 	return (
 		<Link
-			className={styles.link}
+			className={styles.artistTile}
 			href={`/artists/${props.artist.attributes.slug}`}
 			aria-label={`View the artist '${props.artist.attributes.name}'`}
 		>

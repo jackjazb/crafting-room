@@ -14,14 +14,14 @@ type Icons = Record<SocialLinkType, {
 }>;
 
 const iconLinks: Icons = {
-	spotify: { node: <SiSpotify size={ICON_SIZE} />, color: '#25d865' },
-	instagram: { node: <SiInstagram size={ICON_SIZE} />, color: '#f24c5f' },
-	facebook: { node: <SiFacebook size={ICON_SIZE} />, color: '#0865ff' },
-	twitter: { node: <SiTwitter size={ICON_SIZE} />, color: '#249ef0' },
-	website: { node: <BsGlobe size={ICON_SIZE} />, color: '#0fa0ce' },
-	linktree: { node: <SiLinktree size={ICON_SIZE} />, color: '#41e760' },
-	youtube: { node: <SiYoutube size={ICON_SIZE} />, color: '#ff0000' },
-	bandcamp: { node: <SiBandcamp size={ICON_SIZE} />, color: '#639aaa' }
+	Spotify: { node: <SiSpotify size={ICON_SIZE} />, color: '#25d865' },
+	Instagram: { node: <SiInstagram size={ICON_SIZE} />, color: '#f24c5f' },
+	Facebook: { node: <SiFacebook size={ICON_SIZE} />, color: '#0865ff' },
+	Twitter: { node: <SiTwitter size={ICON_SIZE} />, color: '#249ef0' },
+	Website: { node: <BsGlobe size={ICON_SIZE} />, color: '#0fa0ce' },
+	Linktree: { node: <SiLinktree size={ICON_SIZE} />, color: '#41e760' },
+	YouTube: { node: <SiYoutube size={ICON_SIZE} />, color: '#ff0000' },
+	Bandcamp: { node: <SiBandcamp size={ICON_SIZE} />, color: '#639aaa' }
 };
 
 type Props = {

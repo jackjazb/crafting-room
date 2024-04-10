@@ -1,7 +1,7 @@
 /**
  * Request parameters used when querying the Strapi API.
  */
-export type StrapiRequestParams = SingleRequestParams | CollectionRequestParams;
+export type RequestParams = SingleRequestParams | CollectionRequestParams;
 
 /**
  * Base request parameters used when querying the Strapi API.

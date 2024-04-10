@@ -1,8 +1,9 @@
-import type { Image, PublishableItem, Single } from '@/lib/types';
+import type { Image, Meta, PublishableItem, Single } from '@/lib/types';
 
 export interface AboutPage extends PublishableItem<{
+	meta: Meta;
 	header: string;
 	content: string;
-	contact?: string;
+	contact: string | null;
 	image: Single<Image>;
 }> { }

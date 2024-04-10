@@ -1,12 +1,22 @@
-import type { NextPage } from 'next';
+import type { Metadata, NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import styles from './AboutPage.module.scss';
 import { cms } from '@/lib/server/services';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 import { md, mdi } from '@/lib/utils';
 
+export const generateMetadata = async (): Promise<Metadata> => {
+    const data = await cms.getAboutPage()
+        .catch(notFound);
+
+    return {
+        title: 'Crafting Room Recordings • About',
+        description: data.attributes.meta.description
+    };
+};
+
 const AboutPage: NextPage = async () => {
-    const aboutPage = await cms.getAboutPage()
+    const data = await cms.getAboutPage()
         .catch(notFound);
 
     return (
@@ -14,7 +24,7 @@ const AboutPage: NextPage = async () => {
             <section>
                 <StrapiImage
                     className={styles.image}
-                    image={aboutPage.attributes.image.data}
+                    image={data.attributes.image.data}
                     format='xlarge'
                     priority
                     fallbackColor={false}
@@ -22,8 +32,8 @@ const AboutPage: NextPage = async () => {
             </section>
 
             <section className='container'>
-                <h1 dangerouslySetInnerHTML={mdi(aboutPage.attributes.header)} />
-                <div dangerouslySetInnerHTML={md(aboutPage.attributes.content)} />
+                <h1 dangerouslySetInnerHTML={mdi(data.attributes.header)} />
+                <div dangerouslySetInnerHTML={md(data.attributes.content)} />
             </section>
 
             {/*
@@ -39,13 +49,13 @@ const AboutPage: NextPage = async () => {
 
             */}
 
-            {aboutPage.attributes.contact && (
+            {data.attributes.contact && (
                 <section className='container'>
                     <h1>
                         Contact
                     </h1>
                     {/* TODO: this should be converted to not be a RTE in strapi! */}
-                    <div dangerouslySetInnerHTML={md(aboutPage.attributes.contact)} />
+                    <div dangerouslySetInnerHTML={md(data.attributes.contact)} />
                 </section>
             )}
         </main>

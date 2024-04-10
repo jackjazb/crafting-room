@@ -9,22 +9,22 @@ export const Footer: FC = () => {
 	return (
 		<footer className={styles.footer}>
 			<IconLink
-				icon='instagram'
+				icon='Instagram'
 				href='https://www.instagram.com/crafting_room'
 				aria-label='Visit our Instagram'
 			/>
 			<IconLink
-				icon='youtube'
+				icon='YouTube'
 				href='https://www.youtube.com/channel/UCY_H8aUrjvI8iHobz5mi9sQ'
 				aria-label='Visit our YouTube'
 			/>
 			<IconLink
-				icon='bandcamp'
+				icon='Bandcamp'
 				href='https://craftingroomrecordings.bandcamp.com'
 				aria-label='Visit our Bandcamp'
 			/>
 			<IconLink
-				icon='twitter'
+				icon='Twitter'
 				href='https://twitter.com/crafting_room'
 				aria-label='Visit our Twitter'
 			/>

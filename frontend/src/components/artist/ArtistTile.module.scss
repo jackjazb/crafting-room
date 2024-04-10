@@ -1,8 +1,9 @@
 @import "@scss/logic";
 
-.link {
+//NOTE: most tiles share very similar styles - change those too if you need
+
+.artistTile {
 	position: relative;
-	display: flex;
 
 	@include hover-active-swap-focus-visible {
 		text-decoration: none;
@@ -33,8 +34,4 @@
 .name {
 	font-weight: 600;
 	font-size: 1.5rem;
-
-	@include media-breakpoint-down(lg) {
-		font-size: 1.5rem;
-	}
 }

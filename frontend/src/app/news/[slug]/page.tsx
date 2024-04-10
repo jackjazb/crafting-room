@@ -1,45 +1,67 @@
-import type { NextPage } from 'next';
+import type { Metadata, NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import styles from './Article.module.scss';
-import { cms } from '@/lib/server/services';
+import { cms, media } from '@/lib/server/services';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { mdi, md, formatDate } from '@/lib/utils';
+import { mdi, md, formatDate, cutString } from '@/lib/utils';
 
-interface ServerProps {
+interface Props {
     params: { slug: string; };
 }
 
-const ArticlePage: NextPage<ServerProps> = async props => {
+export const generateMetadata = async (props: Props): Promise<Metadata> => {
     const { slug } = props.params;
-    const article = await cms.getArticle({ slug })
+    const data = await cms.getArticle({ slug })
+        .catch(notFound);
+
+    const description = cutString(data.attributes.content);
+
+    return {
+        title: `Crafting Room Recordings • News • ${data.attributes.title}`,
+        description,
+        openGraph: {
+            //TODO: url is a pain - https://github.com/vercel/next.js/discussions/50189
+            type: 'profile',
+            title: data.attributes.title,
+            description,
+            images: media.resolveUrl(
+                media.getImageFormat(data.attributes.images.data[0], 'xlarge').url
+            )
+        }
+    };
+};
+
+const ArticlePage: NextPage<Props> = async props => {
+    const { slug } = props.params;
+    const data = await cms.getArticle({ slug })
         .catch(notFound);
 
     return (
         <main>
             <StrapiImage
                 className={styles.image}
-                image={article.attributes.images.data[0]}
+                image={data.attributes.images.data[0]}
                 format='source'
                 priority
             />
 
             <section className='container'>
                 <hgroup>
-                    <h1 dangerouslySetInnerHTML={mdi(article.attributes.title)} />
+                    <h1 dangerouslySetInnerHTML={mdi(data.attributes.title)} />
                     <p className={styles.subtitle}>
                         <span className={styles.date}>
-                            {formatDate(article.attributes.createdAt, 'numeric')}
+                            {formatDate(data.attributes.createdAt, 'numeric')}
                         </span>
                         {' '}
                         ▸
                         {' '}
                         <span
                             className={styles.author}
-                            dangerouslySetInnerHTML={mdi(article.attributes.author)}
+                            dangerouslySetInnerHTML={mdi(data.attributes.author)}
                         />
                     </p>
                 </hgroup>
-                <div dangerouslySetInnerHTML={md(article.attributes.content)} />
+                <div dangerouslySetInnerHTML={md(data.attributes.content)} />
             </section>
         </main>
     );

@@ -65,7 +65,7 @@ export class StrapiMediaService {
 	 * @param url - Media URL
 	 * @returns Resolved media URL
 	 */
-	url(url: string): string {
+	resolveUrl(url: string): string {
 		return url.startsWith('/')
 			? this.options.mediaProviderHostname + url
 			: url;
@@ -94,7 +94,7 @@ export class StrapiMediaService {
 	 * @param fallbackColor - Fallback color (override default fallback color, or disable)
 	 * @returns React.CSSProperties with background properties set
 	 */
-	createBackground(
+	createCssBackground(
 		image: Image,
 		targetFormat: ImageFormatName | 'source',
 		fallbackColor?: string | false
@@ -103,7 +103,7 @@ export class StrapiMediaService {
 			? image.attributes
 			: this.getImageFormat(image, targetFormat);
 
-		const url = this.url(format.url);
+		const url = this.resolveUrl(format.url);
 
 		const color = fallbackColor !== false
 			? fallbackColor ?? this.options.defaultFallbackColor ?? undefined

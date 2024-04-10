@@ -6,7 +6,7 @@ export default {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: '**' //TODO: these might not be good... double check this one
+        hostname: '**'
       },
       {
         protocol: 'https',

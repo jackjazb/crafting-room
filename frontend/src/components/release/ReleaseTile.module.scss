@@ -1,8 +1,9 @@
 @import "@scss/logic";
 
-.wrapper {
+//NOTE: most tiles share very similar styles - change those too if you need
+
+.releaseTile {
     position: relative;
-    display: flex;
 
     @include hover-active-swap-focus-visible {
         text-decoration: none;

@@ -13,7 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "slug": {
       "type": "uid",
@@ -21,7 +22,8 @@
       "required": true
     },
     "date": {
-      "type": "date"
+      "type": "date",
+      "required": true
     },
     "link": {
       "type": "string"
@@ -30,7 +32,8 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::artist.artist",
-      "inversedBy": "releases"
+      "inversedBy": "releases",
+      "required": true
     },
     "artwork": {
       "type": "media",

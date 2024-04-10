@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { Metadata, NextPage } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import styles from './Home.module.scss';
@@ -8,13 +8,23 @@ import { cms } from '@/lib/server/services';
 import { createClass, mdi } from '@/lib/utils';
 import { StrapiImage } from '@/components/strapi-image/StrapiImage';
 
+export const generateMetadata = async (): Promise<Metadata> => {
+    const data = await cms.getHomePage()
+        .catch(notFound);
+
+    return {
+        title: 'Crafting Room Recordings',
+        description: data.attributes.meta.description
+    };
+};
+
 const HomePage: NextPage = async () => {
     //TODO: doing `notFound` on page requests like this is misleading as
     //no matter the api failure response, `notFound` is called
-    const homePage = await cms.getHomePage()
+    const data = await cms.getHomePage()
         .catch(notFound);
 
-    const features = homePage.attributes.features.data;
+    const features = data.attributes.features.data;
 
     return (
         <main>
@@ -56,7 +66,7 @@ const HomePage: NextPage = async () => {
                 <h1>
                     Featured Releases
                 </h1>
-                <ReleaseGrid releases={homePage.attributes.releases.data} />
+                <ReleaseGrid releases={data.attributes.releases.data} />
             </section>
         </main>
     );

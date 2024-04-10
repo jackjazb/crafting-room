@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_general_metas",
+  "info": {
+    "displayName": "Meta",
+    "icon": "information",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

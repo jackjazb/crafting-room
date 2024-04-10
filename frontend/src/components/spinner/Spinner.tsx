@@ -7,9 +7,9 @@ import styles from './Spinner.module.scss';
  */
 export const Spinner: FC = () => {
 	return (
-		<div className={styles.wrapper}>
+		<div className={styles.spinner}>
 			<Image
-				src='/loading.svg'
+				src='/img/loading.svg'
 				alt='Loading...'
 				width={50}
 				height={50}

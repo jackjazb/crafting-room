@@ -12,6 +12,12 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "meta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "general.meta",
+      "required": true
+    },
     "groups": {
       "type": "component",
       "repeatable": true,
