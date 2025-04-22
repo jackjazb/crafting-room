@@ -5,12 +5,12 @@ This is Crafting Room Recordings' updated website. It uses a Strapi CMS and a Ne
 ## Project Setup
 
 1. Clone the repository
-2. This project uses `yarn` - install it using `npm i -g yarn`
-3. Run `yarn install` at the project root
+2. This project uses `pnpm run` - install it using `npm i -g pnpm run`
+3. Run `pnpm run install` at the project root
 
 For both the `cms` and `frontend` directories, you'll need to create a `.env` file directly within them using the provided `.env.example` templates. For development purposes you don't need to set the variables marked as required.
 
-Run `yarn cms` to launch the CMS, **wait for the CMS to fully start**, and then run `yarn frontend` to launch the frontend app in a separate command line.
+Run `pnpm run cms` to launch the CMS, **wait for the CMS to fully start**, and then run `pnpm run frontend` to launch the frontend app in a separate command line.
 
 ## Navigating the Frontend Project
 

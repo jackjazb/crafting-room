@@ -1,23 +1,31 @@
 {
-  "private": true,
-  "type": "module",
-  "engines": {
-    "node": ">=20.11"
-  },
-  "workspaces": [
-    "cms",
-    "frontend"
-  ],
-  "scripts": {
-    "frontend": "yarn workspace frontend start",
-    "frontend-dev": "yarn workspace frontend dev",
-    "frontend-build": "yarn workspace frontend build",
-    "cms": "yarn workspace cms run start",
-    "cms-dev": "yarn workspace cms strapi develop",
-    "cms-build": "yarn workspace cms run build"
-  },
-  "packageManager": "yarn@4.1.1",
-  "devDependencies": {
-    "@types/node": "^20.10.5"
-  }
+    "private": true,
+    "type": "module",
+    "engines": {
+        "node": ">=20.11"
+    },
+    "workspaces": [
+        "cms",
+        "frontend"
+    ],
+    "scripts": {
+        "dev": "pnpm exec nx run-many -t dev",
+        "frontend": "pnpm pnpm --filter frontend start",
+        "frontend-dev": "pnpm run workspace frontend dev",
+        "frontend-build": "pnpm run workspace frontend build",
+        "cms": "pnpm run workspace cms run start",
+        "cms-dev": "pnpm run workspace cms strapi develop",
+        "cms-build": "pnpm run workspace cms run build"
+    },
+    "devDependencies": {
+        "@nx/eslint": "20.8.0",
+        "@nx/next": "20.8.0",
+        "@types/node": "^20.10.5",
+        "nx": "20.8.0"
+    },
+    "dependencies": {
+        "next": "~14.2.26",
+        "react": "18.3.1",
+        "react-dom": "18.3.1"
+    }
 }

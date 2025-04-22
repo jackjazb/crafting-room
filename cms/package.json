@@ -1,44 +1,43 @@
 {
-  "name": "cms",
-  "private": true,
-  "version": "0.2.0",
-  "engines": {
-    "node": ">=20.11"
-  },
-  "scripts": {
-    "develop": "strapi develop",
-    "start": "strapi start",
-    "build": "strapi build"
-  },
-  "dependencies": {
-    "@strapi/plugin-i18n": "4.21.1",
-    "@strapi/plugin-users-permissions": "4.21.1",
-    "@strapi/strapi": "4.21.1",
-    "@strapi/typescript-utils": "4.21.1",
-    "better-sqlite3": "^9.4.3",
-    "find-root": "^1.1.0",
-    "koa": "^2.15.2",
-    "lodash": "4.17.21",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-intl": "6.6.4",
-    "react-is": "^18.2.0",
-    "react-router-dom": "^5.3.4",
-    "strapi-plugin-populate-deep": "^3.0.1",
-    "styled-components": "^5.2.1",
-    "webpack": "^5.91.0"
-  },
-  "devDependencies": {
-    "@types/find-root": "^1.1.4",
-    "@typescript-eslint/eslint-plugin": "^7.5.0",
-    "@typescript-eslint/parser": "^7.5.0",
-    "eslint": "^8.57.0",
-    "eslint-import-resolver-typescript": "^3.6.1",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-sort-exports": "^0.9.1",
-    "eslint-plugin-tsdoc": "^0.2.17"
-  },
-  "strapi": {
-    "uuid": "b323f6ff-836a-4043-bb92-46a47e98de7b"
-  }
+    "name": "cms",
+    "private": true,
+    "version": "0.2.0",
+    "engines": {
+        "node": ">=20.11"
+    },
+    "scripts": {
+        "dev": "strapi develop",
+        "start": "strapi start",
+        "build": "strapi build"
+    },
+    "dependencies": {
+        "@strapi/plugin-users-permissions": "5.12.0",
+        "@strapi/strapi": "5.12.5",
+        "@strapi/typescript-utils": "4.21.1",
+        "better-sqlite3": "^9.4.3",
+        "find-root": "^1.1.0",
+        "koa": "^2.15.2",
+        "lodash": "4.17.21",
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0",
+        "react-intl": "6.6.4",
+        "react-is": "^18.2.0",
+        "react-router-dom": "^6.0.0",
+        "strapi-plugin-populate-deep": "^3.0.1",
+        "styled-components": "^6.0.0",
+        "webpack": "^5.91.0"
+    },
+    "devDependencies": {
+        "@types/find-root": "^1.1.4",
+        "@typescript-eslint/eslint-plugin": "^7.5.0",
+        "@typescript-eslint/parser": "^7.5.0",
+        "eslint": "^8.57.0",
+        "eslint-import-resolver-typescript": "^3.6.1",
+        "eslint-plugin-import": "^2.29.1",
+        "eslint-plugin-sort-exports": "^0.9.1",
+        "eslint-plugin-tsdoc": "^0.2.17"
+    },
+    "strapi": {
+        "uuid": "b323f6ff-836a-4043-bb92-46a47e98de7b"
+    }
 }
