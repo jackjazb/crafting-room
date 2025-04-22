@@ -1,9 +1,9 @@
-import type { NextPage } from 'next';
-import { notFound } from 'next/navigation';
-import styles from './AboutPage.module.scss';
-import { cms } from '@/lib/server/services';
-import { StrapiImage } from '@/components/strapi-image/StrapiImage';
-import { md, mdi } from '@/lib/utils';
+import type { NextPage } from "next";
+import { notFound } from "next/navigation";
+import styles from "./AboutPage.module.scss";
+import { cms } from "@/lib/server/services";
+import { StrapiImage } from "@/components/strapi-image/StrapiImage";
+import { md, mdi } from "@/lib/utils";
 
 const AboutPage: NextPage = async () => {
     const aboutPage = await cms.getAboutPage()
@@ -15,13 +15,13 @@ const AboutPage: NextPage = async () => {
                 <StrapiImage
                     className={styles.image}
                     image={aboutPage.attributes.image.data}
-                    format='xlarge'
+                    format="xlarge"
                     priority
                     fallbackColor={false}
                 />
             </section>
 
-            <section className='container'>
+            <section className="container">
                 <h1 dangerouslySetInnerHTML={mdi(aboutPage.attributes.header)} />
                 <div dangerouslySetInnerHTML={md(aboutPage.attributes.content)} />
             </section>
@@ -40,7 +40,7 @@ const AboutPage: NextPage = async () => {
             */}
 
             {aboutPage.attributes.contact && (
-                <section className='container'>
+                <section className="container">
                     <h1>
                         Contact
                     </h1>

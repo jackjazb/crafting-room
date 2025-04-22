@@ -1,12 +1,12 @@
 @import "@scss/logic";
 
 .bandcampMessage.bandcampMessage {
-	font-weight: 500;
-	font-size: 1.4rem;
-	margin-top: 30px; //NOTE: match section styles
-	margin-bottom: -10px;
+    font-weight: 500;
+    font-size: 1.4rem;
+    margin-top: 30px; //NOTE: match section styles
+    margin-bottom: -10px;
 
-	@include media-breakpoint-down(lg) {
-		margin-top: 20px; //NOTE: match section styles
-	}
+    @include media-breakpoint-down(lg) {
+        margin-top: 20px; //NOTE: match section styles
+    }
 }

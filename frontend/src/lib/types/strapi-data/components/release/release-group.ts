@@ -1,6 +1,6 @@
-import type { Component, Release, Collection } from '@/lib/types';
+import type { Component, Release, Collection } from "@/lib/types";
 
-export interface ReleaseGroup extends Component {
-	header: string;
-	releases: Collection<Release>;
-}
+export type ReleaseGroup = {
+    header: string;
+    releases: Collection<Release>;
+} & Component;

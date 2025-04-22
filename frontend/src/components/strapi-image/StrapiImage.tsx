@@ -1,9 +1,9 @@
-import { media } from '@/lib/server/services';
-import type { Image as ImageData, ImageFormatName } from '@/lib/types';
-import Image from 'next/image';
-import type { FC } from 'react';
+import { media } from "@/lib/server/services";
+import type { Image as ImageData, ImageFormatName } from "@/lib/types";
+import Image from "next/image";
+import type { FC } from "react";
 
-interface Props {
+type Props = {
     className?: string | undefined;
     /**
      * The image data.
@@ -15,7 +15,7 @@ interface Props {
      * If the target format does not exist on the image, the next largest format
      * will be used.
      */
-    format: ImageFormatName | 'source';
+    format: ImageFormatName | "source";
     /**
      * Override or disable the default image fallback color.
      */
@@ -30,17 +30,17 @@ interface Props {
      * This automatically disables lazy loading.
      * @defaultValue
      * ```typescript
-     *	false
+     *    false
      * ```
      */
     priority?: boolean;
-}
+};
 
 /**
  * A Strapi image wrapped in a Next.js `<Image>` tag.
  */
-export const StrapiImage: FC<Props> = props => {
-    const format = props.format === 'source'
+export const StrapiImage: FC<Props> = (props) => {
+    const format = props.format === "source"
         ? props.image.attributes
         : media.getImageFormat(props.image, props.format);
 
@@ -52,13 +52,13 @@ export const StrapiImage: FC<Props> = props => {
             style={{
                 backgroundColor: props.fallbackColor !== false
                     ? props.fallbackColor ?? media.fallbackColor ?? undefined
-                    : undefined
+                    : undefined,
             }}
             src={url}
             width={format.width}
             height={format.height}
-            alt={props?.alt ?? props.image.attributes.alternativeText ?? 'CRR Image'}
-            loading={props.priority ? 'eager' : 'lazy'}
+            alt={props?.alt ?? props.image.attributes.alternativeText ?? "CRR Image"}
+            loading={props.priority ? "eager" : "lazy"}
             priority={props.priority}
         />
     );

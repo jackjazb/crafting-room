@@ -4,66 +4,46 @@ $path: "#{$assets-path}/fonts/WorkSans";
 $name: "WorkSans";
 $prefix: "WorkSans";
 $faces: (
-	(
-		suffix: "Thin",
-		weight: map.get($font_weights, Thin)
-	),
-	(
-		suffix: "ExtraLight",
-		weight: map.get($font_weights, ExtraLight)
-	),
-	(
-		suffix: "Light",
-		weight: map.get($font_weights, Light)
-	),
-	(
-		suffix: "Regular",
-		weight: map.get($font_weights, Regular)
-	),
-	(
-		suffix: "Medium",
-		weight: map.get($font_weights, Medium)
-	),
-	(
-		suffix: "SemiBold",
-		weight: map.get($font_weights, SemiBold)
-	),
-	(
-		suffix: "Bold",
-		weight: map.get($font_weights, Bold)
-	),
-	(
-		suffix: "ExtraBold",
-		weight: map.get($font_weights, ExtraBold)
-	),
-	(
-		suffix: "Black",
-		weight: map.get($font_weights, Black)
-	)
+    (suffix: "Thin",
+        weight: map.get($font_weights, Thin)),
+    (suffix: "ExtraLight",
+        weight: map.get($font_weights, ExtraLight)),
+    (suffix: "Light",
+        weight: map.get($font_weights, Light)),
+    (suffix: "Regular",
+        weight: map.get($font_weights, Regular)),
+    (suffix: "Medium",
+        weight: map.get($font_weights, Medium)),
+    (suffix: "SemiBold",
+        weight: map.get($font_weights, SemiBold)),
+    (suffix: "Bold",
+        weight: map.get($font_weights, Bold)),
+    (suffix: "ExtraBold",
+        weight: map.get($font_weights, ExtraBold)),
+    (suffix: "Black",
+        weight: map.get($font_weights, Black))
 );
 
 @each $face in $faces {
-	@font-face {
-		font-family: $name;
-		font-display: fallback;
-		font-style: normal;
-		font-weight: map.get($face, weight);
-		$filename: "#{$prefix}-#{map.get($face, suffix)}";
-		src:
-			url("#{$path}/ttf/#{$filename}.ttf") format("truetype"),
-			url("#{$path}/otf/#{$filename}.otf") format("opentype"),
-			url("#{$path}/woff2/#{$filename}.woff2") format("woff2");
-	}
+    @font-face {
+        font-family: $name;
+        font-display: fallback;
+        font-style: normal;
+        font-weight: map.get($face, weight);
+        $filename: "#{$prefix}-#{map.get($face, suffix)}";
+        src: url("#{$path}/ttf/#{$filename}.ttf") format("truetype"),
+        url("#{$path}/otf/#{$filename}.otf") format("opentype"),
+        url("#{$path}/woff2/#{$filename}.woff2") format("woff2");
+    }
 
-	@font-face {
-		font-family: $name;
-		font-display: fallback;
-		font-style: italic;
-		font-weight: map.get($face, weight);
-		$filename: "#{$prefix}-#{map.get($face, suffix)}Italic";
-		src:
-			url("#{$path}/ttf/#{$filename}.ttf") format("truetype"),
-			url("#{$path}/otf/#{$filename}.otf") format("opentype"),
-			url("#{$path}/woff2/#{$filename}.woff2") format("woff2");
-	}
+    @font-face {
+        font-family: $name;
+        font-display: fallback;
+        font-style: italic;
+        font-weight: map.get($face, weight);
+        $filename: "#{$prefix}-#{map.get($face, suffix)}Italic";
+        src: url("#{$path}/ttf/#{$filename}.ttf") format("truetype"),
+        url("#{$path}/otf/#{$filename}.otf") format("opentype"),
+        url("#{$path}/woff2/#{$filename}.woff2") format("woff2");
+    }
 }

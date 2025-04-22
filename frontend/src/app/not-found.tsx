@@ -1,9 +1,9 @@
-import type { NextPage } from 'next';
+import type { NextPage } from "next";
 
 const NotFoundPage: NextPage = () => {
     return (
         <main>
-            <section className='container'>
+            <section className="container">
                 <h1>
                     404
                 </h1>

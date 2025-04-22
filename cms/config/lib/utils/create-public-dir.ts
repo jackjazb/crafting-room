@@ -1,5 +1,5 @@
-import fs from 'fs';
-import { join } from 'path';
+import fs from "fs";
+import { join } from "path";
 
 /**
  * Creates the public directory at the target path.
@@ -9,15 +9,15 @@ import { join } from 'path';
  * @returns Public directory path
  */
 export const createPublicDir = (path: string) => {
-	const publicPath = join(path, 'public');
+    const publicPath = join(path, "public");
 
-	if (!fs.existsSync(publicPath))
-		fs.mkdirSync(publicPath, { recursive: true });
+    if (!fs.existsSync(publicPath))
+        fs.mkdirSync(publicPath, { recursive: true });
 
-	const uploadPath = join(publicPath, 'uploads');
+    const uploadPath = join(publicPath, "uploads");
 
-	if (!fs.existsSync(uploadPath))
-		fs.mkdirSync(uploadPath);
+    if (!fs.existsSync(uploadPath))
+        fs.mkdirSync(uploadPath);
 
-	return publicPath;
+    return publicPath;
 };

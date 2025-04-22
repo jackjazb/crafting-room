@@ -1,5 +1,5 @@
-import type { Collection, Single } from './type';
-import type { Item } from './item';
+import type { Collection, Single } from "./type";
+import type { Item } from "./item";
 
 /**
  * A response from the Strapi API.
@@ -12,20 +12,20 @@ export type StrapiResponse = SingleResponse | CollectionResponse;
 /**
  * Response received when querying a single item from the Strapi API.
  */
-export interface SingleResponse<T extends Item = Item> extends Single<T> {
-	meta: Record<string, unknown>;
-}
+export type SingleResponse<T extends Item = Item> = {
+    meta: Record<string, unknown>;
+} & Single<T>;
 
 /**
  * Response received when querying a collection from the Strapi API.
  */
-export interface CollectionResponse<T extends Item = Item> extends Collection<T> {
-	meta: {
-		pagination: {
-			page: number;
-			pageSize: number;
-			pageCount: number;
-			total: number;
-		};
-	};
-}
+export type CollectionResponse<T extends Item = Item> = {
+    meta: {
+        pagination: {
+            page: number;
+            pageSize: number;
+            pageCount: number;
+            total: number;
+        };
+    };
+} & Collection<T>;

@@ -10,7 +10,7 @@
         "dev": "nx next:dev",
         "build": "nx next:build",
         "start": "nx next:start",
-        "lint": "eslint -c .eslintrc.js ./src --fix"
+        "lint": "eslint"
     },
     "dependencies": {
         "deepmerge": "^4.3.1",
@@ -23,17 +23,10 @@
         "react-icons": "^5.0.1"
     },
     "devDependencies": {
-        "@next/eslint-plugin-next": "^14.1.4",
         "@types/markdown-it": "^13.0.7",
         "@types/node": "20.11.30",
         "@types/qs": "^6.9.14",
         "@types/react": "18.2.73",
-        "@types/react-dom": "18.2.23",
-        "@typescript-eslint/eslint-plugin": "^7.5.0",
-        "@typescript-eslint/parser": "^7.5.0",
-        "eslint": "^8.57.0",
-        "eslint-plugin-react": "^7.34.1",
-        "typescript": "^5.4.3",
-        "typescript-plugin-css-modules": "^5.1.0"
+        "@types/react-dom": "18.2.23"
     }
 }

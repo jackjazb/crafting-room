@@ -1,5 +1,5 @@
-import type { FC } from 'react';
-import { Spinner } from '@/components/spinner/Spinner';
+import type { FC } from "react";
+import { Spinner } from "@/components/spinner/Spinner";
 
 const Loading: FC = () => {
     return <Spinner />;

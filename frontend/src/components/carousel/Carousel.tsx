@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import type { FC, PropsWithChildren } from 'react';
-import { Children, useCallback } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import { RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri';
-import styles from './Carousel.module.scss';
-import { createClass } from '@/lib/utils';
+import type { FC, PropsWithChildren } from "react";
+import { Children, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
+import styles from "./Carousel.module.scss";
+import { createClass } from "@/lib/utils";
 
 /**
  * Wraps its children in an Embla carousel.
  */
-export const Carousel: FC<PropsWithChildren> = props => {
+export const Carousel: FC<PropsWithChildren> = (props) => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 20 });
 
     const scrollPrev = useCallback(() => {
@@ -42,9 +42,9 @@ export const Carousel: FC<PropsWithChildren> = props => {
             <button
                 className={createClass(
                     styles.arrow,
-                    styles.prev
+                    styles.prev,
                 )}
-                aria-label='Next slide'
+                aria-label="Next slide"
                 tabIndex={0}
                 onClick={scrollPrev}
             >
@@ -53,9 +53,9 @@ export const Carousel: FC<PropsWithChildren> = props => {
             <button
                 className={createClass(
                     styles.arrow,
-                    styles.next
+                    styles.next,
                 )}
-                aria-label='Previous slide'
+                aria-label="Previous slide"
                 tabIndex={0}
                 onClick={scrollNext}
             >

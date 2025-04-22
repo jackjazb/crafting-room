@@ -1,13 +1,13 @@
 @import "@scss/logic";
 
 .iconLink {
-	display: flex;
-	padding: 5px;
-	color: black;
+    display: flex;
+    padding: 5px;
+    color: black;
 
-	@include hover-active-swap-focus-visible {
-		text-decoration: none;
-		color: var(--icon-link-color);
-		transition: color var(--transition-fast);
-	}
+    @include hover-active-swap-focus-visible {
+        text-decoration: none;
+        color: var(--icon-link-color);
+        transition: color var(--transition-fast);
+    }
 }

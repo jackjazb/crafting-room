@@ -1,4 +1,4 @@
-import type { Item, Component } from './item';
+import type { Component, Item } from "./item";
 
 /**
  * A single Strapi component.
@@ -13,7 +13,7 @@ export type SingleComponent<TItem extends Component = Component> = TItem;
  * Contains multiple (**zero or more**) components within.
  */
 export type RepeatedComponent<TItem extends Component = Component> =
-	TItem[];
+    TItem[];
 
 /**
  * A required repeated Strapi component.
@@ -21,36 +21,34 @@ export type RepeatedComponent<TItem extends Component = Component> =
  * Contains multiple (**one or more**) components within.
  */
 export type RequiredRepeatedComponent<TItem extends Component = Component> =
-	[TItem, ...TItem[]];
+    [TItem, ...TItem[]];
 
 /**
  * A Strapi single-type.
  *
  * Contains a single item within.
  */
-export interface Single<
-	TItem extends Item = Item
-> {
-	data: TItem;
-	meta: {
-		[key: string]: unknown;
-	};
-}
+export type Single<
+    TItem extends Item = Item,
+> = {
+    data: TItem;
+    meta: Record<string, unknown>;
+};
 
 /**
  * A Strapi collection.
  *
  * Contains multiple (**zero or more**) items within.
  */
-export interface Collection<TItem extends Item = Item> {
-	data: TItem[];
-}
+export type Collection<TItem extends Item = Item> = {
+    data: TItem[];
+};
 
 /**
  * A required Strapi collection.
  *
  * Contains multiple (**one or more**) items within.
  */
-export interface RequiredCollection<TItem extends Item = Item> {
-	data: [TItem, ...TItem[]];
-}
+export type RequiredCollection<TItem extends Item = Item> = {
+    data: [TItem, ...TItem[]];
+};

@@ -2,6 +2,6 @@
  * artist router
  */
 
-import { factories } from '@strapi/strapi';
+import { factories } from "@strapi/strapi";
 
-export default factories.createCoreRouter('api::artist.artist');
+export default factories.createCoreRouter("api::artist.artist");

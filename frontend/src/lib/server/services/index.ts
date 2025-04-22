@@ -1,2 +1,2 @@
-export * from './cms';
-export * from './strapi-media';
+export * from "./cms";
+export * from "./strapi-media";

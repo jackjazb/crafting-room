@@ -1,16 +1,16 @@
-import type { Component } from '@/lib/types';
+import type { Component } from "@/lib/types";
 
-export interface SocialLink extends Component {
-	link: string;
-	linktype: SocialLinkType;
-}
+export type SocialLink = {
+    link: string;
+    linktype: SocialLinkType;
+} & Component;
 
 export type SocialLinkType =
-	'spotify' |
-	'instagram' |
-	'facebook' |
-	'twitter' |
-	'website' |
-	'linktree' |
-	'youtube' |
-	'bandcamp';
+    "spotify" |
+    "instagram" |
+    "facebook" |
+    "twitter" |
+    "website" |
+    "linktree" |
+    "youtube" |
+    "bandcamp";

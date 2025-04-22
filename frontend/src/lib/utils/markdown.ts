@@ -1,5 +1,5 @@
-import markdownit from 'markdown-it/lib';
-import type { DOMAttributes } from 'react';
+import markdownit from "markdown-it/lib";
+import type { DOMAttributes } from "react";
 
 const mdIt = markdownit();
 
@@ -7,16 +7,16 @@ const mdIt = markdownit();
 
 // Remember the old renderer if overridden, or proxy to the default renderer.
 const defaultRender = mdIt.renderer.rules.link_open || function (tokens, idx, options, _env, self) {
-	return self.renderToken(tokens, idx, options);
+    return self.renderToken(tokens, idx, options);
 };
 
 mdIt.renderer.rules.link_open = (tokens, idx, options, env, self) => {
-	tokens[idx]!.attrSet('target', '_blank');
-	return defaultRender(tokens, idx, options, env, self);
+    tokens[idx]?.attrSet("target", "_blank");
+    return defaultRender(tokens, idx, options, env, self);
 };
 
 type DangerouslySetInnerHTMLProp = Required<
-	DOMAttributes<never>['dangerouslySetInnerHTML']
+    DOMAttributes<never>["dangerouslySetInnerHTML"]
 >;
 
 /**
@@ -26,7 +26,7 @@ type DangerouslySetInnerHTMLProp = Required<
  * @returns Markdown parsed as HTML
  */
 export const md = (content: string): DangerouslySetInnerHTMLProp =>
-	({ __html: mdIt.render(content) });
+    ({ __html: mdIt.render(content) });
 
 /**
  * Parses markdown into HTML **inline** and return it in the form of React's
@@ -37,4 +37,4 @@ export const md = (content: string): DangerouslySetInnerHTMLProp =>
  * @returns Markdown parsed as HTML **inline**
  */
 export const mdi = (content: string): DangerouslySetInnerHTMLProp =>
-	({ __html: mdIt.renderInline(content) });
+    ({ __html: mdIt.renderInline(content) });

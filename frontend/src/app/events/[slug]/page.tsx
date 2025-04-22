@@ -1,39 +1,39 @@
-import type { NextPage } from 'next';
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import styles from './Event.module.scss';
-import { cms } from '@/lib/server/services';
-import { md, mdi } from '@/lib/utils/markdown';
-import { formatDate, createClass } from '@/lib/utils';
-import { ArtistGrid } from '@/components/artist/ArtistGrid';
-import { StrapiImage } from '@/components/strapi-image/StrapiImage';
+import type { NextPage } from "next";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import styles from "./Event.module.scss";
+import { cms } from "@/lib/server/services";
+import { md, mdi } from "@/lib/utils/markdown";
+import { formatDate, createClass } from "@/lib/utils";
+import { ArtistGrid } from "@/components/artist/ArtistGrid";
+import { StrapiImage } from "@/components/strapi-image/StrapiImage";
 
-interface ServerProps {
+type ServerProps = {
     params: { slug: string; };
-}
+};
 
-const EventPage: NextPage<ServerProps> = async props => {
+const EventPage: NextPage<ServerProps> = async (props) => {
     const { slug } = props.params;
 
     const event = await cms.getEvent({ slug })
         .catch(notFound);
 
-    //TODO: get current date in uk time
+    // TODO: get current date in uk time
     const currentDate = new Date();
     const eventDate = new Date(event.attributes.date);
     const eventIsInFuture = eventDate > currentDate;
 
     return (
-        <main className='container'>
-            <section className='split-section'>
+        <main className="container">
+            <section className="split-section">
                 <StrapiImage
-                    className='split-section__image'
+                    className="split-section__image"
                     image={event.attributes.image.data}
-                    format='xlarge'
+                    format="xlarge"
                     priority
                 />
 
-                <div className='split-section__content'>
+                <div className="split-section__content">
                     <hgroup>
                         <h1 dangerouslySetInnerHTML={mdi(event.attributes.title)} />
                         <p className={styles.subtitle}>
@@ -41,11 +41,11 @@ const EventPage: NextPage<ServerProps> = async props => {
                                 className={styles.venue}
                                 dangerouslySetInnerHTML={mdi(event.attributes.venue)}
                             />
-                            {' '}
+                            {" "}
                             ▸
-                            {' '}
+                            {" "}
                             <span className={styles.date}>
-                                {formatDate(event.attributes.date, 'numeric')}
+                                {formatDate(event.attributes.date, "numeric")}
                             </span>
                         </p>
                     </hgroup>
@@ -58,13 +58,13 @@ const EventPage: NextPage<ServerProps> = async props => {
                         <Link
                             className={createClass(
                                 styles.book,
-                                'button',
-                                'button-primary'
+                                "button",
+                                "button-primary",
                             )}
                             href={event.attributes.link}
-                            target='_blank'
-                            rel='external'
-                            aria-label='Book tickets for the event (external)'
+                            target="_blank"
+                            rel="external"
+                            aria-label="Book tickets for the event (external)"
                         >
                             Book Tickets
                         </Link>

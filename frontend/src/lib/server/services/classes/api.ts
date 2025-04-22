@@ -1,11 +1,11 @@
-import { delay } from '@/lib/utils';
-import merge from 'deepmerge';
-import { stringify } from 'qs';
+import { delay } from "@/lib/utils";
+import merge from "deepmerge";
+import { stringify } from "qs";
 
 /**
  * Options for an API service.
  */
-export interface ApiServiceOptions {
+export type ApiServiceOptions = {
     /**
      * Hostname of the API.
      */
@@ -17,7 +17,7 @@ export interface ApiServiceOptions {
      * Include a leading, **but not a trailing slash - it's automatically appended**.
      * @defaultValue
      * ```typescript
-     *	null
+     *  null
      * ```
      */
     basePath?: string | null;
@@ -27,7 +27,7 @@ export interface ApiServiceOptions {
      * Any subsequently passed parameters will be deeply merged with these.
      * @defaultValue
      * ```typescript
-     *	null
+     *    null
      * ```
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,7 +36,7 @@ export interface ApiServiceOptions {
      * Time to wait for a response before giving up (in seconds).
      * @defaultValue
      * ```typescript
-     *	null
+     *    null
      * ```
      */
     timeout?: number | null;
@@ -44,11 +44,11 @@ export interface ApiServiceOptions {
      * Interval between NextJS SSG cache revalidations (in seconds).
      * @defaultValue
      * ```
-     *	60 //seconds
+     *    60 //seconds
      * ```
      */
     ssgRevalidationInterval?: number | null;
-}
+};
 
 /**
  * A service for handling and performing API requests.
@@ -59,7 +59,7 @@ export class ApiService<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     TBaseResponse extends Record<string, any> = Record<string, any>,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    TBaseParams extends Record<string, any> = Record<string, any>
+    TBaseParams extends Record<string, any> = Record<string, any>,
 > {
     static createOptions(options: ApiServiceOptions): Required<ApiServiceOptions> {
         return merge(
@@ -67,9 +67,9 @@ export class ApiService<
                 basePath: null,
                 timeout: null,
                 ssgRevalidationInterval: 60,
-                baseParams: null
+                baseParams: null,
             },
-            options
+            options,
         );
     }
 
@@ -95,35 +95,35 @@ export class ApiService<
      */
     async get<
         TResponse extends TBaseResponse = TBaseResponse,
-        TParams extends TBaseParams = TBaseParams
+        TParams extends TBaseParams = TBaseParams,
     >(
         endpoint: string,
         params?: TParams,
-        options?: RequestInit
+        options?: RequestInit,
     ): Promise<TResponse> {
         const _params = merge(
             this.options.baseParams ?? {},
-            params ?? {}
+            params ?? {},
         );
 
         const encodedParams = stringify(_params);
 
-        const url = `${this.options.hostname}${this.options.basePath ?? ''}/${endpoint}${encodedParams ? `?${encodedParams}` : ''}`;
+        const url = `${this.options.hostname}${this.options.basePath ?? ""}/${endpoint}${encodedParams ? `?${encodedParams}` : ""}`;
 
         const _options = merge(
             { next: { revalidate: this.options.ssgRevalidationInterval ?? false } },
-            options ?? {}
+            options ?? {},
         ) as RequestInit;
 
         const sendRequest = async () => {
             const response = await fetch(url, _options);
             if (!response.ok)
-                throw new Error('Response was not OK');
+                throw new Error("Response was not OK");
 
             return response;
         };
 
-        //TODO: do actual request cancellation here?
+        // TODO: do actual request cancellation here?
         const response = await new Promise<Response>((resolve, reject) => {
             void sendRequest()
                 .then(resolve)
@@ -131,7 +131,7 @@ export class ApiService<
 
             if (this.options.timeout)
                 void delay(this.options.timeout * 1000)
-                    .then(() => reject(`Request timed out after ${this.options.timeout! * 1000} seconds`));
+                    .then(() => reject(`Request timed out after ${this.options.timeout ?? 0 * 1000} seconds`));
         });
 
         return await response.json() as TResponse;

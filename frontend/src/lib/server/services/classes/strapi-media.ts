@@ -1,11 +1,11 @@
-import type { Image, ImageFormat, ImageFormatName } from '@/lib/types';
-import merge from 'deepmerge';
-import type { CSSProperties } from 'react';
+import type { Image, ImageFormat, ImageFormatName } from "@/lib/types";
+import merge from "deepmerge";
+import type { CSSProperties } from "react";
 
 /**
  * Options for a Strapi media service.
  */
-export interface StrapiMediaServiceOptions {
+export type StrapiMediaServiceOptions = {
     /**
      * Hostname for the media provider.
      *
@@ -20,11 +20,11 @@ export interface StrapiMediaServiceOptions {
      * The default background color shown behind media while it loads in.
      * @defaultValue
      * ```typescript
-     *	null
+     *    null
      * ```
      */
     defaultFallbackColor?: string | null;
-}
+};
 
 /**
  * A service for handling the formatting and transforming of Strapi
@@ -34,9 +34,9 @@ export class StrapiMediaService {
     static createOptions(options: StrapiMediaServiceOptions): Required<StrapiMediaServiceOptions> {
         return merge(
             {
-                defaultFallbackColor: null
+                defaultFallbackColor: null,
             },
-            options
+            options,
         );
     }
 
@@ -66,7 +66,7 @@ export class StrapiMediaService {
      * @returns Resolved media URL
      */
     url(url: string): string {
-        return url.startsWith('/')
+        return url.startsWith("/")
             ? this.options.mediaProviderHostname + url
             : url;
     }
@@ -83,7 +83,7 @@ export class StrapiMediaService {
     getImageFormat(image: Image, targetFormat: ImageFormatName): ImageFormat {
         return image.attributes.formats[targetFormat]
             ?? Object.values(image.attributes.formats)
-                .sort((a, b) => b.width - a.width)[0]!;
+                .sort((a, b) => b.width - a.width)[0] as unknown as ImageFormat;
     }
 
     /**
@@ -96,10 +96,10 @@ export class StrapiMediaService {
      */
     createBackground(
         image: Image,
-        targetFormat: ImageFormatName | 'source',
-        fallbackColor?: string | false
+        targetFormat: ImageFormatName | "source",
+        fallbackColor?: string | false,
     ): CSSProperties {
-        const format = targetFormat === 'source'
+        const format = targetFormat === "source"
             ? image.attributes
             : this.getImageFormat(image, targetFormat);
 
@@ -111,7 +111,7 @@ export class StrapiMediaService {
 
         return {
             backgroundImage: `url('${url}')`,
-            backgroundColor: color
+            backgroundColor: color,
         };
     }
 }
