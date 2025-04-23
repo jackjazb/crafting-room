@@ -1,10 +1,8 @@
-import type { FC } from "react";
-
 /**
  * This is a bit nasty, but it's the easiest way of loading the injecting the SVG
  * into the DOM without using a library.
  */
-export const CRRLogo: FC = () => {
+export const CRRLogo = () => {
     return (
         <svg
             version="1.0"

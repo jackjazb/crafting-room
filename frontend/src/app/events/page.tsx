@@ -1,18 +1,16 @@
-import type { NextPage } from "next";
-import { notFound } from "next/navigation";
 import { EventTile } from "@/components/event/EventTile";
-import { cms } from "@/lib/server/services";
+import { content } from "@/lib/server/content";
+import type { NextPage } from "next";
 
 const EventsPage: NextPage = async () => {
-    const events = await cms.getEvents()
-        .catch(notFound);
+    const events = await content.events();// cms.getEvents()
+    // .catch(notFound);
 
-    // TODO: get current date in uk time
     const currentDate = new Date();
 
     // Split the list of events into past and future
     const pastEvents = events.filter(event =>
-        new Date(event.attributes.date) < currentDate);
+        new Date(event.date) < currentDate);
 
     const futureEvents = events.filter(event =>
         !pastEvents.includes(event));

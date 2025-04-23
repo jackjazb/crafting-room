@@ -1,10 +1,9 @@
-import { RiExternalLinkLine } from "react-icons/ri";
-import type { FC } from "react";
-import Link from "next/link";
-import styles from "./ReleaseTile.module.scss";
-import type { Release } from "@/lib/types";
 import { StrapiImage } from "@/components/strapi-image/StrapiImage";
+import { Release } from "@/lib/server/content";
 import { createClass, mdi } from "@/lib/utils";
+import Link from "next/link";
+import { RiExternalLinkLine } from "react-icons/ri";
+import styles from "./ReleaseTile.module.scss";
 
 type Props = {
     release: Release;
@@ -13,14 +12,14 @@ type Props = {
 /**
  * Renders a single release with a Bandcamp link.
  */
-export const ReleaseTile: FC<Props> = (props) => {
+export const ReleaseTile = (props: Props) => {
     return (
         <div className={styles.wrapper}>
             <StrapiImage
                 className={styles.image}
-                image={props.release.attributes.artwork.data}
+                image={props.release.artwork}
                 format="large"
-                alt={props.release.attributes.title}
+                alt={props.release.title}
             />
 
             <div className={styles.overlay}>
@@ -29,7 +28,7 @@ export const ReleaseTile: FC<Props> = (props) => {
                         styles.title,
                         "overlay-text",
                     )}
-                    dangerouslySetInnerHTML={mdi(props.release.attributes.title)}
+                    dangerouslySetInnerHTML={mdi(props.release.title)}
                 />
                 <div
                     className={createClass(
@@ -38,20 +37,20 @@ export const ReleaseTile: FC<Props> = (props) => {
                         "overlay-text--small",
                     )}
                     dangerouslySetInnerHTML={
-                        mdi(props.release.attributes.artist.data.attributes.name)
+                        mdi(props.release.artist?.name ?? "")
                     }
                 />
 
-                {props.release.attributes.link && (
+                {props.release.link && (
                     <Link
                         className={createClass(
                             styles.link,
                             "black-button",
                         )}
-                        href={props.release.attributes.link}
+                        href={props.release.link}
                         target="_blank"
                         rel="external"
-                        aria-label={`View the release on our Bandcamp '${props.release.attributes.title}'`}
+                        aria-label={`View the release on our Bandcamp '${props.release.title}'`}
                     >
                         <RiExternalLinkLine />
                         Bandcamp

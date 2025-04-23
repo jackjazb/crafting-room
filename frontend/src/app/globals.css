@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer base {}
+
+@utility overlay {
+    @apply p-2.5 bg-black text-white font-medium
+}

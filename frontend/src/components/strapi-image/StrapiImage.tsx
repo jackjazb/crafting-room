@@ -1,14 +1,13 @@
-import { media } from "@/lib/server/services";
-import type { Image as ImageData, ImageFormatName } from "@/lib/types";
+import { Image as CmsImage, defaultFallbackColor, ImageFormatName } from "@/lib/server/content";
+import { media } from "@/lib/server/media";
 import Image from "next/image";
-import type { FC } from "react";
 
 type Props = {
     className?: string | undefined;
     /**
      * The image data.
      */
-    image: ImageData;
+    image: CmsImage | undefined;
     /**
      * The target image format.
      *
@@ -39,27 +38,30 @@ type Props = {
 /**
  * A Strapi image wrapped in a Next.js `<Image>` tag.
  */
-export const StrapiImage: FC<Props> = (props) => {
+export const StrapiImage = (props: Props) => {
+    if (!props.image) {
+        return null;
+    }
     const format = props.format === "source"
-        ? props.image.attributes
-        : media.getImageFormat(props.image, props.format);
+        ? props.image
+        : media.getMediaFormat(props.image, props.format);
 
-    const url = media.url(format.url);
+    const url = media.getMediaUrl(format.url);
 
     return (
         <Image
             className={props.className}
             style={{
-                backgroundColor: props.fallbackColor !== false
-                    ? props.fallbackColor ?? media.fallbackColor ?? undefined
-                    : undefined,
+                backgroundColor: props.fallbackColor === false
+                    ? undefined
+                    : props.fallbackColor ?? defaultFallbackColor,
             }}
             src={url}
             width={format.width}
             height={format.height}
-            alt={props?.alt ?? props.image.attributes.alternativeText ?? "CRR Image"}
+            alt={props?.alt ?? props.image.alternativeText ?? "CRR Image"}
             loading={props.priority ? "eager" : "lazy"}
-            priority={props.priority}
+            priority={props.priority ?? false}
         />
     );
 };

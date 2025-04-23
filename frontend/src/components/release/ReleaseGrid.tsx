@@ -1,7 +1,6 @@
-import type { FC } from "react";
+import { Release } from "@/lib/server/content";
 import styles from "./ReleaseGrid.module.scss";
 import { ReleaseTile } from "./ReleaseTile";
-import type { Release } from "@/lib/types";
 
 type Props = {
     className?: string | undefined;
@@ -9,11 +8,11 @@ type Props = {
     order?: "date";
 };
 
-export const ReleaseGrid: FC<Props> = (props) => {
+export const ReleaseGrid = (props: Props) => {
     if (props.order === "date")
         props.releases.sort((a, b) => {
-            const aDate = new Date(a.attributes.date);
-            const bDate = new Date(b.attributes.date);
+            const aDate = new Date(a.date);
+            const bDate = new Date(b.date);
 
             if (aDate > bDate)
                 return -1;

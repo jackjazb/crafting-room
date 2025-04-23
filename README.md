@@ -2,11 +2,16 @@
 
 This is Crafting Room Recordings' updated website. It uses a Strapi CMS and a Next.js frontend.
 
+## Current TODO
+
+- Standardise approach to SSG (everything should be using <https://nextjs.org/docs/pages/building-your-application/data-fetching/incremental-static-regeneration> with a decent sized interval)
+- Switch everything to Tailwind (I hate sass)
+
 ## Project Setup
 
 1. Clone the repository
-2. This project uses `pnpm run` - install it using `npm i -g pnpm run`
-3. Run `pnpm run install` at the project root
+2. Install `pnpm` using `npm i -g pnpm`
+3. Run `pnpm install` at the project root
 
 For both the `cms` and `frontend` directories, you'll need to create a `.env` file directly within them using the provided `.env.example` templates. For development purposes you don't need to set the variables marked as required.
 

@@ -1,3 +1,3 @@
-export * from "./strapi";
-export * from "./strapi-data";
-export * from "./utils";
+export type PageProps = {
+    params: Promise<{ slug: string; }>;
+};

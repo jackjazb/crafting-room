@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { CSSProperties, FC } from "react";
+import type { CSSProperties } from "react";
 import { useEffect, useRef, useState } from "react";
 import { IoMdMore } from "react-icons/io";
 import { CRRLogo } from "../logo/CRRLogo";
@@ -11,7 +11,7 @@ import styles from "./Navbar.module.scss";
 /**
  * The navbar.
  */
-export const Navbar: FC = () => {
+export const Navbar = () => {
     const pathname = usePathname();
 
     const nav = useRef<HTMLElement>(null);

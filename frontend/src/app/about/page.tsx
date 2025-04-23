@@ -1,20 +1,19 @@
-import type { NextPage } from "next";
-import { notFound } from "next/navigation";
-import styles from "./AboutPage.module.scss";
-import { cms } from "@/lib/server/services";
 import { StrapiImage } from "@/components/strapi-image/StrapiImage";
+import { content } from "@/lib/server/content";
 import { md, mdi } from "@/lib/utils";
+import type { NextPage } from "next";
+import styles from "./AboutPage.module.scss";
 
 const AboutPage: NextPage = async () => {
-    const aboutPage = await cms.getAboutPage()
-        .catch(notFound);
+    const aboutPage = await content.aboutPage();// await cms.getAboutPage()
+    // .catch(notFound);
 
     return (
         <main>
             <section>
                 <StrapiImage
                     className={styles.image}
-                    image={aboutPage.attributes.image.data}
+                    image={aboutPage.image}
                     format="xlarge"
                     priority
                     fallbackColor={false}
@@ -22,8 +21,8 @@ const AboutPage: NextPage = async () => {
             </section>
 
             <section className="container">
-                <h1 dangerouslySetInnerHTML={mdi(aboutPage.attributes.header)} />
-                <div dangerouslySetInnerHTML={md(aboutPage.attributes.content)} />
+                <h1 dangerouslySetInnerHTML={mdi(aboutPage.header)} />
+                <div dangerouslySetInnerHTML={md(aboutPage.content)} />
             </section>
 
             {/*
@@ -39,13 +38,12 @@ const AboutPage: NextPage = async () => {
 
             */}
 
-            {aboutPage.attributes.contact && (
+            {aboutPage.contact && (
                 <section className="container">
                     <h1>
                         Contact
                     </h1>
-                    {/* TODO: this should be converted to not be a RTE in strapi! */}
-                    <div dangerouslySetInnerHTML={md(aboutPage.attributes.contact)} />
+                    <div dangerouslySetInnerHTML={md(aboutPage.contact)} />
                 </section>
             )}
         </main>

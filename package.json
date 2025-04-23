@@ -10,7 +10,7 @@
     ],
     "scripts": {
         "dev": "pnpm exec nx run-many -t dev",
-        "lint": "pnpm exec eslint",
+        "lint": "pnpm exec nx run-many -t lint",
         "frontend": "pnpm pnpm --filter frontend start",
         "frontend-dev": "pnpm run workspace frontend dev",
         "frontend-build": "pnpm run workspace frontend build",
@@ -19,10 +19,10 @@
         "cms-build": "pnpm run workspace cms run build"
     },
     "devDependencies": {
+        "@eslint/compat": "^1.2.8",
         "@eslint/js": "^9.25.1",
         "@next/eslint-plugin-next": "^14.1.4",
         "@nx/eslint": "20.8.0",
-        "@nx/next": "20.8.0",
         "@stylistic/eslint-plugin": "^4.2.0",
         "@types/node": "^20.10.5",
         "nx": "20.8.0",

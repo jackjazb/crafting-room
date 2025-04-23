@@ -1,16 +1,16 @@
 "use client";
 
-import type { FC, PropsWithChildren } from "react";
-import { Children, useCallback } from "react";
+import { createClass } from "@/lib/utils";
 import useEmblaCarousel from "embla-carousel-react";
+import type { PropsWithChildren } from "react";
+import { Children, useCallback } from "react";
 import { RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
 import styles from "./Carousel.module.scss";
-import { createClass } from "@/lib/utils";
 
 /**
  * Wraps its children in an Embla carousel.
  */
-export const Carousel: FC<PropsWithChildren> = (props) => {
+export const Carousel = (props: PropsWithChildren) => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 20 });
 
     const scrollPrev = useCallback(() => {

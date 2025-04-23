@@ -1,7 +1,7 @@
-import type { SocialLinkType } from "@/lib/types";
+import { SocialLinkType } from "@/lib/server/content";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
-import type { CSSProperties, FC, ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { BsGlobe } from "react-icons/bs";
 import { SiBandcamp, SiFacebook, SiInstagram, SiLinktree, SiSpotify, SiX, SiYoutube } from "react-icons/si";
 import styles from "./IconLink.module.scss";
@@ -31,7 +31,7 @@ type Props = {
 /**
  * An icon with a link.
  */
-export const IconLink: FC<Props> = (props) => {
+export const IconLink = (props: Props) => {
     return (
         <Link
             {...props}

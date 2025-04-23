@@ -1,10 +1,8 @@
-"use client";
-
-import type { FC, FormEvent } from "react";
-import { useState } from "react";
-import { MdErrorOutline, MdDone } from "react-icons/md";
-import styles from "./SubscribeForm.module.scss";
 import { createClass } from "@/lib/utils";
+import type { FormEvent } from "react";
+import { useState } from "react";
+import { MdDone, MdErrorOutline } from "react-icons/md";
+import styles from "./SubscribeForm.module.scss";
 
 // see this page: https://stackoverflow.com/a/201378
 // eslint-disable-next-line no-control-regex
@@ -17,7 +15,7 @@ type SubscriptionDetails = {
 /**
  * Email subscription form.
  */
-export const SubscribeForm: FC = () => {
+export const SubscribeForm = () => {
     const [valid, setValid] = useState(true);
     const [details, setDetails] = useState<SubscriptionDetails | null>(null);
 

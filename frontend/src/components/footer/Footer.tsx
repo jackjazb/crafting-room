@@ -1,11 +1,10 @@
-import type { FC } from "react";
-import styles from "./Footer.module.scss";
 import { IconLink } from "@/components/icon-link/IconLink";
+import styles from "./Footer.module.scss";
 
 /**
  * The page footer.
  */
-export const Footer: FC = () => {
+export const Footer = () => {
     return (
         <footer className={styles.footer}>
             <IconLink

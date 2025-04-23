@@ -1,11 +1,10 @@
-import type { NextPage } from "next";
-import { notFound } from "next/navigation";
 import { ArticleTile } from "@/components/article/ArticleTile";
-import { cms } from "@/lib/server/services";
+import { content } from "@/lib/server/content";
+import type { NextPage } from "next";
 
 const NewsPage: NextPage = async () => {
-    const articles = await cms.getArticles()
-        .catch(notFound);
+    const articles = await content.articles();// cms.getArticles()
+    // .catch(notFound);
 
     return (
         <main>

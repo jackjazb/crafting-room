@@ -7,26 +7,35 @@
         "node": ">=20.11"
     },
     "scripts": {
-        "dev": "nx next:dev",
-        "build": "nx next:build",
-        "start": "nx next:start",
+        "dev": "next dev --turbopack",
+        "build": "next build",
+        "start": "next start",
         "lint": "eslint"
     },
     "dependencies": {
+        "@tailwindcss/postcss": "^4.1.4",
         "deepmerge": "^4.3.1",
         "embla-carousel-react": "^8.0.0",
         "markdown-it": "^14.1.0",
-        "next": "14.1.4",
+        "next": "15.3.1",
+        "postcss": "^8.5.3",
         "qs": "^6.12.0",
-        "react": "18.2.0",
-        "react-dom": "18.2.0",
-        "react-icons": "^5.0.1"
+        "react": "19.1.0",
+        "react-dom": "19.1.0",
+        "react-icons": "^5.0.1",
+        "tailwindcss": "^4.1.4"
     },
     "devDependencies": {
         "@types/markdown-it": "^13.0.7",
         "@types/node": "20.11.30",
         "@types/qs": "^6.9.14",
-        "@types/react": "18.2.73",
-        "@types/react-dom": "18.2.23"
+        "@types/react": "19.1.2",
+        "@types/react-dom": "19.1.2"
+    },
+    "pnpm": {
+        "overrides": {
+            "@types/react": "19.1.2",
+            "@types/react-dom": "19.1.2"
+        }
     }
 }

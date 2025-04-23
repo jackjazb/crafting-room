@@ -1,9 +1,8 @@
-import type { FC } from "react";
+import { StrapiImage } from "@/components/strapi-image/StrapiImage";
+import type { Event } from "@/lib/server/content";
+import { createClass, formatDate, mdi } from "@/lib/utils";
 import Link from "next/link";
 import styles from "./EventTile.module.scss";
-import { StrapiImage } from "@/components/strapi-image/StrapiImage";
-import { formatDate, createClass, mdi } from "@/lib/utils";
-import type { Event } from "@/lib/types";
 
 type Props = {
     event: Event;
@@ -13,7 +12,7 @@ type Props = {
 /**
  * An event tile on the events list page.
  */
-export const EventTile: FC<Props> = (props) => {
+export const EventTile = (props: Props) => {
     return (
         <div
             key={props.event.id}
@@ -25,18 +24,18 @@ export const EventTile: FC<Props> = (props) => {
             <div className={styles.content}>
                 <StrapiImage
                     className={styles.thumbnail}
-                    image={props.event.attributes.image.data}
+                    image={props.event.image}
                     format="medium"
-                    alt={props.event.attributes.title}
+                    alt={props.event.title}
                 />
 
                 <div className={styles.details}>
                     <div
                         className={styles.title}
-                        dangerouslySetInnerHTML={mdi(props.event.attributes.title)}
+                        dangerouslySetInnerHTML={mdi(props.event.title)}
                     />
                     <div className={styles.date}>
-                        {formatDate(props.event.attributes.date, "full")}
+                        {formatDate(props.event.date, "full")}
                     </div>
                 </div>
             </div>
@@ -44,16 +43,16 @@ export const EventTile: FC<Props> = (props) => {
             <div className={styles.options}>
                 <Link
                     className="button"
-                    href={`/events/${props.event.attributes.slug}`}
-                    aria-label={`View the event '${props.event.attributes.title}'`}
+                    href={`/events/${props.event.slug}`}
+                    aria-label={`View the event '${props.event.title}'`}
                 >
                     More Info
                 </Link>
 
-                {props.canBook && props.event.attributes.link && (
+                {props.canBook && props.event.link && (
                     <Link
                         className="button button-primary"
-                        href={props.event.attributes.link}
+                        href={props.event.link}
                         target="_blank"
                         rel="external"
                         aria-label="Book tickets for the event (external)"

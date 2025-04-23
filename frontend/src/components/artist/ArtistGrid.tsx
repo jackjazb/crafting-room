@@ -1,13 +1,12 @@
-import type { FC } from "react";
-import styles from "./ArtistGrid.module.scss";
-import type { Artist } from "@/lib/types";
 import { ArtistTile } from "@/components/artist/ArtistTile";
+import { Artist } from "@/lib/server/content";
+import styles from "./ArtistGrid.module.scss";
 
 type Props = {
     artists: Artist[];
 };
 
-export const ArtistGrid: FC<Props> = (props) => {
+export const ArtistGrid = (props: Props) => {
     return (
         <div className={styles.artistGrid}>
             {props.artists.map(artist => (

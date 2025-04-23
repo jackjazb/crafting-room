@@ -6,7 +6,7 @@ export default {
         remotePatterns: [
             {
                 protocol: "http",
-                hostname: "**", // TODO: these might not be good... double check this one
+                hostname: "**",
             },
             {
                 protocol: "https",
@@ -15,6 +15,7 @@ export default {
         ],
     },
     sassOptions: {
+        silenceDeprecations: ["import", "global-builtin", "legacy-js-api", "mixed-decls"],
         includePaths: [
             resolve(import.meta.dirname, "lib/scss/**/*.scss"),
         ],

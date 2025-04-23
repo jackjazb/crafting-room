@@ -1,9 +1,8 @@
-import type { FC } from "react";
+import { Article } from "@/lib/server/content";
+import { media } from "@/lib/server/media";
+import { createClass, formatDate, mdi } from "@/lib/utils";
 import Link from "next/link";
 import styles from "./ArticleTile.module.scss";
-import type { Article } from "@/lib/types";
-import { formatDate, createClass, mdi } from "@/lib/utils";
-import { media } from "@/lib/server/services";
 
 type Props = {
     article: Article;
@@ -12,25 +11,24 @@ type Props = {
 /**
  * An article tile within the news articles list.
  */
-export const ArticleTile: FC<Props> = (props) => {
+export const ArticleTile = (props: Props) => {
     return (
-    // TODO: potentially convert this to StrapiImage (instead of css background image) like other tiles?
         <div className={styles.wrapper}>
             <Link
                 className={styles.link}
                 style={media.createBackground(
-                    props.article.attributes.images.data[0],
+                    props.article.images[0],
                     "xlarge",
                 )}
-                href={`/news/${props.article.attributes.slug}`}
-                aria-label={`View the article '${props.article.attributes.title}'`}
+                href={`/news/${props.article.slug}`}
+                aria-label={`View the article '${props.article.title}'`}
             >
                 <div
                     className={createClass(
                         styles.title,
                         "overlay-text",
                     )}
-                    dangerouslySetInnerHTML={mdi(props.article.attributes.title)}
+                    dangerouslySetInnerHTML={mdi(props.article.title)}
                 />
                 <div
                     className={createClass(
@@ -38,7 +36,7 @@ export const ArticleTile: FC<Props> = (props) => {
                         "overlay-text",
                         "overlay-text--small",
                     )}
-                    dangerouslySetInnerHTML={mdi(props.article.attributes.author)}
+                    dangerouslySetInnerHTML={mdi(props.article.author)}
                 />
                 <div
                     className={createClass(
@@ -47,7 +45,7 @@ export const ArticleTile: FC<Props> = (props) => {
                         "overlay-text",
                     )}
                 >
-                    {formatDate(props.article.attributes.createdAt, "abbreviated")}
+                    {formatDate(props.article.createdAt, "abbreviated")}
                 </div>
                 <div
                     className={createClass(
@@ -56,7 +54,7 @@ export const ArticleTile: FC<Props> = (props) => {
                         "overlay-text",
                     )}
                 >
-                    {formatDate(props.article.attributes.createdAt, "full")}
+                    {formatDate(props.article.createdAt, "full")}
                 </div>
             </Link>
         </div>

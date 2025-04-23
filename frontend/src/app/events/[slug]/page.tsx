@@ -1,26 +1,20 @@
-import type { NextPage } from "next";
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import styles from "./Event.module.scss";
-import { cms } from "@/lib/server/services";
-import { md, mdi } from "@/lib/utils/markdown";
-import { formatDate, createClass } from "@/lib/utils";
 import { ArtistGrid } from "@/components/artist/ArtistGrid";
 import { StrapiImage } from "@/components/strapi-image/StrapiImage";
+import { content } from "@/lib/server/content";
+import { PageProps } from "@/lib/types";
+import { createClass, formatDate } from "@/lib/utils";
+import { md, mdi } from "@/lib/utils/markdown";
+import { NextPage } from "next";
+import Link from "next/link";
+import styles from "./Event.module.scss";
 
-type ServerProps = {
-    params: { slug: string; };
-};
+const EventPage: NextPage<PageProps> = async ({ params }) => {
+    const { slug } = await params;
 
-const EventPage: NextPage<ServerProps> = async (props) => {
-    const { slug } = props.params;
+    const event = await content.event(slug);
 
-    const event = await cms.getEvent({ slug })
-        .catch(notFound);
-
-    // TODO: get current date in uk time
     const currentDate = new Date();
-    const eventDate = new Date(event.attributes.date);
+    const eventDate = new Date(event.date);
     const eventIsInFuture = eventDate > currentDate;
 
     return (
@@ -28,40 +22,40 @@ const EventPage: NextPage<ServerProps> = async (props) => {
             <section className="split-section">
                 <StrapiImage
                     className="split-section__image"
-                    image={event.attributes.image.data}
+                    image={event.image}
                     format="xlarge"
                     priority
                 />
 
                 <div className="split-section__content">
                     <hgroup>
-                        <h1 dangerouslySetInnerHTML={mdi(event.attributes.title)} />
+                        <h1 dangerouslySetInnerHTML={mdi(event.title)} />
                         <p className={styles.subtitle}>
                             <span
                                 className={styles.venue}
-                                dangerouslySetInnerHTML={mdi(event.attributes.venue)}
+                                dangerouslySetInnerHTML={mdi(event.venue)}
                             />
                             {" "}
                             ▸
                             {" "}
                             <span className={styles.date}>
-                                {formatDate(event.attributes.date, "numeric")}
+                                {formatDate(event.date, "numeric")}
                             </span>
                         </p>
                     </hgroup>
 
-                    {event.attributes.description && (
-                        <div dangerouslySetInnerHTML={md(event.attributes.description)} />
+                    {event.description && (
+                        <div dangerouslySetInnerHTML={md(event.description)} />
                     )}
 
-                    {event.attributes.link && eventIsInFuture && (
+                    {event.link && eventIsInFuture && (
                         <Link
                             className={createClass(
                                 styles.book,
                                 "button",
                                 "button-primary",
                             )}
-                            href={event.attributes.link}
+                            href={event.link}
                             target="_blank"
                             rel="external"
                             aria-label="Book tickets for the event (external)"
@@ -72,12 +66,12 @@ const EventPage: NextPage<ServerProps> = async (props) => {
                 </div>
             </section>
 
-            {event.attributes.artists && event.attributes.artists.data.length > 0 && (
+            {event.artists && event.artists.length > 0 && (
                 <section>
                     <h1>
                         Artists
                     </h1>
-                    <ArtistGrid artists={event.attributes.artists.data} />
+                    <ArtistGrid artists={event.artists} />
                 </section>
             )}
         </main>

@@ -1,45 +1,43 @@
+import { Carousel } from "@/components/carousel/Carousel";
+import { ReleaseGrid } from "@/components/release/ReleaseGrid";
+import { StrapiImage } from "@/components/strapi-image/StrapiImage";
+import { content } from "@/lib/server/content";
+import { createClass, mdi } from "@/lib/utils";
 import type { NextPage } from "next";
-import { notFound } from "next/navigation";
 import Link from "next/link";
 import styles from "./Home.module.scss";
-import { ReleaseGrid } from "@/components/release/ReleaseGrid";
-import { Carousel } from "@/components/carousel/Carousel";
-import { cms } from "@/lib/server/services";
-import { createClass, mdi } from "@/lib/utils";
-import { StrapiImage } from "@/components/strapi-image/StrapiImage";
 
 const HomePage: NextPage = async () => {
-    // TODO: doing `notFound` on page requests like this is misleading as
-    // no matter the api failure response, `notFound` is called
-    const homePage = await cms.getHomePage()
-        .catch(notFound);
+    const homePage = await content.homePage();
 
-    const features = homePage.attributes.features.data;
+    const features = homePage.features;
 
     return (
         <main>
             {features.length > 0 && (
-                <section className="standalone-section">
+                <section className="mt-0 mb-0">
                     <Carousel>
                         {features.map(article => (
                             <Link
                                 key={article.id}
-                                className={styles.featuredArticle}
-                                href={`/news/${article.attributes.slug}`}
-                                aria-label={`View the article '${article.attributes.title}'`}
+                                className="flex relative h-96 no-underline"
+                                // className={styles.featuredArticle}
+                                href={`/news/${article.slug}`}
+                                aria-label={`View the article '${article.title}'`}
                             >
                                 <StrapiImage
-                                    className={styles.featuredArticleImage}
-                                    image={article.attributes.images.data[0]}
+                                    className="w-full h-full"
+                                    image={article.images[0]}
                                     format="source"
                                     priority={features.indexOf(article) === 0}
                                 />
                                 <div
-                                    className={createClass(
-                                        styles.featuredArticleTitle,
-                                        "overlay-text",
-                                    )}
-                                    dangerouslySetInnerHTML={mdi(article.attributes.title)}
+                                    className="absolute b-0 m-5 font-semibold overlay"
+                                    // className={createClass(
+                                    //     styles.featuredArticleTitle,
+                                    //     "overlay-text",
+                                    // )}
+                                    dangerouslySetInnerHTML={mdi(article.title)}
                                 />
                             </Link>
                         ))}
@@ -56,7 +54,7 @@ const HomePage: NextPage = async () => {
                 <h1>
                     Featured Releases
                 </h1>
-                <ReleaseGrid releases={homePage.attributes.releases.data} />
+                <ReleaseGrid releases={homePage.releases} />
             </section>
         </main>
     );

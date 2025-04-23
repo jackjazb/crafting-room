@@ -1,4 +1,10 @@
-import { getOrdinalIndicator } from "@/lib/utils";
+/**
+ * Capitalizes the first character of a string.
+ * @param str - Target string
+ * @returns Capitalized string
+ */
+export const capitalize = (str: string) =>
+    str.charAt(0).toUpperCase() + str.slice(1);
 
 type DateFormat =
     "abbreviated" |
@@ -10,13 +16,13 @@ type DateFormat =
  * @param dateStr - Date string
  * @returns Formatted date
  */
+
 export const formatDate = (dateStr: string, format: DateFormat): string => {
     const date = new Date(dateStr);
     const currentDate = new Date();
     const isCurrentYear = date.getFullYear() !== currentDate.getFullYear();
 
-    const part = (formatOptions: Intl.DateTimeFormatOptions) =>
-        date.toLocaleString("en-uk", formatOptions);
+    const part = (formatOptions: Intl.DateTimeFormatOptions) => date.toLocaleString("en-uk", formatOptions);
 
     switch (format) {
         case "abbreviated": {
@@ -44,5 +50,32 @@ export const formatDate = (dateStr: string, format: DateFormat): string => {
 
             return `${day}/${month}/${year}`;
         }
+    }
+};
+
+/**
+ * Creates a HTML className using the provided individual class names.
+ * @param classNames - Individual class names
+ * @returns Complete `className`
+ */
+export const createClass = (...classNames: (string | null | undefined)[]): string => classNames
+    .filter(cls => typeof cls === "string")
+    .join(" ");
+
+/**
+ * Returns the ordinal indicator for a number.
+ * @param num - Target number
+ * @returns ordinal indicator
+ */
+export const getOrdinalIndicator = (num: number): string => {
+    // don't forget about the hundreds!
+    if (num % 100 > 3 && num % 100 < 21)
+        return "th";
+
+    switch (num % 10) {
+        case 1: return "st";
+        case 2: return "nd";
+        case 3: return "rd";
+        default: return "th";
     }
 };

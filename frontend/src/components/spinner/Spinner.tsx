@@ -1,11 +1,10 @@
 import Image from "next/image";
-import type { FC } from "react";
 import styles from "./Spinner.module.scss";
 
 /**
  * The loading spinner icon.
  */
-export const Spinner: FC = () => {
+export const Spinner = () => {
     return (
         <div className={styles.wrapper}>
             <Image
