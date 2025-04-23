@@ -1,8 +1,9 @@
 import { Footer } from "@/components/footer/Footer";
 import { Navbar } from "@/components/navbar/Navbar";
-import "@scss/main.scss";
+// import "@scss/main.scss";
 import type { Metadata } from "next";
 import type { PropsWithChildren } from "react";
+import "./fonts.css";
 import "./globals.css";
 
 export const metadata: Metadata = {

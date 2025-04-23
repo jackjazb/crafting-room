@@ -2,10 +2,9 @@ import { Carousel } from "@/components/carousel/Carousel";
 import { ReleaseGrid } from "@/components/release/ReleaseGrid";
 import { StrapiImage } from "@/components/strapi-image/StrapiImage";
 import { content } from "@/lib/server/content";
-import { createClass, mdi } from "@/lib/utils";
+import { mdi } from "@/lib/utils";
 import type { NextPage } from "next";
 import Link from "next/link";
-import styles from "./Home.module.scss";
 
 const HomePage: NextPage = async () => {
     const homePage = await content.homePage();
@@ -15,12 +14,12 @@ const HomePage: NextPage = async () => {
     return (
         <main>
             {features.length > 0 && (
-                <section className="mt-0 mb-0">
+                <section>
                     <Carousel>
                         {features.map(article => (
                             <Link
                                 key={article.id}
-                                className="flex relative h-96 no-underline"
+                                className="flex relative h-[60vh] no-underline"
                                 // className={styles.featuredArticle}
                                 href={`/news/${article.slug}`}
                                 aria-label={`View the article '${article.title}'`}
@@ -32,7 +31,7 @@ const HomePage: NextPage = async () => {
                                     priority={features.indexOf(article) === 0}
                                 />
                                 <div
-                                    className="absolute b-0 m-5 font-semibold overlay"
+                                    className="absolute bottom-0 m-5 font-semibold overlay text-2xl"
                                     // className={createClass(
                                     //     styles.featuredArticleTitle,
                                     //     "overlay-text",
@@ -46,10 +45,7 @@ const HomePage: NextPage = async () => {
             )}
 
             <section
-                className={createClass(
-                    styles.featuredReleases,
-                    "container-fluid",
-                )}
+                className="pl-5 pr-5 mt-5 font-bold"
             >
                 <h1>
                     Featured Releases

@@ -6,7 +6,7 @@ import usersPermissions from "@strapi/plugin-users-permissions/strapi-admin";
 import { renderAdmin } from "@strapi/strapi/admin";
 
 renderAdmin(document.getElementById("strapi"), {
-    plugins: {
-        "users-permissions": usersPermissions,
-    },
+  plugins: {
+    "users-permissions": usersPermissions,
+  },
 });
