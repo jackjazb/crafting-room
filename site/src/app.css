@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+    --font-work-sans: "Work Sans";
+}
+
+@layer base {
+    body {
+        @apply font-work-sans text-[#222];
+    }
+
+    img {
+        @apply flex w-auto max-w-full object-cover;
+    }
+
+    h1 {
+        @apply text-5xl/tight mb-5;
+    }
+}
+
+@utility overlay {
+    @apply p-2.5 bg-black text-white font-medium
+}

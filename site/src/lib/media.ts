@@ -1,0 +1,30 @@
+import { PUBLIC_MEDIA_HOST } from "$env/static/public";
+import type { Image, ImageFormat, ImageFormatName } from "$lib/content";
+
+/**
+ * Provides image and media related functionality.
+ */
+class MediaProvider {
+    private hostname = PUBLIC_MEDIA_HOST ?? "http://localhost:1337";
+
+    public getMediaUrl(url: string) {
+        return `${this.hostname}${url}`;
+    }
+
+    public getMediaFormat(image: Image, targetFormat: ImageFormatName): ImageFormat {
+        if (image.formats[targetFormat]) {
+            return image.formats[targetFormat];
+        }
+
+        // If this is empty for whatever reason, just return the passed image.
+        const largest = Object.values(image.formats)
+            .sort((a, b) => b.width - a.width)[0];
+        if (!largest) {
+            return image;
+        }
+
+        return largest;
+    }
+}
+
+export const media = new MediaProvider();
