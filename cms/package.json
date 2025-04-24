@@ -5,16 +5,21 @@
     "engines": {
         "node": ">=20.11"
     },
+    "files": [
+        "./dist/**"
+    ],
     "scripts": {
         "dev": "strapi develop",
         "start": "strapi start",
-        "build": "strapi build"
+        "build": "strapi build",
+        "lint": "eslint"
     },
     "dependencies": {
         "@strapi/plugin-users-permissions": "5.12.0",
         "@strapi/strapi": "5.12.5",
         "@strapi/typescript-utils": "5.12.6",
-        "better-sqlite3": "^9.4.3",
+        "better-sqlite3": "^9.6.0",
+        "codemirror": "6",
         "find-root": "^1.1.0",
         "koa": "^2.15.2",
         "lodash": "4.17.21",
@@ -24,11 +29,12 @@
         "react-is": "^18.2.0",
         "react-router-dom": "^6.0.0",
         "strapi-v5-plugin-populate-deep": "^4.0.5",
-        "styled-components": "^6.0.0",
-        "webpack": "^5.91.0"
+        "styled-components": "^6.0.0"
     },
     "devDependencies": {
-        "@types/find-root": "^1.1.4"
+        "@types/find-root": "^1.1.4",
+        "@types/react": "^18.0.0",
+        "typescript": "^5.3.0"
     },
     "strapi": {
         "uuid": "b323f6ff-836a-4043-bb92-46a47e98de7b"

@@ -1,3 +1,14 @@
+rm -fr dist/cms && pnpm --filter=cms deploy dist/cms
+cp cms/.env dist/cms/.env
+
+mv dist/cms/dist/build/ dist/cms/
+mv dist/cms/dist/config/ dist/cms/
+mv dist/cms/dist/src/ dist/cms/
+
+rm -fr dist/cms/dist
+
+exit
+
 export NODE_ENV='production'
 
 npm i -g pm2

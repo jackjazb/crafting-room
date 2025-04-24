@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        //~~~ type checking
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
         "alwaysStrict": true,
@@ -21,10 +20,5 @@
         "useUnknownInCatchVariables": true,
         "forceConsistentCasingInFileNames": true,
         "checkJs": true
-    },
-    "include": [
-        ".eslintrc.cjs",
-        "run.js",
-        "ecosystem.config.cjs"
-    ]
+    }
 }

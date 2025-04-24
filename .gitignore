@@ -8,11 +8,4 @@ node_modules
 dist
 .tmp
 
-
-
-.nx/cache
-.nx/workspace-data
-
-# Next.js
-.next
-out
+.turbo

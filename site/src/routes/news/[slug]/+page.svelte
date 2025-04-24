@@ -7,7 +7,7 @@
     let { article } = data;
 </script>
 
-<Image clazz="h-96 w-full" image={article.images[0]} format="source" />
+<Image clazz="h-80 w-full" image={article.images[0]} format="source" />
 
 <section class="container">
     <hgroup>

@@ -26,7 +26,7 @@
         {#each homePage.features as article (article.id)}
             <div class="embla__slide grow-0 shrink-0 basis-full">
                 <a
-                    class="flex relative h-[70vh] no-underline"
+                    class="flex relative h-[60vh] sm:h-[70vh] no-underline"
                     href={`/news/${article.slug}`}
                     aria-label={`View the article '${article.title}'`}
                 >
@@ -46,13 +46,17 @@
     </div>
     <span>
         <button
-            class="absolute z-10 top-1/2 -translate-y-1/2 left-0"
+            class="absolute z-10 top-1/2 -translate-y-1/2 left-0
+                rounded-xs m-2 hover:bg-[#00000044] hover:cursor-pointer transition duration-75
+            "
             onclick={() => emblaApi.scrollPrev()}
         >
             <Icon type="left" />
         </button>
         <button
-            class="absolute z-10 top-1/2 -translate-y-1/2 right-0"
+            class="absolute z-10 top-1/2 -translate-y-1/2 right-0
+                rounded-xs m-2 hover:bg-[#00000044] hover:cursor-pointer transition duration-75
+            "
             onclick={() => emblaApi.scrollNext()}
         >
             <Icon type="right" />

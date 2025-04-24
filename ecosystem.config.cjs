@@ -2,13 +2,15 @@ module.exports = {
     apps: [
         {
             name: "cms",
-            script: "run.js",
-            args: ["cms"],
+            cwd: "./cms",
+            script: "pnpm",
+            args: ["start"],
         },
         {
-            name: "frontend",
-            script: "run.js",
-            args: ["frontend"],
+            name: "site",
+            cwd: "./site",
+            script: "node",
+            args: ["build"],
         },
     ],
 };

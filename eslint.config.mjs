@@ -10,7 +10,6 @@ export default fixupConfigRules(
         eslint.configs.recommended,
         ts.configs.strict,
         ts.configs.stylistic,
-        globalIgnores(["frontend/.next/**/*"]),
         globalIgnores(["cms/dist/**/*"]),
         globalIgnores(["cms/types/generated/**/*"]),
         stylistic.configs.customize({
