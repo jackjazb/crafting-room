@@ -1,0 +1,15 @@
+api.craftingroomrecordings.co.uk {
+	reverse_proxy localhost:1337
+}
+
+beta.craftingroomrecordings.co.uk {
+	reverse_proxy localhost:3001
+}
+
+craftingroomrecordings.co.uk {
+	reverse_proxy localhost:3000
+}
+
+www.craftingroomrecordings.co.uk {
+	redir craftingroomrecordings.co.uk 301
+}
