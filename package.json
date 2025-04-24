@@ -1,23 +1,31 @@
 {
-  "private": true,
-  "type": "module",
-  "engines": {
-    "node": ">=20.11"
-  },
-  "workspaces": [
-    "cms",
-    "frontend"
-  ],
-  "scripts": {
-    "frontend": "yarn workspace frontend start",
-    "frontend-dev": "yarn workspace frontend dev",
-    "frontend-build": "yarn workspace frontend build",
-    "cms": "yarn workspace cms run start",
-    "cms-dev": "yarn workspace cms strapi develop",
-    "cms-build": "yarn workspace cms run build"
-  },
-  "packageManager": "yarn@4.1.1",
-  "devDependencies": {
-    "@types/node": "^20.10.5"
-  }
+    "private": true,
+    "type": "module",
+    "packageManager": "pnpm@9.14.0",
+    "engines": {
+        "node": ">=22.0"
+    },
+    "scripts": {
+        "dev": "pnpm exec turbo dev",
+        "build": "pnpm exec turbo build && node build.mjs",
+        "lint": "pnpm exec turbo lint",
+        "preview": "cd dist && pm2 start ecosystem.config.cjs",
+        "live": "node deploy.mjs"
+    },
+    "devDependencies": {
+        "@eslint/compat": "^1.2.8",
+        "@eslint/js": "^9.25.1",
+        "@next/eslint-plugin-next": "^14.2.28",
+        "@stylistic/eslint-plugin": "^4.2.0",
+        "@types/fs-extra": "^11.0.4",
+        "@types/node": "^22.15.0",
+        "turbo": "^2.5.1",
+        "typescript-eslint": "^8.31.0",
+        "zx": "^8.5.3"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild"
+        ]
+    }
 }
