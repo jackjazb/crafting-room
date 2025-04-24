@@ -16,7 +16,7 @@ This project uses `pnpm` for dependency management. Run `pnpm install` at the pr
 Deploying a new version is done from a local machine with SSH access to craftingroomrecordings.co.uk.
 
 1. Run `pnpm build` and ensure the contents of `dist` is updated
-1. Run `node deploy.mjs` to copy `dist` to the server and restart `pm2`.
+1. Run `pnpm live` to copy `dist` to the server and restart `pm2` on the server.
 
 If deploying to a new server, ensure the following are installed:
 

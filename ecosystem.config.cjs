@@ -11,6 +11,11 @@ module.exports = {
                 PUBLIC_URL: "https://api.craftingroomrecordings.co.uk",
                 DATABASE_PATH: "/root/data/data.db",
                 PUBLIC_DIR_PATH: "/root/data/public",
+                APP_KEYS: "key",
+                API_TOKEN_SALT: "key",
+                ADMIN_JWT_SECRET: "key",
+                JWT_SECRET: "key",
+                TRANSFER_TOKEN_SALT: "key",
             },
         },
         {

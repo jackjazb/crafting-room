@@ -1,4 +1,3 @@
-import { exit } from "process";
 import { $, chalk, echo } from "zx";
 
 function print(...args) {
@@ -20,13 +19,8 @@ const artifact = "dist";
 const machine = `${user}@${host}`;
 const target = `${machine}:${dir}`;
 
-print(`rsync -avu --mkpath --delete-before ${artifact}/ ${target}`);
+print(`running rsync -avu --mkpath --delete-before ${artifact}/ ${target}`);
 await $`rsync -avu --mkpath --delete-before ${artifact}/ ${target}`;
-print(`synced '${artifact}' to ${host}`);
-exit();
-// console.log(`ssh ${machine} "cd ${dir}; pm2 start ecosystem.config.js"`);
+print(`✔ synced '${artifact}' to ${host}`);
 
-// await $`ssh ${machine} "sudo apt install node"`;
-// await $`ssh ${machine} "npm i -g pm2"`;
-
-// await $`ssh ${machine} "cd ${dir}; pm2 start ecosystem.config.js"`;
+console.log(`ssh ${machine} "cd ${dir}; pm2 start ecosystem.config.js"`);
