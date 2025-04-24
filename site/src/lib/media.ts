@@ -1,11 +1,11 @@
-import { PUBLIC_MEDIA_HOST } from "$env/static/public";
+import { env } from "$env/dynamic/public";
 import type { Image, ImageFormat, ImageFormatName } from "$lib/content";
 
 /**
  * Provides image and media related functionality.
  */
 class MediaProvider {
-    private hostname = PUBLIC_MEDIA_HOST ?? "http://localhost:1337";
+    private hostname = env.PUBLIC_MEDIA_HOST ?? "http://localhost:1337";
 
     public getMediaUrl(url: string) {
         return `${this.hostname}${url}`;

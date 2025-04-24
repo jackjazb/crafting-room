@@ -11,12 +11,6 @@ const outdir = "dist";
 const cms = `${outdir}/cms`;
 const pm2conf = "ecosystem.config.cjs";
 
-// Build site with turbo.
-await spinner("building", async () => {
-    await $`pnpm build`;
-});
-print("build completed");
-
 // Assemble `dist`
 await spinner("copying artifacts", async () => {
     await fs.rm(`${outdir}`, { recursive: true, force: true });
@@ -34,4 +28,4 @@ await spinner("copying artifacts", async () => {
     await fs.copy(pm2conf, path.join(outdir, pm2conf));
 });
 
-print("artifacts copied");
+print("✔ artifacts copied");

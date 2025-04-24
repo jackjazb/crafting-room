@@ -1,4 +1,4 @@
-import { STRAPI_HOST } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import { stringify } from "qs";
 
 export type OneOrMore<TItem> = [TItem, ...TItem[]];
@@ -151,8 +151,11 @@ export type AboutPage = {
  * Provides CMS access for pages.
  */
 class ContentService {
-    private hostname = STRAPI_HOST ?? "http://localhost:1337";
+    private hostname = env.STRAPI_HOST ?? "http://localhost:1337";
 
+    constructor() {
+        console.log('content service using', this.hostname);
+    }
     // Pages.
 
     public async homePage() {
@@ -222,7 +225,7 @@ class ContentService {
         }
         catch (e) {
             console.log(e);
-            throw new Error("Failed to reach CMS");
+            throw new Error(`${url} return an error`);
         }
     }
 

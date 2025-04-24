@@ -7,9 +7,8 @@
     },
     "scripts": {
         "dev": "pnpm exec turbo dev",
-        "build": "pnpm exec turbo build",
-        "lint": "pnpm exec turbo lint",
-        "deploy": "node build.mts"
+        "build": "pnpm exec turbo build && node build.mjs",
+        "lint": "pnpm exec turbo lint"
     },
     "devDependencies": {
         "@eslint/compat": "^1.2.8",
