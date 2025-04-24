@@ -1,5 +1,5 @@
+import { STRAPI_HOST } from "$env/static/private";
 import { stringify } from "qs";
-import { config } from "./config";
 
 export type OneOrMore<TItem> = [TItem, ...TItem[]];
 
@@ -97,11 +97,11 @@ export type Artist = Item & {
     events: Event[];
 };
 export type Release = Item & {
-    title: string;
+    title?: string;
     slug: string;
     date: string;
-    link: string;
-    artist: Artist;
+    link?: string;
+    artist?: Artist;
     artwork: Image;
 };
 
@@ -151,7 +151,7 @@ export type AboutPage = {
  * Provides CMS access for pages.
  */
 class ContentService {
-    private hostname = config.strapiHost;
+    private hostname = STRAPI_HOST ?? "http://localhost:1337";
 
     // Pages.
 
@@ -229,12 +229,12 @@ class ContentService {
     /**
      * Performs a request for `endpoint` filtered by `slug` and extracts the first result.
      */
-    private async getFirstWithSlug<TResponse>(endpoint: string, slug: string): Promise<TResponse> {
+    private async getFirstWithSlug<TResponse>(endpoint: string, slug: string): Promise<TResponse | undefined> {
         const results = await this.get<TResponse[]>(endpoint, {
             filters: { slug: { $eq: slug } },
         });
         if (results.length === 0) {
-            throw new Error(`Nothing found at /${endpoint} for slug ${slug}`);
+            return undefined;
         }
         return results[0] as TResponse;
     }

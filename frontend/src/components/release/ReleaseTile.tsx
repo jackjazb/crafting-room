@@ -1,7 +1,6 @@
 import { StrapiImage } from "@/components/strapi-image/StrapiImage";
 import { Release } from "@/lib/server/content";
 import { createClass, mdi } from "@/lib/utils";
-import Link from "next/link";
 import { RiExternalLinkLine } from "react-icons/ri";
 import styles from "./ReleaseTile.module.scss";
 
@@ -42,11 +41,9 @@ export const ReleaseTile = (props: Props) => {
                 />
 
                 {props.release.link && (
-                    <Link
-                        className={createClass(
-                            styles.link,
-                            "black-button",
-                        )}
+                    <a
+                        class="overlay"
+
                         href={props.release.link}
                         target="_blank"
                         rel="external"
@@ -54,7 +51,7 @@ export const ReleaseTile = (props: Props) => {
                     >
                         <RiExternalLinkLine />
                         Bandcamp
-                    </Link>
+                    </a>
                 )}
             </div>
         </div>

@@ -6,10 +6,12 @@
         image,
         format,
         alt,
+        clazz,
     }: {
         image: Image;
         format: ImageFormatName | "source";
         alt?: string;
+        clazz?: string;
     } = $props();
 
     const selectedFormat =
@@ -20,7 +22,6 @@
 
 <img
     src={url}
-    width={selectedFormat.width}
-    height={selectedFormat.height}
+    class={[clazz, "w-auto"]}
     alt={alt ?? image.alternativeText ?? "CRR Image"}
 />

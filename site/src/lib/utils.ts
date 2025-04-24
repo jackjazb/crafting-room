@@ -1,10 +1,4 @@
-/**
- * Capitalizes the first character of a string.
- * @param str - Target string
- * @returns Capitalized string
- */
-export const capitalize = (str: string) =>
-    str.charAt(0).toUpperCase() + str.slice(1);
+export type IconType = "more" | "open" | "left" | "right";
 
 type DateFormat =
     "abbreviated" |
@@ -17,7 +11,7 @@ type DateFormat =
  * @returns Formatted date
  */
 
-export const formatDate = (dateStr: string, format: DateFormat): string => {
+export function formatDate(dateStr: string, format: DateFormat): string {
     const date = new Date(dateStr);
     const currentDate = new Date();
     const isCurrentYear = date.getFullYear() !== currentDate.getFullYear();
@@ -54,20 +48,11 @@ export const formatDate = (dateStr: string, format: DateFormat): string => {
 };
 
 /**
- * Creates a HTML className using the provided individual class names.
- * @param classNames - Individual class names
- * @returns Complete `className`
- */
-export const createClass = (...classNames: (string | null | undefined)[]): string => classNames
-    .filter(cls => typeof cls === "string")
-    .join(" ");
-
-/**
  * Returns the ordinal indicator for a number.
  * @param num - Target number
  * @returns ordinal indicator
  */
-export const getOrdinalIndicator = (num: number): string => {
+function getOrdinalIndicator(num: number): string {
     // don't forget about the hundreds!
     if (num % 100 > 3 && num % 100 < 21)
         return "th";

@@ -2,8 +2,8 @@ import { content } from '$lib/content';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	const homePage = await content.homePage()
+    const artistsPage = await content.artistsPage()
     return {
-		homePage
-	};
+        artistsPage
+    };
 };

@@ -1,47 +1,14 @@
-// import markdownit from "markdown-it/lib";
-// import type { DOMAttributes } from "react";
+import DOMPurify from "dompurify";
+import { JSDOM } from 'jsdom';
+import { marked } from "marked";
 
-// const mdIt = markdownit();
-
-// // https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
-
-// // Remember the old renderer if overridden, or proxy to the default renderer.
-// const defaultRender = mdIt.renderer.rules.link_open || function (tokens, idx, options, _env, self) {
-//     return self.renderToken(tokens, idx, options);
-// };
-
-// mdIt.renderer.rules.link_open = (tokens, idx, options, env, self) => {
-//     tokens[idx]?.attrSet("target", "_blank");
-//     return defaultRender(tokens, idx, options, env, self);
-// };
-
-// type DangerouslySetInnerHTMLProp = Required<
-//     DOMAttributes<never>["dangerouslySetInnerHTML"]
-// >;
-
-// /**
-//  * Parses markdown into HTML and return it in the form of React's
-//  * dangerouslySetInnerHTML prop.
-//  * @param content - Markdown content
-//  * @returns Markdown parsed as HTML
-//  */
-// export const md = (content: string): DangerouslySetInnerHTMLProp =>
-//     ({ __html: mdIt.render(content) });
-
-// /**
-//  * Parses markdown into HTML **inline** and return it in the form of React's
-//  * dangerouslySetInnerHTML prop.
-//  *
-//  * Rendering *inline* means the HTML is rendered without the outer \<p\> tag.
-//  * @param content - Markdown content
-//  * @returns Markdown parsed as HTML **inline**
-//  */
-// export const mdi = (content: string): DangerouslySetInnerHTMLProp =>
-//     ({ __html: mdIt.renderInline(content) });
-
+const window = new JSDOM('').window;
 /**
- * Placeholder for content that needs to be rendered later.
+ * Converts markdown to sanitised HTML.
  */
-export function mdi(string: string): string{
-    return string
+export async function markdown(string: string): Promise<string> {
+    const html = await marked.parse(string);
+    const purify = DOMPurify(window);
+    const clean = purify.sanitize(html);
+    return clean;
 }
