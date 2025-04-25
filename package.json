@@ -6,11 +6,12 @@
         "node": ">=22.0"
     },
     "scripts": {
-        "dev": "pnpm exec turbo dev",
-        "build": "pnpm exec turbo build && node scripts/build.mjs",
-        "lint": "pnpm exec turbo lint",
-        "preview": "cd dist && pm2 start ecosystem.config.cjs",
-        "live": "node scripts/deploy.mjs"
+        "dev": "turbo dev",
+        "build": "turbo build && tsx scripts/build.mts",
+        "lint": "turbo lint",
+        "preview": "cd dist && pm2 start ecosystem.config.cjs --env preview",
+        "live": "tsx scripts/deploy.mts",
+        "backup": "tsx scripts/backup.mts"
     },
     "devDependencies": {
         "@eslint/compat": "^1.2.8",
@@ -19,8 +20,10 @@
         "@stylistic/eslint-plugin": "^4.2.0",
         "@types/fs-extra": "^11.0.4",
         "@types/node": "^22.15.0",
+        "tsx": "^4.19.3",
         "turbo": "^2.5.1",
         "typescript-eslint": "^8.31.0",
+        "webpod": "^1.0.0",
         "zx": "^8.5.3"
     },
     "pnpm": {
