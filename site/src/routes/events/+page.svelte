@@ -62,7 +62,7 @@
 <main class="container flex flex-col gap-5">
     {#if futureEvents.length !== 0}
         <h2>Events</h2>
-        <div class="mb-5">
+        <div class="flex flex-col gap-4 mb-5">
             {#each futureEvents as event, i (event.id)}
                 {@render eventTile(event, true)}
 
