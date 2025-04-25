@@ -1,5 +1,6 @@
 # files
 .env
+.env.production
 .db
 .tmp
 

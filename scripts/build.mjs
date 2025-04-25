@@ -6,7 +6,6 @@ import { $, chalk, echo, fs, path, spinner } from "zx";
 function print(...args) {
     echo(chalk.green(args));
 }
-
 const outdir = "dist";
 const cms = `${outdir}/cms`;
 const pm2conf = "ecosystem.config.cjs";

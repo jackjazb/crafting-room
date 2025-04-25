@@ -16,6 +16,7 @@ module.exports = {
                 ADMIN_JWT_SECRET: "key",
                 JWT_SECRET: "key",
                 TRANSFER_TOKEN_SALT: "key",
+                NODE_ENV: "production",
             },
         },
         {

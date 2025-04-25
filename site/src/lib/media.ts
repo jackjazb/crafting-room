@@ -12,6 +12,9 @@ class MediaProvider {
     }
 
     public getMediaFormat(image: Image, targetFormat: ImageFormatName): ImageFormat {
+        if (!image.formats || Object.values(image.formats).length == 0) {
+            return image;
+        }
         if (image.formats[targetFormat]) {
             return image.formats[targetFormat];
         }
@@ -19,9 +22,6 @@ class MediaProvider {
         // If this is empty for whatever reason, just return the passed image.
         const largest = Object.values(image.formats)
             .sort((a, b) => b.width - a.width)[0];
-        if (!largest) {
-            return image;
-        }
 
         return largest;
     }

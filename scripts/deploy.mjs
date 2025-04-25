@@ -4,6 +4,10 @@ function print(...args) {
     echo(chalk.green(args));
 }
 
+async function execRemote(cmd) {
+    await $`ssh ${machine} ".~/.nvm/nvm.sh; ${cmd}"`;
+}
+
 // Remote user to deploy as.
 const user = "root";
 
@@ -23,4 +27,5 @@ print(`running rsync -avu --mkpath --delete-before ${artifact}/ ${target}`);
 await $`rsync -avu --mkpath --delete-before ${artifact}/ ${target}`;
 print(`✔ synced '${artifact}' to ${host}`);
 
-console.log(`ssh ${machine} "cd ${dir}; pm2 start ecosystem.config.js"`);
+await execRemote("cd ${dir}; pm2 restart ecosystem.config.cjs");
+print(`✔ restart remote instance`);

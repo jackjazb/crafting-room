@@ -7,10 +7,10 @@
     },
     "scripts": {
         "dev": "pnpm exec turbo dev",
-        "build": "pnpm exec turbo build && node build.mjs",
+        "build": "pnpm exec turbo build && node scripts/build.mjs",
         "lint": "pnpm exec turbo lint",
         "preview": "cd dist && pm2 start ecosystem.config.cjs",
-        "live": "node deploy.mjs"
+        "live": "node scripts/deploy.mjs"
     },
     "devDependencies": {
         "@eslint/compat": "^1.2.8",
@@ -26,6 +26,9 @@
     "pnpm": {
         "onlyBuiltDependencies": [
             "esbuild"
-        ]
+        ],
+        "overrides": {
+            "esbuild": "0.25.0"
+        }
     }
 }
