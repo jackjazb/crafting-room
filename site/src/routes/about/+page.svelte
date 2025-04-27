@@ -8,7 +8,12 @@
 
 <div class="container">
     <section>
-        <Image clazz="mx-auto h-50" image={aboutPage.image} format="xlarge" />
+        <Image
+            clazz="mx-auto h-50"
+            image={aboutPage.image}
+            format="xlarge"
+            placeholder={false}
+        />
     </section>
 
     <section>

@@ -72,7 +72,7 @@
                 x: -window.innerWidth,
                 easing: expoInOut,
             }}
-            class="fixed z-99 h-full min-w-full top-16 px-5 flex flex-col text-2xl font-semibold gap-6 bg-black"
+            class="fixed z-99 h-full min-w-full top-16 pt-3 px-5 flex flex-col text-2xl font-semibold gap-6 bg-black"
         >
             <a
                 class="text-white hover:text-blue-400"

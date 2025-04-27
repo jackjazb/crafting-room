@@ -34,6 +34,7 @@
                         clazz="w-full h-full"
                         image={article.images[0]}
                         format="source"
+                        placeholder
                     />
                     <span
                         class="absolute bottom-0 m-5 font-semibold overlay text-2xl"

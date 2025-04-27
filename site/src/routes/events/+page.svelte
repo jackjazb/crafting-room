@@ -19,14 +19,13 @@
     <div>
         <div class="flex flex-col sm:flex-row gap-4">
             <div class="flex flex-row gap-5">
-                <div class="">
-                    <Image
-                        clazz="h-24 w-24 min-w-24 aspect-square"
-                        image={event.image}
-                        format="medium"
-                        alt={event.title}
-                    />
-                </div>
+                <Image
+                    clazz="h-24 w-24 min-w-24 aspect-square"
+                    image={event.image}
+                    format="small"
+                    alt={event.title}
+                    priority
+                />
                 <div class="grow flex flex-col items-start">
                     <h3>{event.title}</h3>
                     <div>
