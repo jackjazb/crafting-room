@@ -5,6 +5,7 @@ module.exports = {
             cwd: "./cms",
             script: "pnpm",
             args: ["start"],
+            interpreter: "node",
             env: {
                 HOST: "0.0.0.0",
                 PORT: "1337",
@@ -21,7 +22,7 @@ module.exports = {
             },
             env_preview: {
                 HOST: "0.0.0.0",
-                PORT: "1338",
+                PORT: "1337",
                 PUBLIC_URL: "http://localhost:1337",
                 DATABASE_PATH: "../../cms/.tmp/data.db",
                 PUBLIC_DIR_PATH: "../../cms/.tmp/public",
